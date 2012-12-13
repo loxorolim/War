@@ -24,10 +24,15 @@ namespace War
         SpriteBatch logoBatch;
         SpriteFont font;
         List<Button> buttons;
+        Boolean firstTimeIntro;
+        Rectangle logoRectangle;
+        SoundEffect swordSound;
         public IntroComponent(Game game)
             : base(game)
         {    
             buttons = new List<Button>();
+            
+            firstTimeIntro = true;
             // TODO: Construct any child components here
         }
 
@@ -38,7 +43,7 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            warLogoPosition = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 -400, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/10 -250);
+            
             buttons.Add(new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 100 ,GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/10 + 200));
             buttons.Add(new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 10 + 300));
             buttons.Add(new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 10 + 400));
@@ -52,7 +57,18 @@ namespace War
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
-            
+            if (firstTimeIntro)
+            {
+                warLogoPosition.Y += 2;
+            }
+            if (warLogoPosition.Y >= 0 && firstTimeIntro)
+            {
+                firstTimeIntro = false;
+                SoundEffectInstance swordSoundInstance = swordSound.CreateInstance();
+                swordSoundInstance.Volume = .2f;
+                swordSoundInstance.Play();
+                logoRectangle.X = warLogo.Width / 2;
+            }
             try
             {
                 
@@ -88,7 +104,7 @@ namespace War
             
             float scale = calculateScale16x9();
             mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);           
-            logoBatch.Draw(warLogo,warLogoPosition, null, Color.White, 0, Vector2.Zero, scale+0.5f, SpriteEffects.None, 0);
+            logoBatch.Draw(warLogo,warLogoPosition, logoRectangle, Color.White, 0, Vector2.Zero, scale+0.5f, SpriteEffects.None, 0);
             for (int i = 0; i < buttons.Count; i++)
             {
                 logoBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(),buttons[i].getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
@@ -106,10 +122,14 @@ namespace War
             mapBatch = new SpriteBatch(Game.GraphicsDevice);
             logoBatch = new SpriteBatch(Game.GraphicsDevice);
             warMap = Game.Content.Load<Texture2D>("WarMap16x9Grey");
-            warLogo = Game.Content.Load<Texture2D>("WarLogo");          
+            warLogo = Game.Content.Load<Texture2D>("WarLogo");
+            swordSound = Game.Content.Load<SoundEffect>("swordSound");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("startButton"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("instructionsButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("creditsButton"));
+            warLogoPosition = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - warLogo.Width/4, -warLogo.Height - 20);
+            logoRectangle = new Rectangle(0, 0, warLogo.Width/2, warLogo.Height);
+            
           //  font = Game.Content.Load<SpriteFont>("Font/stats");
             base.LoadContent();
         }
