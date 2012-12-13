@@ -20,7 +20,7 @@ namespace War
         SpriteBatch spriteBatch;
         SpriteBatch tokenBatch;
         Texture2D warMap;
-        Token token = new Token(400, 400, Color.Black); //Testando commit pelo Git Extensions
+        Token token = new Token(400, 400, Color.Black); //Testando commit pelo Git Extension
         Token token2 = new Token(345, 800, Color.Blue);
         Vector2 warMapPosition = Vector2.Zero;
         IntroComponent IntroComponent;
