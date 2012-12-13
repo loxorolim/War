@@ -111,6 +111,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CreditsComponent.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="InstructionsComponent.cs" />
     <Compile Include="IntroComponent.cs" />
     <Compile Include="MainGameComponent.cs" />

@@ -25,7 +25,8 @@ namespace War
         Vector2 warMapPosition = Vector2.Zero;
         IntroComponent IntroComponent;
         CreditsComponent CreditsComponent;
-
+        Song mainMusic;
+        Boolean startMainMusic;
         public static GameState CurrentState { get; set; }
         public War()
         {
@@ -36,12 +37,14 @@ namespace War
             Components.Add(IntroComponent);
             Components.Add(CreditsComponent);
             CurrentState = GameState.Intro;
+            
            // GotoState();
             Content.RootDirectory = "Content";
             this.graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             this.graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             this.graphics.IsFullScreen = true;
             this.IsMouseVisible = true;
+            startMainMusic = true;
             
         }
 
@@ -71,6 +74,7 @@ namespace War
             warMap = Content.Load<Texture2D>("WarMap16x9");
             token.setTexture(Content.Load<Texture2D>(token.getImgFile()));
             token2.setTexture(Content.Load<Texture2D>(token.getImgFile()));
+            mainMusic = Content.Load<Song>("Medieval Music");
             
             // TODO: use this.Content to load your game content here
         }
@@ -102,7 +106,16 @@ namespace War
             if (keyboard.IsKeyDown(Keys.Down))
                 token.setUpdatePosition(3, 0);
             // TODO: Add your update logic here
-            
+
+            if (startMainMusic)
+            {
+                MediaPlayer.Play(mainMusic);
+                startMainMusic = false;
+                if (MediaPlayer.IsMuted)
+                {
+                    startMainMusic = true;
+                }
+            }
             base.Update(gameTime);
         }
 
