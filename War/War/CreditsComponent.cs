@@ -21,6 +21,7 @@ namespace War
         SpriteBatch batch;
         SpriteBatch buttonBatch;
         Button menuButton;
+        MouseState mouse;
         public CreditsComponent(Game game)
             : base(game)
         {
@@ -49,7 +50,7 @@ namespace War
             try
             {
 
-                MouseState mouse = Mouse.GetState();
+                mouse = Mouse.GetState();
                 menuButton.changeCurrentFrame(mouse.X,mouse.Y);
                 if (mouse.LeftButton == ButtonState.Pressed)
                 {
@@ -69,7 +70,7 @@ namespace War
         {
             batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            float scale = calculateScale16x9();
+            float scale = Global.calculate16x9();
             batch.Draw(creditsImage, Vector2.Zero, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
             buttonBatch.Draw(menuButton.getButtonTexture(), menuButton.getButtonPosition(),menuButton.getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
             batch.End();
@@ -83,13 +84,6 @@ namespace War
             creditsImage = Game.Content.Load<Texture2D>("creditsState");
             menuButton.setButtonTexture(Game.Content.Load<Texture2D>("menuButton"));
             base.LoadContent();
-        }
-        protected float calculateScale16x9()
-        {
-            float scale = 1.0f;
-            float x = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            scale = x / 3360;
-            return scale;
         }
     }
 }

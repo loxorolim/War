@@ -13,6 +13,7 @@ namespace War
 {
     public static class Global
     {
+        public static MouseState mouse;       
         public static float calculate16x9()
         {
             float scale = 1.0f;

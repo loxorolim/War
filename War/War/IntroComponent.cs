@@ -22,11 +22,11 @@ namespace War
         Vector2 warLogoPosition;
         SpriteBatch mapBatch;
         SpriteBatch logoBatch;
-        SpriteFont font;
         List<Button> buttons;
         Boolean firstTimeIntro;
         Rectangle logoRectangle;
         SoundEffect swordSound;
+        MouseState mouse;
         public IntroComponent(Game game)
             : base(game)
         {    
@@ -72,7 +72,7 @@ namespace War
             try
             {
                 
-                MouseState mouse = Mouse.GetState();
+                mouse = Mouse.GetState();
                 for (int i = 0; i < buttons.Count(); i++)
                 {
                     buttons[i].changeCurrentFrame(mouse.X, mouse.Y);

@@ -16,7 +16,6 @@ namespace War
         private Vector2 buttonPos;
         private Texture2D buttonTexture;
         private String imgFile;
-        private BoundingBox box;
         private int currentFrame;
        
         public Button(int x, int y)
