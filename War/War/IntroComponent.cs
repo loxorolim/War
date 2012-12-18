@@ -26,7 +26,7 @@ namespace War
         Boolean firstTimeIntro;
         Rectangle logoRectangle;
         SoundEffect swordSound;
-        MouseState mouse;
+        MouseState mouseStateCurrent,mouseStatePrevious;
         public IntroComponent(Game game)
             : base(game)
         {    
@@ -72,22 +72,23 @@ namespace War
             try
             {
                 
-                mouse = Mouse.GetState();
+                mouseStateCurrent = Mouse.GetState();
                 for (int i = 0; i < buttons.Count(); i++)
                 {
-                    buttons[i].changeCurrentFrame(mouse.X, mouse.Y);
+                    buttons[i].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 }
-                if(mouse.LeftButton == ButtonState.Pressed)
+                if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
                 {
-                    if (buttons[2].isCollided(mouse.X,mouse.Y))
+                    if (buttons[2].isCollided(mouseStateCurrent.X,mouseStateCurrent.Y))
                     {        
                         War.CurrentState = War.GameState.Credits;                 
                     }
-                    if (buttons[1].isCollided(mouse.X, mouse.Y))
+                    if (buttons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
                     {
                         War.CurrentState = War.GameState.Instructions;
                     }
                 }
+                mouseStatePrevious = mouseStateCurrent;
             }
             catch (Exception e)
             {
@@ -103,11 +104,12 @@ namespace War
             logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             
             float scale = calculateScale16x9();
-            mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);           
+            mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero,scale, SpriteEffects.None, 0);           
             logoBatch.Draw(warLogo,warLogoPosition, logoRectangle, Color.White, 0, Vector2.Zero, scale+0.5f, SpriteEffects.None, 0);
             for (int i = 0; i < buttons.Count; i++)
             {
                 logoBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(),buttons[i].getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
+                
             }
             
           //  batch.DrawString(font, "ALIEN RAID", new Vector2(150, 120), Color.Yellow);

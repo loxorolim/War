@@ -21,7 +21,7 @@ namespace War
         SpriteBatch batch;
         SpriteBatch buttonBatch;
         Button menuButton;
-        MouseState mouse;
+        MouseState mouseStateCurrent,mouseStatePrevious;
         public CreditsComponent(Game game)
             : base(game)
         {
@@ -36,7 +36,7 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            menuButton = new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 200);
+            menuButton = new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 150);
             base.Initialize();
         }
 
@@ -50,16 +50,17 @@ namespace War
             try
             {
 
-                mouse = Mouse.GetState();
-                menuButton.changeCurrentFrame(mouse.X,mouse.Y);
-                if (mouse.LeftButton == ButtonState.Pressed)
+                mouseStateCurrent = Mouse.GetState();
+                menuButton.changeCurrentFrame(mouseStateCurrent.X,mouseStateCurrent.Y);
+                if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
                 {
-                    if (menuButton.isCollided(mouse.X, mouse.Y))
+                    if (menuButton.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
                     {
                         War.CurrentState = War.GameState.Intro;
                     }
 
                 }
+                mouseStatePrevious = mouseStateCurrent;
             }
             catch (Exception e)
             {

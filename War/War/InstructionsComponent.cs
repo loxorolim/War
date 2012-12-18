@@ -23,7 +23,7 @@ namespace War
         int currentRuleNumber;
         int numberOfRules;
         List<Button> buttons;
-        MouseState mouse;
+        MouseState mouseStateCurrent,mouseStatePrevious;
         public InstructionsComponent(Game game)
             : base(game)
         {
@@ -38,11 +38,11 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            buttons.Add(new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 200));
-            buttons.Add(new Button(100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 200));
-            buttons.Add(new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width  - 300, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 200));
+            buttons.Add(new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 150));
+            buttons.Add(new Button(100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 150));
+            buttons.Add(new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width  - 300, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 150));
             currentRuleNumber = 0;
-            numberOfRules = 2;
+            numberOfRules = 1;
             base.Initialize();
         }
 
@@ -56,27 +56,29 @@ namespace War
             try
             {
 
-                mouse = Mouse.GetState();
+                mouseStateCurrent = Mouse.GetState();
                 for (int i = 0; i < buttons.Count(); i++)
                 {
-                    buttons[i].changeCurrentFrame(mouse.X, mouse.Y);
+                    buttons[i].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 }
-                if (mouse.LeftButton == ButtonState.Pressed)
+                if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
                 {
-                    if (buttons[0].isCollided(mouse.X, mouse.Y))
+                    if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
                     {
                         War.CurrentState = War.GameState.Intro;
                         currentRuleNumber = 0;
                     }
-                    if (buttons[1].isCollided(mouse.X, mouse.Y) && currentRuleNumber > 0 )
+                    if (buttons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && currentRuleNumber > 0 )
                     {
                         currentRuleNumber--;
                     }
-                    if (buttons[2].isCollided(mouse.X, mouse.Y) && currentRuleNumber < numberOfRules)
+                    if (buttons[2].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && currentRuleNumber < numberOfRules)
                     {
                         currentRuleNumber++;
                     }
+                   
                 }
+                mouseStatePrevious = mouseStateCurrent;
             }
             catch (Exception e)
             {
@@ -85,12 +87,12 @@ namespace War
             {
                 case 0:
                     {
-                        currentRule = Game.Content.Load<Texture2D>("WarMap16x9");
+                        currentRule = Game.Content.Load<Texture2D>("rules1");
                         break;
                     }
                 case 1:
                     {
-                        currentRule = Game.Content.Load<Texture2D>("WarMap16x9Grey");
+                        currentRule = Game.Content.Load<Texture2D>("rules2");
                         break;
                     }
                 default:
@@ -123,7 +125,7 @@ namespace War
         {
             insBatch = new SpriteBatch(Game.GraphicsDevice);
             buttonBatch = new SpriteBatch(Game.GraphicsDevice);
-            currentRule = Game.Content.Load<Texture2D>("WarMap16x9");
+            currentRule = Game.Content.Load<Texture2D>("rules1");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("menuButton"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("backButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("nextButton"));
