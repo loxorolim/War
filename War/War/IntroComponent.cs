@@ -102,10 +102,8 @@ namespace War
         {
             mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            
-            float scale = calculateScale16x9();
-            mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero,scale, SpriteEffects.None, 0);           
-            logoBatch.Draw(warLogo,warLogoPosition, logoRectangle, Color.White, 0, Vector2.Zero, scale+0.5f, SpriteEffects.None, 0);
+            mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero,1, SpriteEffects.None, 0);           
+            logoBatch.Draw(warLogo,warLogoPosition, logoRectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             for (int i = 0; i < buttons.Count; i++)
             {
                 logoBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(),buttons[i].getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
@@ -134,13 +132,6 @@ namespace War
             
           //  font = Game.Content.Load<SpriteFont>("Font/stats");
             base.LoadContent();
-        }
-        protected float calculateScale16x9()
-        {
-            float scale = 1.0f;
-            float x = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            scale = x / 3360;
-            return scale;
         }
     }
 }

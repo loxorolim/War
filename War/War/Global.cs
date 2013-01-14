@@ -13,13 +13,15 @@ namespace War
 {
     public static class Global
     {
+        public static int HEIGHT = 1080;
+        public static int WIDTH = 1920;
+        public static float SCALE = 1;
         public static MouseState mouse;       
-        public static float calculate16x9()
+      
+        public static float calculateScale()
         {
-            float scale = 1.0f;
-            float x = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            scale = x / 3360;
-            return scale;
+            return WIDTH / 1920;
         }
+      
     }
 }

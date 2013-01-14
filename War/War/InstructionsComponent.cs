@@ -108,14 +108,13 @@ namespace War
         {
             insBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            float scale = Global.calculate16x9();
-            insBatch.Draw(currentRule, Vector2.Zero, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
-                          
-            buttonBatch.Draw(buttons[0].getButtonTexture(), buttons[0].getButtonPosition(), buttons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            insBatch.Draw(currentRule, Vector2.Zero, null, Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
+
+            buttonBatch.Draw(buttons[0].getButtonTexture(), buttons[0].getButtonPosition(), buttons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
             if(currentRuleNumber > 0)
-            buttonBatch.Draw(buttons[1].getButtonTexture(), buttons[1].getButtonPosition(), buttons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            if(currentRuleNumber < numberOfRules) 
-            buttonBatch.Draw(buttons[2].getButtonTexture(), buttons[2].getButtonPosition(), buttons[2].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                buttonBatch.Draw(buttons[1].getButtonTexture(), buttons[1].getButtonPosition(), buttons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
+            if(currentRuleNumber < numberOfRules)
+                buttonBatch.Draw(buttons[2].getButtonTexture(), buttons[2].getButtonPosition(), buttons[2].getCurrentFrame(), Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
             insBatch.End();
             buttonBatch.End();
 

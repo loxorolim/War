@@ -71,8 +71,7 @@ namespace War
         {
             batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            float scale = Global.calculate16x9();
-            batch.Draw(creditsImage, Vector2.Zero, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+            batch.Draw(creditsImage, Vector2.Zero, null, Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
             buttonBatch.Draw(menuButton.getButtonTexture(), menuButton.getButtonPosition(),menuButton.getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
             batch.End();
             buttonBatch.End();

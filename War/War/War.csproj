@@ -115,6 +115,7 @@
     <Compile Include="InstructionsComponent.cs" />
     <Compile Include="IntroComponent.cs" />
     <Compile Include="MainGameComponent.cs" />
+    <Compile Include="GameSetComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Token.cs" />

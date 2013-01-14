@@ -26,6 +26,7 @@ namespace War
         IntroComponent IntroComponent;
         CreditsComponent CreditsComponent;
         InstructionsComponent InstructionsComponent;
+        GameSetComponent GameSetComponent;
         Song mainMusic;
         Boolean startMainMusic;
         public static GameState CurrentState { get; set; }
@@ -36,16 +37,19 @@ namespace War
             IntroComponent = new IntroComponent(this);
             CreditsComponent = new CreditsComponent(this);
             InstructionsComponent = new InstructionsComponent(this);
+            GameSetComponent = new GameSetComponent(this);
             Components.Add(IntroComponent);
             Components.Add(CreditsComponent);
             Components.Add(InstructionsComponent);
+            Components.Add(GameSetComponent);
             CurrentState = GameState.Intro;
             
            // GotoState();
             Content.RootDirectory = "Content";
-            this.graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            this.graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            this.graphics.IsFullScreen = true;
+            this.graphics.PreferredBackBufferWidth = Global.WIDTH;
+            this.graphics.PreferredBackBufferHeight = Global.HEIGHT;
+            this.graphics.ApplyChanges();
+            this.graphics.IsFullScreen = false;
             this.IsMouseVisible = true;
             startMainMusic = true;
             
@@ -154,7 +158,7 @@ namespace War
         }
         public enum GameState
         {
-            Intro, InPlay, GameOver, Credits, Instructions
+            Intro, InPlay, GameOver, Credits, Instructions, GameSet
         }
         public GameState State { get; private set; }
 
@@ -166,10 +170,20 @@ namespace War
                     IntroComponent.Enabled = IntroComponent.Visible = true;
                     CreditsComponent.Enabled = CreditsComponent.Visible = false;
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
-                    
+                    GameSetComponent.Enabled = GameSetComponent.Visible = false;
                  //   AliensComponent.Enabled = AliensComponent.Visible = false;
                 //    PlayerComponent.Enabled = PlayerComponent.Visible = false;
                 //    GameOverComponent.Enabled = GameOverComponent.Visible = false;
+                    break;
+                
+                case GameState.GameSet:
+                    IntroComponent.Enabled = IntroComponent.Visible = false;
+                    CreditsComponent.Enabled = CreditsComponent.Visible = false;
+                    InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
+                    GameSetComponent.Enabled = GameSetComponent.Visible = true;
+                    //   AliensComponent.Enabled = AliensComponent.Visible = false;
+                    //    PlayerComponent.Enabled = PlayerComponent.Visible = false;
+                    //    GameOverComponent.Enabled = GameOverComponent.Visible = false;
                     break;
 
                 case GameState.InPlay:
@@ -190,6 +204,7 @@ namespace War
                     IntroComponent.Enabled = IntroComponent.Visible = false;
                     CreditsComponent.Enabled = CreditsComponent.Visible = true;
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
+                    GameSetComponent.Enabled = GameSetComponent.Visible = false;
                 //     AliensComponent.Enabled = AliensComponent.Visible = false;
                     //      PlayerComponent.Enabled = PlayerComponent.Visible = false;
                     //      GameOverComponent.Enabled = GameOverComponent.Visible = true;
@@ -198,6 +213,7 @@ namespace War
                     IntroComponent.Enabled = IntroComponent.Visible = false;
                     CreditsComponent.Enabled = CreditsComponent.Visible = false;
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = true;
+                    GameSetComponent.Enabled = GameSetComponent.Visible = false;
 
                     //   AliensComponent.Enabled = AliensComponent.Visible = false;
                     //    PlayerComponent.Enabled = PlayerComponent.Visible = false;
