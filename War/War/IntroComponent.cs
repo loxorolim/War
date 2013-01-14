@@ -87,6 +87,10 @@ namespace War
                     {
                         War.CurrentState = War.GameState.Instructions;
                     }
+                    if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
+                    {
+                        War.CurrentState = War.GameState.GameSet;
+                    }
                 }
                 mouseStatePrevious = mouseStateCurrent;
             }
