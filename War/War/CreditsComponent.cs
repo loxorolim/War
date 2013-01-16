@@ -17,9 +17,11 @@ namespace War
     /// </summary>
     public class CreditsComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        Texture2D creditsImage;
+        Texture2D warMap;
+        Texture2D creditsLogo;
+        Vector2 creditsLogoPosition;
         SpriteBatch batch;
-        SpriteBatch buttonBatch;
+        SpriteBatch spriteBatch;
         Button menuButton;
         MouseState mouseStateCurrent,mouseStatePrevious;
         public CreditsComponent(Game game)
@@ -36,7 +38,7 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            menuButton = new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 150);
+            menuButton = new Button(Global.WIDTH/ 2 - 100, Global.HEIGHT - 150,2);
             base.Initialize();
         }
 
@@ -70,19 +72,22 @@ namespace War
         public override void Draw(GameTime gameTime)
         {
             batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            batch.Draw(creditsImage, Vector2.Zero, null, Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
-            buttonBatch.Draw(menuButton.getButtonTexture(), menuButton.getButtonPosition(),menuButton.getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            batch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
+            spriteBatch.Draw(menuButton.getButtonTexture(), menuButton.getButtonPosition(),menuButton.getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
+            spriteBatch.Draw(creditsLogo, creditsLogoPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             batch.End();
-            buttonBatch.End();
+            spriteBatch.End();
             base.Draw(gameTime);
         }
         protected override void LoadContent()
         {
             batch = new SpriteBatch(Game.GraphicsDevice);
-            buttonBatch = new SpriteBatch(Game.GraphicsDevice);
-            creditsImage = Game.Content.Load<Texture2D>("creditsState");
+            spriteBatch = new SpriteBatch(Game.GraphicsDevice);
+            creditsLogo = Game.Content.Load<Texture2D>("creditsLogo");
+            warMap = Game.Content.Load<Texture2D>("warMapWindowGrey");
             menuButton.setButtonTexture(Game.Content.Load<Texture2D>("menuButton"));
+            creditsLogoPosition = new Vector2(Global.WIDTH / 2 - creditsLogo.Width / 2, 0);
             base.LoadContent();
         }
     }

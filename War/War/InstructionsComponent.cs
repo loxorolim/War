@@ -38,9 +38,9 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            buttons.Add(new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 150));
-            buttons.Add(new Button(100, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 150));
-            buttons.Add(new Button(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width  - 300, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 150));
+            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT - 150,2));
+            buttons.Add(new Button(100, Global.HEIGHT - 150,2));
+            buttons.Add(new Button(Global.WIDTH - 300, Global.HEIGHT - 150,2));
             currentRuleNumber = 0;
             numberOfRules = 1;
             base.Initialize();
@@ -87,12 +87,12 @@ namespace War
             {
                 case 0:
                     {
-                        currentRule = Game.Content.Load<Texture2D>("rules1");
+                        currentRule = Game.Content.Load<Texture2D>("rules1Window");
                         break;
                     }
                 case 1:
                     {
-                        currentRule = Game.Content.Load<Texture2D>("rules2");
+                        currentRule = Game.Content.Load<Texture2D>("rules2Window");
                         break;
                     }
                 default:
@@ -124,7 +124,7 @@ namespace War
         {
             insBatch = new SpriteBatch(Game.GraphicsDevice);
             buttonBatch = new SpriteBatch(Game.GraphicsDevice);
-            currentRule = Game.Content.Load<Texture2D>("rules1");
+            currentRule = Game.Content.Load<Texture2D>("rules1Window");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("menuButton"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("backButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("nextButton"));

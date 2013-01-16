@@ -17,12 +17,13 @@ namespace War
         private Texture2D buttonTexture;
         private String imgFile;
         private int currentFrame;
-       
-        public Button(int x, int y)
+        private int numberOfFrames;
+        public Button(int x, int y, int num)
         {
             
             buttonPos = new Vector2(x, y);
             currentFrame = 0;
+            numberOfFrames = num;
 
             
            
@@ -58,7 +59,7 @@ namespace War
         }
         public Boolean isCollided(float x, float y)
         {
-            if (x > buttonPos.X && x < buttonPos.X + buttonTexture.Width && y > buttonPos.Y && y < buttonPos.Y + buttonTexture.Height)
+            if (x > buttonPos.X && x < buttonPos.X + buttonTexture.Width/numberOfFrames && y > buttonPos.Y && y < buttonPos.Y + buttonTexture.Height)
                 return true;
             else
                 return false;
@@ -70,9 +71,26 @@ namespace War
             else
                 currentFrame = 0;
         }
+        public void setNextFrame()
+        {
+            if (currentFrame == numberOfFrames-1)
+                currentFrame = 0;
+            else
+                currentFrame +=1;
+        }
+        public void setPreviousFrame()
+        {
+            if (currentFrame == 0)
+                currentFrame = numberOfFrames-1;
+            else
+                currentFrame -= 1;
+        }
         public Rectangle getCurrentFrame()
         {
-            return new Rectangle(currentFrame *200, 0, 200, 100);
+            int x = buttonTexture.Width / numberOfFrames;
+            int y = buttonTexture.Height;
+            return new Rectangle(currentFrame *x, 0, x, y);
+            
         }
         
           

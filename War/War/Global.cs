@@ -13,8 +13,8 @@ namespace War
 {
     public static class Global
     {
-        public static int HEIGHT = 1080;
-        public static int WIDTH = 1920;
+        public static int HEIGHT = 1024;
+        public static int WIDTH = 1280;
         public static float SCALE = 1;
         public static MouseState mouse;       
       
