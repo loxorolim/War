@@ -113,15 +113,20 @@
     <Compile Include="Button.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CartaObjetivo.cs" />
+    <Compile Include="CartaTerritorio.cs" />
+    <Compile Include="Continente.cs" />
     <Compile Include="CreditsComponent.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="InstructionsComponent.cs" />
     <Compile Include="IntroComponent.cs" />
+    <Compile Include="Jogador.cs" />
     <Compile Include="MainGameComponent.cs" />
     <Compile Include="GameSetComponent.cs" />
     <Compile Include="PlayableComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Territorio.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="War.cs" />
   </ItemGroup>

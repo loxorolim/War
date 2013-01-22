@@ -1,6 +1,5 @@
 Content\WarMap16x9.xnb
 Content\circle.xnb
-Content\Fonts.xnb
 Content\WarLogo.xnb
 Content\startButton.xnb
 Content\instructionsButton.xnb
@@ -10,6 +9,7 @@ Content\WarMap16x9Grey.xnb
 Content\backButton.xnb
 Content\menuButton.xnb
 Content\nextButton.xnb
+Content\Fonts.xnb
 Content\swordSound.xnb
 Content\Medieval Music.xnb
 Content\rules1.xnb
