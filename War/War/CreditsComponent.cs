@@ -38,7 +38,7 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            menuButton = new Button(Global.WIDTH/ 2 - 100, Global.HEIGHT - 150,2);
+            menuButton = new Button(Global.WIDTH/ 2 - 50, Global.HEIGHT - 75,2);
             base.Initialize();
         }
 

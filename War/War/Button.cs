@@ -18,7 +18,7 @@ namespace War
         private String imgFile;
         private int currentFrame;
         private int numberOfFrames;
-        public Button(int x, int y, int num)
+        public Button(float x, float y, int num)
         {
             
             buttonPos = new Vector2(x, y);
@@ -91,6 +91,10 @@ namespace War
             int y = buttonTexture.Height;
             return new Rectangle(currentFrame *x, 0, x, y);
             
+        }
+        public int getNumberOfFrame()
+        {
+            return currentFrame;
         }
         
           

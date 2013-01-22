@@ -44,9 +44,9 @@ namespace War
         {
             // TODO: Add your initialization code here
             
-            buttons.Add(new Button(Global.WIDTH/ 2 - 100 ,Global.HEIGHT/10 + 200,2));
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT/ 10 + 300,2));
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 400,2));
+            buttons.Add(new Button(Global.WIDTH/ 2 - 50 ,Global.HEIGHT/10 + 100,2));
+            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT/ 10 + 150,2));
+            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 200,2));
             base.Initialize();
         }
 
@@ -114,6 +114,7 @@ namespace War
                 logoBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(),buttons[i].getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
                 
             }
+            
             
           //  batch.DrawString(font, "ALIEN RAID", new Vector2(150, 120), Color.Yellow);
           //  batch.DrawString(_smallFont, "Press ENTER to play", new Vector2(280, 250), Color.Cyan);

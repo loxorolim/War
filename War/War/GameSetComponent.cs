@@ -34,42 +34,42 @@ namespace War
         /// </summary>
         public override void Initialize()
         {
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 100,5));
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 200,5));
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 300,5));
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 400,5));
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 500,5));
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 600,5));
+            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 100,5));
+            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 150,5));
+            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 200,5));
+            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 250,5));
+            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 300,5));
+            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 350,5));
             //setas
-            buttons.Add(new Button(Global.WIDTH / 2 - 200, Global.HEIGHT / 10 + 100,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 100, Global.HEIGHT / 10 + 100,2));
+            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 100,2));
+            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 100,2));
 
-            buttons.Add(new Button(Global.WIDTH / 2 - 200, Global.HEIGHT / 10 + 200,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 100, Global.HEIGHT / 10 + 200,2));
+            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 150,2));
+            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 150,2));
 
-            buttons.Add(new Button(Global.WIDTH / 2 - 200, Global.HEIGHT / 10 + 300,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 100, Global.HEIGHT / 10 + 300,2));
+            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 200,2));
+            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 200,2));
 
-            buttons.Add(new Button(Global.WIDTH / 2 - 200, Global.HEIGHT / 10 + 400,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 100, Global.HEIGHT / 10 + 400,2));
+            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 250,2));
+            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 250,2));
 
-            buttons.Add(new Button(Global.WIDTH / 2 - 200, Global.HEIGHT / 10 + 500,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 100, Global.HEIGHT / 10 + 500,2));
+            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 300,2));
+            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 300,2));
 
-            buttons.Add(new Button(Global.WIDTH / 2 - 200, Global.HEIGHT / 10 + 600,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 100, Global.HEIGHT / 10 + 600,2));
+            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 350,2));
+            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 350,2));
 
             //menu e play
-            buttons.Add(new Button(Global.WIDTH / 2 - 400, Global.HEIGHT / 10 + 800, 2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 200, Global.HEIGHT / 10 + 800, 2));
+            buttons.Add(new Button(Global.WIDTH / 2 - 200, Global.HEIGHT -75, 2));
+            buttons.Add(new Button(Global.WIDTH / 2 + 100, Global.HEIGHT -75, 2));
 
             //cores
-            buttons.Add(new Button(Global.WIDTH / 2 +300, Global.HEIGHT / 10 + 100, 1));
-            buttons.Add(new Button(Global.WIDTH / 2 +300, Global.HEIGHT / 10 + 200, 1));
-            buttons.Add(new Button(Global.WIDTH / 2 +300, Global.HEIGHT / 10 + 300, 1));
-            buttons.Add(new Button(Global.WIDTH / 2 +300, Global.HEIGHT / 10 + 400, 1));
-            buttons.Add(new Button(Global.WIDTH / 2 +300, Global.HEIGHT / 10 + 500, 1));
-            buttons.Add(new Button(Global.WIDTH / 2 +300, Global.HEIGHT / 10 + 600, 1));
+            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 100, 1));
+            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 150, 1));
+            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 200, 1));
+            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 250, 1));
+            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 300, 1));
+            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 350, 1));
             
             // TODO: Add your initialization code here
 
@@ -87,6 +87,7 @@ namespace War
             {
 
                 mouseStateCurrent = Mouse.GetState();
+               
                 for (int i = 6; i < 20; i++)
                 {
                     buttons[i].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
@@ -121,19 +122,25 @@ namespace War
                     if (buttons[16].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
                         buttons[5].setPreviousFrame();
                     if (buttons[17].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
-                        buttons[6].setNextFrame();
+                        buttons[5].setNextFrame();
 
                     if(buttons[18].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
                         War.CurrentState = War.GameState.Intro;
                     if (buttons[19].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
                     {
-
+                        int numOfPlayers = 0;
+                        for (int i = 0; i < 6; i++)
+                        {
+                            if (buttons[i].getNumberOfFrame() != 0)
+                                numOfPlayers++;
+                            
+                        }
+                        if (numOfPlayers >= 3)
+                        {
+                            War.CurrentState = War.GameState.InPlay;
+                        }
                     }
-
-
-                    
-                    
-                    
+                 
                 }
                 mouseStatePrevious = mouseStateCurrent;
             }
@@ -148,8 +155,8 @@ namespace War
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            spriteBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
-            logoBatch.Draw(gameSetLogo, gameSetPosition, null, Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
+            spriteBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero,1, SpriteEffects.None, 0);
+            logoBatch.Draw(gameSetLogo, gameSetPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             for (int i = 0; i < buttons.Count; i++)
             {
                     logoBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(), buttons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);

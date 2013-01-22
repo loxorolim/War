@@ -27,6 +27,7 @@ namespace War
         CreditsComponent CreditsComponent;
         InstructionsComponent InstructionsComponent;
         GameSetComponent GameSetComponent;
+        PlayableComponent PlayableComponent;
         Song mainMusic;
         Boolean startMainMusic;
         public static GameState CurrentState { get; set; }
@@ -38,19 +39,30 @@ namespace War
             CreditsComponent = new CreditsComponent(this);
             InstructionsComponent = new InstructionsComponent(this);
             GameSetComponent = new GameSetComponent(this);
+            PlayableComponent = new PlayableComponent(this);
             Components.Add(IntroComponent);
             Components.Add(CreditsComponent);
             Components.Add(InstructionsComponent);
             Components.Add(GameSetComponent);
+            Components.Add(PlayableComponent);
             CurrentState = GameState.Intro;
             
            // GotoState();
             Content.RootDirectory = "Content";
-            this.graphics.PreferredBackBufferWidth = Global.WIDTH;
-            this.graphics.PreferredBackBufferHeight = Global.HEIGHT;
-            this.graphics.ApplyChanges();
+         //   this.graphics.PreferredBackBufferWidth = Global.WIDTH;
+        //    this.graphics.PreferredBackBufferHeight = Global.HEIGHT;
+        //    this.graphics.ApplyChanges();
+            
+            graphics.PreparingDeviceSettings +=
+            new EventHandler<PreparingDeviceSettingsEventArgs>(
+            graphics_PreparingDeviceSettings);
             this.graphics.IsFullScreen = false;
+            
             this.IsMouseVisible = true;
+            
+            
+            
+            
             startMainMusic = true;
             
         }
@@ -130,22 +142,6 @@ namespace War
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            //Desenha o mapa
-
-            //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-    //        float scale = calculateScale16x9();
-     //       spriteBatch.Draw(warMap, warMapPosition, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
-
-           // spriteBatch.Draw(token.getTexture(), new Vector2(Mouse.GetState().X,Mouse.GetState().Y), null, token.getColor(), 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-           //   spriteBatch.Draw(circle, new Vector2(400,1000), null, Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-          //  spriteBatch.Draw(token2.getTexture(), token2.getPosition(), null, token2.getColor(), 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            
-          //  spriteBatch.End();
-      
-
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
@@ -156,10 +152,28 @@ namespace War
             scale = x / 3360;
             return scale;
         }
+        void graphics_PreparingDeviceSettings(object sender,
+        PreparingDeviceSettingsEventArgs e)
+        {
+            foreach (Microsoft.Xna.Framework.Graphics.DisplayMode displayMode
+                in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
+            {
+                if (displayMode.Width == 800 && displayMode.Height == 600)
+                {
+                    e.GraphicsDeviceInformation.PresentationParameters.
+                        BackBufferFormat = displayMode.Format;
+                    e.GraphicsDeviceInformation.PresentationParameters.
+                        BackBufferHeight = displayMode.Height;
+                    e.GraphicsDeviceInformation.PresentationParameters.
+                        BackBufferWidth = displayMode.Width;
+                }
+            }
+        }
         public enum GameState
         {
             Intro, InPlay, GameOver, Credits, Instructions, GameSet
         }
+
         public GameState State { get; private set; }
 
         public void GotoState()
@@ -171,7 +185,7 @@ namespace War
                     CreditsComponent.Enabled = CreditsComponent.Visible = false;
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
                     GameSetComponent.Enabled = GameSetComponent.Visible = false;
-                 //   AliensComponent.Enabled = AliensComponent.Visible = false;
+                    PlayableComponent.Enabled = PlayableComponent.Visible = false;
                 //    PlayerComponent.Enabled = PlayerComponent.Visible = false;
                 //    GameOverComponent.Enabled = GameOverComponent.Visible = false;
                     break;
@@ -181,13 +195,18 @@ namespace War
                     CreditsComponent.Enabled = CreditsComponent.Visible = false;
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
                     GameSetComponent.Enabled = GameSetComponent.Visible = true;
+                    PlayableComponent.Enabled = PlayableComponent.Visible = false;
                     //   AliensComponent.Enabled = AliensComponent.Visible = false;
                     //    PlayerComponent.Enabled = PlayerComponent.Visible = false;
                     //    GameOverComponent.Enabled = GameOverComponent.Visible = false;
                     break;
 
                 case GameState.InPlay:
+                    PlayableComponent.Enabled = PlayableComponent.Visible = true;
                     IntroComponent.Enabled = IntroComponent.Visible = false;
+                    CreditsComponent.Enabled = CreditsComponent.Visible = false;
+                    InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
+                    GameSetComponent.Enabled = GameSetComponent.Visible = false;
                //     AliensComponent.Enabled = AliensComponent.Visible = true;
                //     PlayerComponent.Enabled = PlayerComponent.Visible = true;
               //      GameOverComponent.Enabled = GameOverComponent.Visible = false;
@@ -205,6 +224,7 @@ namespace War
                     CreditsComponent.Enabled = CreditsComponent.Visible = true;
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
                     GameSetComponent.Enabled = GameSetComponent.Visible = false;
+                    PlayableComponent.Enabled = PlayableComponent.Visible = false;
                 //     AliensComponent.Enabled = AliensComponent.Visible = false;
                     //      PlayerComponent.Enabled = PlayerComponent.Visible = false;
                     //      GameOverComponent.Enabled = GameOverComponent.Visible = true;
@@ -214,6 +234,7 @@ namespace War
                     CreditsComponent.Enabled = CreditsComponent.Visible = false;
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = true;
                     GameSetComponent.Enabled = GameSetComponent.Visible = false;
+                    PlayableComponent.Enabled = PlayableComponent.Visible = false;
 
                     //   AliensComponent.Enabled = AliensComponent.Visible = false;
                     //    PlayerComponent.Enabled = PlayerComponent.Visible = false;

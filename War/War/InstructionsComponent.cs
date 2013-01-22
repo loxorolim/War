@@ -38,9 +38,9 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT - 150,2));
-            buttons.Add(new Button(100, Global.HEIGHT - 150,2));
-            buttons.Add(new Button(Global.WIDTH - 300, Global.HEIGHT - 150,2));
+            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT - 75,2));
+            buttons.Add(new Button(50, Global.HEIGHT - 75,2));
+            buttons.Add(new Button(Global.WIDTH - 150, Global.HEIGHT - 75,2));
             currentRuleNumber = 0;
             numberOfRules = 1;
             base.Initialize();
