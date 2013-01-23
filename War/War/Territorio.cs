@@ -5,7 +5,7 @@ using System.Text;
 
 namespace War
 {
-    class Territorio
+    public class Territorio
     {
         private string nome;
         private Continente continente;
@@ -19,7 +19,7 @@ namespace War
             this.continente = continente;
             this.vizinhos = vizinhos;
             numExercitos = 0;
-            dono = null;
+            dono = null; // vai passar o dono do territorio qnd fizer o sorteio
         }
 
         public string getNome()

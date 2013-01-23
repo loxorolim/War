@@ -5,7 +5,7 @@ using System.Text;
 
 namespace War
 {
-    class CartaObjetivo
+    public class CartaObjetivo
     {
         private string descricao;
 

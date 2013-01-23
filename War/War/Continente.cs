@@ -5,7 +5,7 @@ using System.Text;
 
 namespace War
 {
-    class Continente
+    public class Continente
     {
         private string nome;
         private int recompensa;
@@ -29,18 +29,18 @@ namespace War
             return recompensa;
         }
 
+
         public Boolean continenteComandadoPorUnicoJogador()
         {
-            int qtdTerritorios = territorios.Count;
+            //verifica se todos os paises de um continente possuem um mesmo dono
             Territorio t = territorios.ElementAt(0);
             Jogador dono = t.getDono();
-            for (int i = 1; i < qtdTerritorios; i++)
+            foreach (Territorio te in territorios)
             {
-                t = territorios.ElementAt(i);
-                if (dono.igual(t.getDono()))
+                if (!dono.igual(te.getDono()))
                     return false;
-                
             }
+
             return true;
         }
 

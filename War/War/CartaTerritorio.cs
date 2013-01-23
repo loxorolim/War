@@ -5,7 +5,7 @@ using System.Text;
 
 namespace War
 {
-    class CartaTerritorio
+    public class CartaTerritorio
     {
         public const string quadrado = "QUADRADO", triangulo = "TRIANGULO", circulo = "CIRCULO";
         private string figura;
@@ -14,13 +14,15 @@ namespace War
         public CartaTerritorio(string nomeImagem,string tipoFigura)   //necessário adicionar as imagens a cada cartaTerritorio
         {
             this.figura = nomeImagem;
+
             if (tipoFigura.CompareTo(quadrado) == 0)
                 this.tipo = 0;
             else
                 if (tipoFigura.CompareTo(triangulo) == 0)
                     this.tipo = 1;
                 else
-                    this.tipo = 2;
+                    if(tipoFigura.CompareTo(circulo) == 0)
+                       this.tipo = 2;
         }
 
 

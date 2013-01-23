@@ -5,8 +5,9 @@ using System.Text;
 
 namespace War
 {
-    interface Jogador
+    public abstract class Jogador
     {
+
         private string cor;
         private int numTerritorios;
         private List<CartaTerritorio> cartasJogador = new List<CartaTerritorio>(5);
@@ -35,6 +36,11 @@ namespace War
             return numTerritorios;
         }
 
+        public void setNumTerritorios(int num)
+        {
+            this.numTerritorios = num;
+        }
+
         public List<CartaTerritorio> getCartaTerritorio()
         {
             return cartasJogador;
@@ -50,23 +56,33 @@ namespace War
         }
 
 
-        public void pegarCarta();
+        public abstract void pegarCarta();
 
-        public void trocarCarta();
+        public abstract void trocarCarta();
 
-        public void distribuirExercito();
+        public abstract void distribuirExercito();
 
-        public void atacar();
+        public abstract void atacar();
 
-        private void selecionaTerritorioAtacante();
+        public int[] lancarDados(int quantidade)
+        {
+            int[] numSorteados = new int[quantidade];
+            Random r = new Random();
+            System.Threading.Thread.Sleep(1000);
 
-        private void selecionaTerritorioAtacado();
+            for (int i = 0; i < quantidade; i++)
+            {
+                numSorteados[i] = r.Next(1, 7);
+            }
 
-        public void lancarDados();
+            return numSorteados;
 
-        public void remanejarExercito();
+        }
 
-        public void finalizarJogada();
+        
+        public abstract void remanejarExercito();
+
+        public abstract void finalizarJogada();
 
         public Boolean igual(Jogador jogador)
         {
@@ -77,4 +93,6 @@ namespace War
 
         }
     }
-}
+
+    }
+
