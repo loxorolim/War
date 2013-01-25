@@ -8,6 +8,7 @@ namespace War
     public class CartaObjetivo
     {
         private string descricao;
+        public Boolean temDono = false;
 
         public CartaObjetivo(string descricao)  //necessário adicionar as imagens a cada CartaObjetivo
         {

@@ -15,10 +15,10 @@ namespace War
         private Boolean objetivoConcluido = false;
         private List<Territorio> territorios = new List<Territorio>();
 
-        public Jogador(string cor,CartaObjetivo objetivo)
+        public Jogador(string cor)
         {
             this.cor = cor;
-            this.objetivo = objetivo; //ou this.objetivo = MaquinaDeRegras.sorteaObjetivo();
+            this.objetivo = MaquinaDeRegras.getInstance().sortearObjetivo();
  //         territorios = MaquinaDeRegras.sorteaTerritorios();
  //         this.numTerritorios = totalTerritorios / numeroDeJogadores;
             cartasJogador = null;
@@ -92,7 +92,13 @@ namespace War
                 return false;
 
         }
-    }
+
+        public override bool Equals(Jogador jog)
+        {
+            return this.cor.Equals(jog.getCor());
+        }
 
     }
+
+}
 

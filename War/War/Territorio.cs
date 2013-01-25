@@ -13,11 +13,11 @@ namespace War
         private int numExercitos;
         private List<Territorio> vizinhos;
 
-        public Territorio(string nome, Continente continente, List<Territorio> vizinhos)
+        public Territorio(string nome, Continente continente)
         {
             this.nome = nome;
             this.continente = continente;
-            this.vizinhos = vizinhos;
+            this.vizinhos = null;
             numExercitos = 0;
             dono = null; // vai passar o dono do territorio qnd fizer o sorteio
         }
@@ -57,6 +57,15 @@ namespace War
             return vizinhos;
         }
 
+        public void setListaVizinhos(List<Territorio> vizinhos)
+        {
+            this.vizinhos = vizinhos;
+        }
+
+        public override bool Equals(Territorio territ)
+        {
+            return this.nome.Equals(territ.getNome());
+        }
 
     }
 }

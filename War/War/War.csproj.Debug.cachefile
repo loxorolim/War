@@ -9,9 +9,6 @@ Content\WarMap16x9Grey.xnb
 Content\backButton.xnb
 Content\menuButton.xnb
 Content\nextButton.xnb
-Content\Fonts.xnb
-Content\swordSound.xnb
-Content\Medieval Music.xnb
 Content\rules1.xnb
 Content\rules2.xnb
 Content\gameSetLogo.xnb
@@ -35,4 +32,7 @@ Content\green.xnb
 Content\red.xnb
 Content\white.xnb
 Content\yellow.xnb
+Content\Fonts.xnb
+Content\swordSound.xnb
+Content\Medieval Music.xnb
 Content\Medieval Music.wma
