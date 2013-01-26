@@ -18,7 +18,7 @@ namespace War
         public Jogador(string cor)
         {
             this.cor = cor;
-            this.objetivo = MaquinaDeRegras.getInstance().sortearObjetivo();
+            this.objetivo = MaquinaDeRegras.sortearObjetivo();
  //         territorios = MaquinaDeRegras.sorteaTerritorios();
  //         this.numTerritorios = totalTerritorios / numeroDeJogadores;
             cartasJogador = null;
@@ -66,13 +66,17 @@ namespace War
 
         public int[] lancarDados(int quantidade)
         {
-            int[] numSorteados = new int[quantidade];
-            Random r = new Random();
-            System.Threading.Thread.Sleep(1000);
 
+            int[] numSorteados = new int[3];
+            Random r = new Random();
+            
             for (int i = 0; i < quantidade; i++)
             {
                 numSorteados[i] = r.Next(1, 7);
+            }
+            for (int i = quantidade; i < 3; i++)
+            {
+                numSorteados[i] = -1;
             }
 
             return numSorteados;
