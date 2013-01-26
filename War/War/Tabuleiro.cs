@@ -52,6 +52,10 @@ namespace War
         {
             return this.numJogadores;
         }
+        public void adicionarJogador(Jogador jog)
+        {
+            jogadores.Add(jog);
+        }
 
     }
 }
