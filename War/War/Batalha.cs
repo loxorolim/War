@@ -25,7 +25,7 @@ namespace War
            
         }
 
-        public void atacar()
+        public void iniciar()
         {
             int numDadosDefesa, numDadosAtaque;
 
@@ -71,7 +71,7 @@ namespace War
             ataqueT.setNumeroExercitos(exercitoAtaqueNovo);
             defesaT.setNumeroExercitos(exercitoDefesaNovo);
             defesaT.setNovoDono(ataqueT.getDono());
-            atacanteJog.remanejarExercito();
+           // atacanteJog.remanejarExercito();
 
         }
 

@@ -12,11 +12,11 @@ namespace War
         public static List<CartaTerritorio> cartas;
         public static int exercitosRecompensa = 4;
 
-        public static Boolean validaIntencaoAtaque(Territorio origem, Territorio destino)
+        public static Boolean validaPaisVizinho(Territorio origem, Territorio destino)
         {
             foreach (Territorio vizinho in origem.getListaVizinhos())
             {
-                if (destino.Equals(vizinho) && !mesmoDono(destino, vizinho))
+                if (destino.Equals(vizinho) && !paisesComMesmoDono(destino, vizinho))
                 {
                     return true;
                 }
@@ -24,11 +24,21 @@ namespace War
             return false;
         }
 
-        public static Boolean validaMovimento(Territorio origem, Territorio destino)
+        public static Boolean paisAtacanteComExercito(Territorio origem)
+        {
+            if (origem.getNumeroExercito() > 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        public static Boolean validaMovimentoRemanejamento(Territorio origem, Territorio destino)
         {
             foreach (Territorio vizinho in origem.getListaVizinhos())
             {
-                if (destino.Equals(vizinho) && mesmoDono(destino, vizinho))
+                if (destino.Equals(vizinho) && paisesComMesmoDono(destino, vizinho))
                 {
                     return true;
                 }
@@ -36,7 +46,7 @@ namespace War
             return false;
         }
 
-        private static bool mesmoDono(Territorio destino, Territorio vizinho)
+        private static bool paisesComMesmoDono(Territorio destino, Territorio vizinho)
         {
             return destino.getDono().Equals(vizinho.getDono());
         }
@@ -50,6 +60,7 @@ namespace War
             {
                 int indexJogador = r.Next(0, jogadores.Count);
                 territorio.setNovoDono(jogadores[indexJogador]);
+                territorio.setNumeroExercitos(1);
                 jogadores.RemoveAt(indexJogador);
                 if (jogadores.Count == 0)
                 {
@@ -79,7 +90,7 @@ namespace War
 
         }
 
-        public static CartaTerritorio darCartaDeConquista()
+        public static CartaTerritorio darCartaTerritorio()
         {
             Random random = new Random();
             int randomIndex = random.Next(0, (cartas.Count));
@@ -117,6 +128,23 @@ namespace War
             return retorno;
         }
 
+        public static int distribuicaoDeExercito(Jogador jogador)
+        {
+            int qtdTerritorios = 0;
+            int qtdExercito = 0;
+
+            foreach (Territorio t in Tabuleiro.mapa)
+            {
+                if (t.getDono().Equals(jogador))
+                {
+                    qtdTerritorios += 1;
+                }
+            }
+            qtdExercito = qtdTerritorios / 2;
+            return qtdExercito;
+
+        }
+
         private static void devolveCartas(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
         {
             cartas.Add(carta1);
@@ -127,7 +155,18 @@ namespace War
         public static Boolean validaTroca(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
         {
 
-            return true;
+            if (carta1.getFigura().Equals(carta2.getFigura()) && carta2.getFigura().Equals(carta3.getFigura()))
+            {
+                //tres figuras iguais
+                return true;
+            }
+            if (!carta1.getFigura().Equals(carta2.getFigura()) && !carta2.getFigura().Equals(carta3.getFigura()) &&
+                !carta1.getFigura().Equals(carta3.getFigura()))
+            {
+                //tres figuras diferentes
+                return true;
+            }
+            return false;
         }
 
         //Compara os dados do exército atacante e do exército defensor e retorna o numero de soldados perdidos na rodada

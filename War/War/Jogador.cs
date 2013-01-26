@@ -8,9 +8,9 @@ namespace War
     public abstract class Jogador
     {
 
-        private int cor;
-        private List<CartaTerritorio> cartasJogador = new List<CartaTerritorio>(5);
-        private CartaObjetivo objetivo;
+        protected int cor;
+        protected List<CartaTerritorio> cartasJogador = new List<CartaTerritorio>(5);
+        protected CartaObjetivo objetivo;
 
         public Jogador(int cor)
         {
@@ -49,11 +49,14 @@ namespace War
         }
 
 
-        public abstract void pegarCarta();
+        public void receberCarta()
+        {
+            this.cartasJogador.Add(MaquinaDeRegras.darCartaTerritorio());
+        }
 
-        public abstract void trocarCarta();
+        public abstract void trocarCarta(CartaTerritorio c1,CartaTerritorio c2,CartaTerritorio c3);
 
-        public abstract void distribuirExercito();
+        public abstract void distribuirExercito(int quantidade);
 
         public abstract void atacar();
 
@@ -73,7 +76,7 @@ namespace War
         }
 
 
-        public abstract void remanejarExercito();
+        public abstract void remanejarExercito(Territorio origem, Territorio destino, int quantidade);
 
         public abstract void finalizarJogada();
 
