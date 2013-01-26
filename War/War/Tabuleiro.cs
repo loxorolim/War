@@ -5,54 +5,14 @@ using System.Text;
 
 namespace War
 {
-    public class Tabuleiro
+    public static class Tabuleiro
     {
-        private static Tabuleiro instance;
+        public static List<Jogador> jogadores;
+        public static List<Territorio> mapa;
 
-        private List<Jogador> jogadores;
-        private List<Territorio> mapa;
+        public static int numJogadores;
 
-        private int numJogadores;
-
-        private Tabuleiro()
-        {
-            //Inicialização do tabuleiro (privada por ser singleton)
-        }
-
-        public static Tabuleiro getInstance()
-        {
-            if (instance == null){
-                instance = new Tabuleiro();
-            }
-            return instance;
-        }
-
-        public List<Territorio> getMapa()
-        {
-            return this.mapa;
-        }
-
-        public void setMapa(List<Territorio> mapa)
-        {
-            this.mapa = mapa;
-        }
-
-        public List<Jogador> getJogadores()
-        {
-            return this.jogadores;
-        }
-
-        public void setJogadores(List<Jogador> jogadores)
-        {
-            this.numJogadores = jogadores.Count;
-            this.jogadores = jogadores;
-        }
-
-        public int getNumJogadores()
-        {
-            return this.numJogadores;
-        }
-        public void adicionarJogador(Jogador jog)
+        public static void adicionarJogador(Jogador jog)
         {
             jogadores.Add(jog);
         }
