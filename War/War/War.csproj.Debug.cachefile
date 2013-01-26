@@ -32,6 +32,10 @@ Content\green.xnb
 Content\red.xnb
 Content\white.xnb
 Content\yellow.xnb
+Content\attackButton.xnb
+Content\endTurnButton.xnb
+Content\getCardButton.xnb
+Content\realocateButton.xnb
 Content\Cartas\circulo\ambrixon.xnb
 Content\Cartas\circulo\dinia.xnb
 Content\Cartas\circulo\erikum.xnb

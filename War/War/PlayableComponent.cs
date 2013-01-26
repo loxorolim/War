@@ -41,10 +41,10 @@ namespace War
         {
             // TODO: Add your initialization code here
             //Botoes pegar carta, atacar, realocar, finalizar
-            buttons.Add(new Button(400,300, 1));
-           // buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 100, 5));
-          //  buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 100, 5));
-         //   buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 100, 5));
+            buttons.Add(new Button(10, 530, 1));
+            buttons.Add(new Button(60, 495, 2));
+            buttons.Add(new Button(60, 545, 2));
+            buttons.Add(new Button(160, 545, 2));
            
             base.Initialize();
         }
@@ -76,6 +76,7 @@ namespace War
 
 
             mapBatch.End();
+            buttonBatch.End();
             base.Draw(gameTime);
         }
         protected override void LoadContent()
@@ -84,6 +85,10 @@ namespace War
             buttonBatch = new SpriteBatch(Game.GraphicsDevice);
             warMap = Game.Content.Load<Texture2D>("warMapWindow");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("getCardButton"));
+            buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("attackButton"));
+            buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("realocateButton"));
+            buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
+
             base.LoadContent();
         }
     }
