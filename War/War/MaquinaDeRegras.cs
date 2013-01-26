@@ -10,6 +10,7 @@ namespace War
 
         public static List<CartaObjetivo> objetivos;
         public static List<CartaTerritorio> cartas;
+        public static int exercitosRecompensa = 4;
 
         public static Boolean validaIntencaoAtaque(Territorio origem, Territorio destino)
         {
@@ -42,17 +43,25 @@ namespace War
 
         public static void sortearTerritorios()
         {
+            Random r = new Random();
 
+            List<Jogador> jogadores = Tabuleiro.jogadores;
             foreach (Territorio territorio in Tabuleiro.mapa)
             {
-                
+                int indexJogador = r.Next(0, jogadores.Count);
+                territorio.setNovoDono(jogadores[indexJogador]);
+                jogadores.RemoveAt(indexJogador);
+                if (jogadores.Count == 0)
+                {
+                    jogadores = Tabuleiro.jogadores;
+                }
             }
 
         }
 
         public static CartaObjetivo sortearObjetivo()
         {
-            
+
             Random random = new Random();
             int randomIndex = 0;
             Boolean sorteou = false;
@@ -67,7 +76,7 @@ namespace War
                 }
             }
             return objetivos[randomIndex];
-            
+
         }
 
         public static CartaTerritorio darCartaDeConquista()
@@ -80,6 +89,45 @@ namespace War
             cartas.RemoveAt(randomIndex);
 
             return cartaSorteada;
+        }
+
+        public static int efetuaTroca(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
+        {
+            int retorno = 0;
+            if (validaTroca(carta1, carta2, carta3))
+            {
+                retorno = exercitosRecompensa;
+                if (exercitosRecompensa < 12)
+                {
+                    exercitosRecompensa = exercitosRecompensa + 2;
+                }
+                else
+                {
+                    if (exercitosRecompensa == 12)
+                    {
+                        exercitosRecompensa = 15;
+                    }
+                    else
+                    {
+                        exercitosRecompensa = exercitosRecompensa + 5;
+                    }
+                }
+                devolveCartas(carta1, carta2, carta3);
+            }
+            return retorno;
+        }
+
+        private static void devolveCartas(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
+        {
+            cartas.Add(carta1);
+            cartas.Add(carta2);
+            cartas.Add(carta3);
+        }
+
+        public static Boolean validaTroca(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
+        {
+
+            return true;
         }
 
         //Compara os dados do exército atacante e do exército defensor e retorna o numero de soldados perdidos na rodada
@@ -164,7 +212,6 @@ namespace War
             }
 
         }
-
 
     }
 }

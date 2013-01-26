@@ -62,9 +62,9 @@ namespace War
             this.vizinhos = vizinhos;
         }
 
-        public override bool Equals(Territorio territ)
+        public override bool Equals(object territ)
         {
-            return this.nome.Equals(territ.getNome());
+            return this.nome.Equals(((Territorio)territ).getNome());
         }
 
     }
