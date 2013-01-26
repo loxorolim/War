@@ -137,7 +137,23 @@ namespace War
                         }
                         if (numOfPlayers >= 3)
                         {
+                            List<Jogador> jogadores = new List<Jogador>();
+                            if (buttons[0].getNumberOfFrame() == 1)
+                                jogadores.Add(new Humano(Global.BRANCO));
+                            if (buttons[0].getNumberOfFrame() == 1)
+                                jogadores.Add(new Humano(Global.PRETO));
+                            if (buttons[0].getNumberOfFrame() == 1)
+                                jogadores.Add(new Humano(Global.VERMELHO));
+                            if (buttons[0].getNumberOfFrame() == 1)
+                                jogadores.Add(new Humano(Global.VERDE));
+                            if (buttons[0].getNumberOfFrame() == 1)
+                                jogadores.Add(new Humano(Global.AZUL));
+                            if (buttons[0].getNumberOfFrame() == 1)
+                                jogadores.Add(new Humano(Global.AMARELO));
+                            Tabuleiro.setJogadores(jogadores);
+
                             War.CurrentState = War.GameState.InPlay;
+                            
                         }
                     }
                  

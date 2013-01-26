@@ -8,14 +8,14 @@ namespace War
     public abstract class Jogador
     {
 
-        private string cor;
+        private int cor;
         private int numTerritorios;
         private List<CartaTerritorio> cartasJogador = new List<CartaTerritorio>(5);
         private CartaObjetivo objetivo;
         private Boolean objetivoConcluido = false;
         private List<Territorio> territorios = new List<Territorio>();
 
-        public Jogador(string cor)
+        public Jogador(int cor)
         {
             this.cor = cor;
             this.objetivo = MaquinaDeRegras.sortearObjetivo();
@@ -26,7 +26,7 @@ namespace War
 
       
 
-        public string getCor()
+        public int getCor()
         {
             return cor;
         }
@@ -97,10 +97,10 @@ namespace War
 
         }
 
-        public override bool Equals(Jogador jog)
-        {
-            return this.cor.Equals(jog.getCor());
-        }
+       public override bool Equals(Object jog)
+       {
+           return this.cor.Equals(((Jogador)jog).getCor());
+       }
 
     }
 

@@ -16,6 +16,12 @@ namespace War
         public static int HEIGHT = 600;
         public static int WIDTH = 800;
         public static float SCALE = 1;
+        public static int BRANCO = 0 ;
+        public static int PRETO = 1;
+        public static int VERMELHO = 2;
+        public static int VERDE = 3;
+        public static int AZUL = 4;
+        public static int AMARELO = 5;
         
         public static MouseState mouse;       
       
