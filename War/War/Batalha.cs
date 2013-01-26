@@ -7,29 +7,29 @@ namespace War
 {
     class Batalha
     {
-        Jogador atacante;
-        Jogador defensor;
-        Territorio ataque;
-        Territorio defesa;
+        Jogador atacanteJog;
+        Jogador defensorJog;
+        Territorio ataqueT;
+        Territorio defesaT;
         int[] dadosAt;
         int[] dadosDef;
 
         public Batalha(Jogador at, Jogador def, Territorio ataque, Territorio defesa)
         {
-            this.atacante = at;
-            this.defensor = def;
-            this.ataque = ataque;
-            this.defesa = defesa;
+            this.atacanteJog = at;
+            this.defensorJog = def;
+            this.ataqueT = ataque;
+            this.defesaT = defesa;
             dadosAt = new int[3];
             dadosDef = new int[3];
            
         }
 
-        public int[] atacar()
+        public void atacar()
         {
             int numDadosDefesa, numDadosAtaque;
 
-            switch (ataque.getNumeroExercito())
+            switch (ataqueT.getNumeroExercito())
             {
                 case 2:
                     numDadosAtaque = 1;
@@ -42,7 +42,7 @@ namespace War
                     break;
             }
 
-            switch (defesa.getNumeroExercito())
+            switch (defesaT.getNumeroExercito())
             {
                 case 1:
                     numDadosDefesa= 1;
@@ -55,14 +55,26 @@ namespace War
                     break;
             }
             
-            dadosAt = atacante.lancarDados(numDadosAtaque);
+            dadosAt = atacanteJog.lancarDados(numDadosAtaque);
             System.Threading.Thread.Sleep(500); //verificar esta linha caso de algum erro no jogo.
-            dadosDef = defensor.lancarDados(numDadosDefesa);
+            dadosDef = defensorJog.lancarDados(numDadosDefesa);
             int[] exercitosPerdidos = MaquinaDeRegras.compararDados(dadosAt, numDadosAtaque, dadosDef, numDadosDefesa);
             //posição 0 -> exercitos Atacantes perdidos
             //posicao 1 -> exercitos Defensor perdidos
-            return exercitosPerdidos;
+            atualizarExercitos(exercitosPerdidos[0], exercitosPerdidos[1]);
         }
+
+        public void atualizarExercitos(int ataque, int defesa)
+        {
+            int exercitoAtaqueNovo = ataqueT.getNumeroExercito() - ataque;
+            int exercitoDefesaNovo = defesaT.getNumeroExercito() - defesa;
+            ataqueT.setNumeroExercitos(exercitoAtaqueNovo);
+            defesaT.setNumeroExercitos(exercitoDefesaNovo);
+            defesaT.setNovoDono(ataqueT.getDono());
+            atacanteJog.remanejarExercito();
+
+        }
+
 
 
 

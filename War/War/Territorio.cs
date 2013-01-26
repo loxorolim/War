@@ -12,14 +12,27 @@ namespace War
         private Jogador dono;
         private int numExercitos;
         private List<Territorio> vizinhos;
+        private int posX, posY;
 
-        public Territorio(string nome, Continente continente)
+        public Territorio(string nome, Continente continente,int posX, int posY)
         {
             this.nome = nome;
             this.continente = continente;
             this.vizinhos = null;
             numExercitos = 0;
             dono = null; // vai passar o dono do territorio qnd fizer o sorteio
+            this.posX = posX;
+            this.posY = posY;
+        }
+
+        public int getPosX()
+        {
+            return posX;
+        }
+
+        public int getPosY()
+        {
+            return posY;
         }
 
         public string getNome()
