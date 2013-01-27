@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="CartaObjetivo.cs" />
     <Compile Include="CartaTerritorio.cs" />
+    <Compile Include="Ataque.cs" />
     <Compile Include="Continente.cs" />
     <Compile Include="Humano.cs" />
     <Compile Include="Tabuleiro.cs" />
