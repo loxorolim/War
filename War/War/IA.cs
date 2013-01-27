@@ -14,7 +14,12 @@ namespace War
 
         public override void distribuirExercito(int quantidade)
         {
-            throw new NotImplementedException();
+            Random random = new Random();
+            int randomNumber;
+            for(int i=0; i<quantidade; i++){
+                randomNumber = random.Next(0, this.getTerritorios().Count()-1);
+                this.getTerritorios()[randomNumber].setNumeroExercitos(1 + this.getTerritorios()[randomNumber].getNumeroExercito());
+            }
         }
 
         public override Ataque atacar()
@@ -24,7 +29,6 @@ namespace War
             Territorio defensor;
             int randomNumber;
             int tropas;
-            int resorteiosDeAtacante = 0;
             List<Territorio> vizinhos = new List<Territorio>();
             List<Territorio> possiveisAtacantes = new List<Territorio>();
             Random random = new Random();

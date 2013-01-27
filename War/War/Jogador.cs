@@ -18,6 +18,7 @@ namespace War
             this.cor = cor;
             this.objetivo = MaquinaDeRegras.sortearObjetivo();
             cartasJogador = null;
+            this.setTerritorios();
         }
 
         public int getCor()
@@ -42,7 +43,20 @@ namespace War
         //Deve retornar os territorios que pertencem ao jogador
         public List<Territorio> getTerritorios()
         {
+            this.setTerritorios();
             return territorios;
+        }
+
+        //Deve retornar os territorios que pertencem ao jogador
+        public void setTerritorios()
+        {
+            foreach (Territorio territ in Tabuleiro.mapa)
+            {
+                if (territ.getDono().Equals(this))
+                {
+                    territorios.Add(territ);
+                }
+            }
         }
 
         public List<CartaTerritorio> getCartaTerritorio()
