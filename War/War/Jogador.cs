@@ -11,6 +11,7 @@ namespace War
         protected int cor;
         protected List<CartaTerritorio> cartasJogador = new List<CartaTerritorio>(5);
         protected CartaObjetivo objetivo;
+        private List<Territorio> territorios = new List<Territorio>();
 
         public Jogador(int cor)
         {
@@ -36,6 +37,12 @@ namespace War
                 }
             }
             return numTerritorios;
+        }
+
+        //Deve retornar os territorios que pertencem ao jogador
+        public List<Territorio> getTerritorios()
+        {
+            return territorios;
         }
 
         public List<CartaTerritorio> getCartaTerritorio()

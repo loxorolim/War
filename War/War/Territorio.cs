@@ -84,5 +84,16 @@ namespace War
             return this.nome.Equals(((Territorio)territ).getNome());
         }
 
+        public bool temVizinho()
+        {
+            for (int i = 0; i < vizinhos.Count; i++)
+            {
+                if (!vizinhos[i].getDono().Equals(dono))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
