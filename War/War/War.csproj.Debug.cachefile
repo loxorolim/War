@@ -9,14 +9,10 @@ Content\WarMap16x9Grey.xnb
 Content\backButton.xnb
 Content\menuButton.xnb
 Content\nextButton.xnb
-Content\rules1.xnb
-Content\rules2.xnb
 Content\gameSetLogo.xnb
 Content\warMapWindow.xnb
 Content\warMapWindowGrey.xnb
 Content\creditsLogo.xnb
-Content\rules1Window.xnb
-Content\rules2Window.xnb
 Content\easyButton.xnb
 Content\hardButton.xnb
 Content\normalButton.xnb
@@ -82,4 +78,29 @@ Content\Cartas\coringa.xnb
 Content\Fonts.xnb
 Content\swordSound.xnb
 Content\Medieval Music.xnb
+Content\buttonTemplate.xnb
+Content\peon.xnb
+Content\rulesState10Novo.xnb
+Content\rulesState10Novo800x600.xnb
+Content\rulesState11Novo.xnb
+Content\rulesState11Novo800x600.xnb
+Content\rulesState1Novo.xnb
+Content\rulesState1Novo800x600.xnb
+Content\rulesState2Novo.xnb
+Content\rulesState2Novo800x600.xnb
+Content\rulesState3Novo.xnb
+Content\rulesState3Novo800x600.xnb
+Content\rulesState4Novo.xnb
+Content\rulesState4Novo800x600.xnb
+Content\rulesState5Novo.xnb
+Content\rulesState5Novo800x600.xnb
+Content\rulesState6Novo.xnb
+Content\rulesState6Novo800x600.xnb
+Content\rulesState7Novo.xnb
+Content\rulesState7Novo800x600.xnb
+Content\rulesState8Novo.xnb
+Content\rulesState8Novo800x600.xnb
+Content\rulesState9Novo.xnb
+Content\rulesState9Novo800x600.xnb
+Content\WarMap.xnb
 Content\Medieval Music.wma
