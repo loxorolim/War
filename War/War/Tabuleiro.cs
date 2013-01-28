@@ -317,7 +317,6 @@ namespace War
                 }
             }
 
-          //  Tabuleiro.adicionarJogador(new Humano(Global.VERMELHO));
             
             
 

@@ -22,6 +22,7 @@ namespace War
         SpriteBatch tokenBatch;
         SpriteBatch buttonBatch;
         SpriteBatch logoBatch;
+        public static Boolean playersSelected { get; set; }
 
         List<Button> buttons;
         List<Token> tokens;
@@ -31,6 +32,7 @@ namespace War
             : base(game)
         {
             buttons = new List<Button>();
+            tokens = new List<Token>();
             
             // TODO: Construct any child components here
         }
@@ -43,14 +45,18 @@ namespace War
         {
             // TODO: Add your initialization code here
             //Botoes pegar carta, atacar, realocar, finalizar
+            playersSelected = false;
             buttons.Add(new Button(10, 530, 1));
             buttons.Add(new Button(60, 495, 2));
             buttons.Add(new Button(60, 545, 2));
             buttons.Add(new Button(160, 545, 2));
-            tokens = new List<Token>();
-           
+           //tokens.Add(new Token(400, 300, 3, Color.White));
 
-            MaquinaDeRegras.sortearTerritorios();
+            
+
+            
+
+            
             base.Initialize();
         }
 
@@ -60,40 +66,49 @@ namespace War
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-          /*  tokens = new List<Token>();
-            List<Jogador> jogadores = Tabuleiro.jogadores;
-            for (int i = 0; i < jogadores.Count; i++)
+            if (playersSelected)
             {
-                List<Territorio> territorios = jogadores[i].getTerritorios();
-                for (int j = 0; j < territorios.Count; j++)
+                List<Jogador> jogadores = Tabuleiro.jogadores;
+                for (int i = 0; i < jogadores.Count; i++)
                 {
-                    Color cor = new Color();
-                    switch (jogadores[i].getCor())
+                    List<Territorio> territorios = jogadores[i].getTerritorios();
+                    for (int j = 0; j < territorios.Count; j++)
                     {
-                        case Global.AMARELO:
-                            cor = Color.Yellow;
-                            break;
-                        case Global.AZUL:
-                            cor = Color.Blue;
-                            break;
-                        case Global.BRANCO:
-                            cor = Color.White;
-                            break;
-                        case Global.PRETO:
-                            cor = Color.Black;
-                            break;
-                        case Global.VERDE:
-                            cor = Color.Green;
-                            break;
-                        case Global.VERMELHO:
-                            cor = Color.Red;
-                            break;
-                        default:
-                            break;
+                        Color cor = new Color();
+                        switch (jogadores[i].getCor())
+                        {
+                            case Global.AMARELO:
+                                cor = Color.Yellow;
+                                break;
+                            case Global.AZUL:
+                                cor = Color.Blue;
+                                break;
+                            case Global.BRANCO:
+                                cor = Color.White;
+                                break;
+                            case Global.PRETO:
+                                cor = Color.Black;
+                                break;
+                            case Global.VERDE:
+                                cor = Color.Green;
+                                break;
+                            case Global.VERMELHO:
+                                cor = Color.Red;
+                                break;
+                            default:
+                                break;
+                        }
+                        tokens.Add(new Token(territorios[j].getPosX(), territorios[j].getPosY(), 3, cor));
+
                     }
-                    tokens.Add(new Token(territorios[j].getPosX(), territorios[j].getPosY(), 3, cor));
                 }
-            }*/
+                for (int i = 0; i < tokens.Count; i++)
+                {
+                    tokens[i].setTokenTexture(Game.Content.Load<Texture2D>("peon"));
+                }
+            }
+            
+            
 
 
             base.Update(gameTime);
@@ -102,42 +117,41 @@ namespace War
         {
             mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-      
+            tokenBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+
             mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             for(int i = 0; i< buttons.Count;i++)
             {
                 buttonBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(), buttons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
             for (int i = 0; i < tokens.Count; i++)
-            {
-                Color cor = new Color();
-                
-                buttonBatch.Draw(tokens[i].getTokenTexture(), tokens[i].getTokenPosition(), tokens[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            {                
+                tokenBatch.Draw(tokens[i].getTokenTexture(), tokens[i].getTokenPosition(), tokens[i].getCurrentFrame(), tokens[i].getColor(), 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
 
 
 
-
+            
             mapBatch.End();
             buttonBatch.End();
+            tokenBatch.End();
             base.Draw(gameTime);
         }
         protected override void LoadContent()
         {
             mapBatch = new SpriteBatch(Game.GraphicsDevice);
             buttonBatch = new SpriteBatch(Game.GraphicsDevice);
+            tokenBatch = new SpriteBatch(Game.GraphicsDevice);
             warMap = Game.Content.Load<Texture2D>("warMapWindow");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("getCardButton"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("attackButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("realocateButton"));
             buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
 
-            for (int i = 0; i < tokens.Count; i++)
-            {
-                tokens[i].setTokenTexture(Game.Content.Load<Texture2D>("peon"));
-            }
+            
 
             base.LoadContent();
         }
+        
     }
 }

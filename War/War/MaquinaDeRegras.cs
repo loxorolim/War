@@ -78,11 +78,14 @@ namespace War
                 if (i < numJogadores)
                 {
                     ter.setNovoDono(Tabuleiro.jogadores[i]);
+                    Tabuleiro.jogadores[i].adicionarTerritorio(ter);
                     i++;
                 }
                 else
                 {
                     i = 0;
+                    ter.setNovoDono(Tabuleiro.jogadores[i]);
+                    Tabuleiro.jogadores[i].adicionarTerritorio(ter);
                 }
             }
 
