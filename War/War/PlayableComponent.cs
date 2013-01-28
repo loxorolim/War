@@ -24,12 +24,14 @@ namespace War
         SpriteBatch logoBatch;
 
         List<Button> buttons;
+        List<Token> tokens;
         
         
         public PlayableComponent(Game game)
             : base(game)
         {
             buttons = new List<Button>();
+            
             // TODO: Construct any child components here
         }
 
@@ -45,7 +47,10 @@ namespace War
             buttons.Add(new Button(60, 495, 2));
             buttons.Add(new Button(60, 545, 2));
             buttons.Add(new Button(160, 545, 2));
+            tokens = new List<Token>();
            
+
+            MaquinaDeRegras.sortearTerritorios();
             base.Initialize();
         }
 
@@ -55,8 +60,40 @@ namespace War
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-           
-
+          /*  tokens = new List<Token>();
+            List<Jogador> jogadores = Tabuleiro.jogadores;
+            for (int i = 0; i < jogadores.Count; i++)
+            {
+                List<Territorio> territorios = jogadores[i].getTerritorios();
+                for (int j = 0; j < territorios.Count; j++)
+                {
+                    Color cor = new Color();
+                    switch (jogadores[i].getCor())
+                    {
+                        case Global.AMARELO:
+                            cor = Color.Yellow;
+                            break;
+                        case Global.AZUL:
+                            cor = Color.Blue;
+                            break;
+                        case Global.BRANCO:
+                            cor = Color.White;
+                            break;
+                        case Global.PRETO:
+                            cor = Color.Black;
+                            break;
+                        case Global.VERDE:
+                            cor = Color.Green;
+                            break;
+                        case Global.VERMELHO:
+                            cor = Color.Red;
+                            break;
+                        default:
+                            break;
+                    }
+                    tokens.Add(new Token(territorios[j].getPosX(), territorios[j].getPosY(), 3, cor));
+                }
+            }*/
 
 
             base.Update(gameTime);
@@ -70,6 +107,12 @@ namespace War
             for(int i = 0; i< buttons.Count;i++)
             {
                 buttonBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(), buttons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            }
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                Color cor = new Color();
+                
+                buttonBatch.Draw(tokens[i].getTokenTexture(), tokens[i].getTokenPosition(), tokens[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
 
 
@@ -88,6 +131,11 @@ namespace War
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("attackButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("realocateButton"));
             buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
+
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                tokens[i].setTokenTexture(Game.Content.Load<Texture2D>("peon"));
+            }
 
             base.LoadContent();
         }

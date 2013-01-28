@@ -20,8 +20,6 @@ namespace War
         SpriteBatch spriteBatch;
         SpriteBatch tokenBatch;
         Texture2D warMap;
-        Token token = new Token(400, 400, Color.Black); //Testando commit pelo Git Extensions
-        Token token2 = new Token(345, 800, Color.Blue);
         Vector2 warMapPosition = Vector2.Zero;
         IntroComponent IntroComponent;
         CreditsComponent CreditsComponent;
@@ -33,6 +31,7 @@ namespace War
         public static GameState CurrentState { get; set; }
         public War()
         {
+            Tabuleiro.inicializa();
             
             graphics = new GraphicsDeviceManager(this);
             IntroComponent = new IntroComponent(this);
@@ -91,8 +90,6 @@ namespace War
             spriteBatch = new SpriteBatch(GraphicsDevice);
             tokenBatch = new SpriteBatch(GraphicsDevice);
             warMap = Content.Load<Texture2D>("WarMap16x9");
-            token.setTexture(Content.Load<Texture2D>(token.getImgFile()));
-            token2.setTexture(Content.Load<Texture2D>(token.getImgFile()));
             mainMusic = Content.Load<Song>("Medieval Music");
             
             // TODO: use this.Content to load your game content here
@@ -122,8 +119,6 @@ namespace War
                 this.Exit();
             if(keyboard.IsKeyDown(Keys.Escape))
                 this.Exit();
-            if (keyboard.IsKeyDown(Keys.Down))
-                token.setUpdatePosition(3, 0);
             // TODO: Add your update logic here
 
             if (startMainMusic)
