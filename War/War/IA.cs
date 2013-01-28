@@ -7,9 +7,29 @@ namespace War
 {
     class IA : Jogador
     {
-        public override void trocarCarta(CartaTerritorio c1, CartaTerritorio c2, CartaTerritorio c3)
+        public List<CartaTerritorio> trocarCarta()
         {
-            throw new NotImplementedException();
+            List<CartaTerritorio> cartasJogador = this.getCartasJogador();
+            List<CartaTerritorio> cartasJogadorTroca = new List<CartaTerritorio>();
+            if (cartasJogador.Count() < 3)
+            {
+                return null;
+            }
+            else
+            {
+                if (cartasJogador[0].getFigura().Equals(CartaTerritorio.circulo))
+                {
+                     foreach (CartaTerritorio carta in cartasJogador){
+                         if (carta.getFigura().Equals(CartaTerritorio.circulo))
+                         {
+                         }
+                     }
+            
+                }
+            }
+            cartasJogador = this.getCartasJogador();
+
+            return cartasJogador;
         }
 
         public override void distribuirExercito(int quantidade)

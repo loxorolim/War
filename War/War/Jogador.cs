@@ -59,7 +59,7 @@ namespace War
             }
         }
 
-        public List<CartaTerritorio> getCartaTerritorio()
+        public List<CartaTerritorio> getCartasJogador()
         {
             return cartasJogador;
         }
@@ -75,8 +75,7 @@ namespace War
             this.cartasJogador.Add(MaquinaDeRegras.darCartaTerritorio());
         }
 
-        public abstract void trocarCarta(CartaTerritorio c1,CartaTerritorio c2,CartaTerritorio c3);
-
+        
         public abstract void distribuirExercito(int quantidade);
 
         public abstract void atacar();

@@ -16,7 +16,7 @@ namespace War
         }
 
 
-        public override void trocarCarta(CartaTerritorio c1, CartaTerritorio c2, CartaTerritorio c3)
+        public void trocarCarta(CartaTerritorio c1, CartaTerritorio c2, CartaTerritorio c3)
         {
             MaquinaDeRegras.efetuaTroca(c1, c2, c3);
         }
