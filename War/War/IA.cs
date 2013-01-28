@@ -5,6 +5,7 @@ using System.Text;
 
 namespace War
 {
+    /*
     class IA : Jogador
     {
         public List<CartaTerritorio> trocarCarta()
@@ -79,4 +80,5 @@ namespace War
         }
 
     }
+    */
 }

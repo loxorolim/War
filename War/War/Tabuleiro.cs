@@ -9,6 +9,7 @@ namespace War
     {
         public static List<Jogador> jogadores;
         public static List<Territorio> mapa;
+        public static List<Continente> continentes;
 
         public static int numJogadores;
 
@@ -19,7 +20,9 @@ namespace War
 
         public static void inicializa()
         {
-
+            continentes = new List<Continente>();
+            mapa = new List<Territorio>();
+            jogadores = new List<Jogador>();
             List<Territorio> continente = new List<Territorio>();
             Territorio fantasia = new Territorio("Fantasia", 92, 67);
             Territorio cravoksi = new Territorio("Cravoksi", 128, 166);
@@ -245,7 +248,8 @@ namespace War
             continente.Add(kerto);
 
             Continente desertPlains = new Continente("Desert Plains", 5, continente);
-            continente.Clear();
+            continentes.Add(desertPlains);
+            continente = new List<Territorio>();
 
             continente.Add(solidu);
             continente.Add(viskit);
@@ -255,7 +259,8 @@ namespace War
             continente.Add(anbrixon);
 
             Continente rockyCliffs = new Continente("Rocky Cliffs", 4, continente);
-            continente.Clear();
+            continentes.Add(rockyCliffs);
+            continente = new List<Territorio>();
 
             continente.Add(shirkwa);
             continente.Add(yntrois);
@@ -263,7 +268,8 @@ namespace War
             continente.Add(forceus);
 
             Continente rainbowPeninsula = new Continente("Rainbow Peninsula", 2, continente);
-            continente.Clear();
+            continentes.Add(rainbowPeninsula);
+            continente = new List<Territorio>();
 
             continente.Add(frokazea);
             continente.Add(porgulai);
@@ -279,7 +285,8 @@ namespace War
             continente.Add(corvotea);
 
             Continente wildWoods = new Continente("Wild Woods", 8, continente);
-            continente.Clear();
+            continentes.Add(wildWoods);
+            continente = new List<Territorio>();
 
             continente.Add(republicOfKarv);
             continente.Add(mastrik);
@@ -290,7 +297,8 @@ namespace War
             continente.Add(onykwa);
 
             Continente snowyRidges = new Continente("Snowy Ridges", 4, continente);
-            continente.Clear();
+            continentes.Add(snowyRidges);
+            continente = new List<Territorio>();
 
             continente.Add(rusarov);
             continente.Add(ultim);
@@ -298,11 +306,26 @@ namespace War
             continente.Add(yut);
 
             Continente metalIslands = new Continente("Metal Islands", 4, continente);
+            continentes.Add(metalIslands);
+
+
+            foreach (Continente cont in continentes)
+            {
+                foreach (Territorio ter in cont.getTerritorios())
+                {
+                    adicionarTerritorio(ter);
+                }
+            }
+
+            
+            
+
         }
 
         public static void adicionarTerritorio(Territorio ter)
         {
             mapa.Add(ter);
         }
+        
     }
 }

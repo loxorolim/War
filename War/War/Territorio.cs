@@ -12,7 +12,7 @@ namespace War
         private Jogador dono;
         private int numExercitos;
         private List<Territorio> vizinhos;
-        private int posX, posY;
+        private float posX, posY;
 
         public Territorio(string nome, int posX, int posY)
         {
@@ -24,12 +24,12 @@ namespace War
             this.posY = posY;
         }
 
-        public int getPosX()
+        public float getPosX()
         {
             return posX;
         }
 
-        public int getPosY()
+        public float getPosY()
         {
             return posY;
         }

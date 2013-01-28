@@ -42,7 +42,7 @@ namespace War
             buttons.Add(new Button(50, Global.HEIGHT - 75,2));
             buttons.Add(new Button(Global.WIDTH - 150, Global.HEIGHT - 75,2));
             currentRuleNumber = 0;
-            numberOfRules = 1;
+            numberOfRules = 10;
             base.Initialize();
         }
 
@@ -87,12 +87,57 @@ namespace War
             {
                 case 0:
                     {
-                        currentRule = Game.Content.Load<Texture2D>("rules1Window");
+                        currentRule = Game.Content.Load<Texture2D>("rulesState1Novo800x600");
                         break;
                     }
                 case 1:
                     {
-                        currentRule = Game.Content.Load<Texture2D>("rules2Window");
+                        currentRule = Game.Content.Load<Texture2D>("rulesState2Novo800x600");
+                        break;
+                    }
+                case 2:
+                    {
+                        currentRule = Game.Content.Load<Texture2D>("rulesState3Novo800x600");
+                        break;
+                    }
+                case 3:
+                    {
+                        currentRule = Game.Content.Load<Texture2D>("rulesState4Novo800x600");
+                        break;
+                    }
+                case 4:
+                    {
+                        currentRule = Game.Content.Load<Texture2D>("rulesState5Novo800x600");
+                        break;
+                    }
+                case 5:
+                    {
+                        currentRule = Game.Content.Load<Texture2D>("rulesState6Novo800x600");
+                        break;
+                    }
+                case 6:
+                    {
+                        currentRule = Game.Content.Load<Texture2D>("rulesState7Novo800x600");
+                        break;
+                    }
+                case 7:
+                    {
+                        currentRule = Game.Content.Load<Texture2D>("rulesState8Novo800x600");
+                        break;
+                    }
+                case 8:
+                    {
+                        currentRule = Game.Content.Load<Texture2D>("rulesState9Novo800x600");
+                        break;
+                    }
+                case 9:
+                    {
+                        currentRule = Game.Content.Load<Texture2D>("rulesState10Novo800x600");
+                        break;
+                    }
+                case 10:
+                    {
+                        currentRule = Game.Content.Load<Texture2D>("rulesState11Novo800x600");
                         break;
                     }
                 default:
@@ -124,7 +169,7 @@ namespace War
         {
             insBatch = new SpriteBatch(Game.GraphicsDevice);
             buttonBatch = new SpriteBatch(Game.GraphicsDevice);
-            currentRule = Game.Content.Load<Texture2D>("rules1Window");
+            currentRule = Game.Content.Load<Texture2D>("rulesState1Novo800x600");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("menuButton"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("backButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("nextButton"));

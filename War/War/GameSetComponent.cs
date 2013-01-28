@@ -137,22 +137,24 @@ namespace War
                         }
                         if (numOfPlayers >= 3)
                         {
-                         /*   List<Jogador> jogadores = new List<Jogador>();
+                      
                             if (buttons[0].getNumberOfFrame() == 1)
-                                jogadores.Add(new Humano(Global.BRANCO));
-                            if (buttons[0].getNumberOfFrame() == 1)
-                                jogadores.Add(new Humano(Global.PRETO));
-                            if (buttons[0].getNumberOfFrame() == 1)
-                                jogadores.Add(new Humano(Global.VERMELHO));
-                            if (buttons[0].getNumberOfFrame() == 1)
-                                jogadores.Add(new Humano(Global.VERDE));
-                            if (buttons[0].getNumberOfFrame() == 1)
-                                jogadores.Add(new Humano(Global.AZUL));
-                            if (buttons[0].getNumberOfFrame() == 1)
-                                jogadores.Add(new Humano(Global.AMARELO));
-                            Tabuleiro.setJogadores(jogadores);*/
-
+                              Tabuleiro.adicionarJogador(new Humano(Global.BRANCO));
+                            if (buttons[1].getNumberOfFrame() == 1)
+                                Tabuleiro.adicionarJogador(new Humano(Global.PRETO));
+                            if (buttons[2].getNumberOfFrame() == 1)
+                                Tabuleiro.adicionarJogador(new Humano(Global.VERMELHO));
+                            if (buttons[3].getNumberOfFrame() == 1)
+                                Tabuleiro.adicionarJogador(new Humano(Global.VERDE));
+                            if (buttons[4].getNumberOfFrame() == 1)
+                                Tabuleiro.adicionarJogador(new Humano(Global.AZUL));
+                            if (buttons[5].getNumberOfFrame() == 1)
+                                Tabuleiro.adicionarJogador(new Humano(Global.AMARELO));
+                            MaquinaDeRegras.sortearTerritorios();
+                            PlayableComponent.playersSelected = true;
+                            
                             War.CurrentState = War.GameState.InPlay;
+                            
                             
                         }
                     }

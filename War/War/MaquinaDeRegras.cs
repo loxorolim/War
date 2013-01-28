@@ -51,7 +51,7 @@ namespace War
             return destino.getDono().Equals(vizinho.getDono());
         }
 
-        public static void sortearTerritorios()
+       /* public static void sortearTerritorios()
         {
             Random r = new Random();
 
@@ -66,6 +66,29 @@ namespace War
                 {
                     jogadores = Tabuleiro.jogadores;
                 }
+            }
+
+        }*/
+        public static void sortearTerritorios()
+        {
+            int numJogadores = Tabuleiro.jogadores.Count;
+            int i = 0;
+            foreach (Territorio ter in Tabuleiro.mapa)
+            {
+                if (i < numJogadores)
+                {
+                    ter.setNovoDono(Tabuleiro.jogadores[i]);
+                    Tabuleiro.jogadores[i].adicionarTerritorio(ter);
+                    
+                }
+                else
+                {
+                    i = 0;
+                    ter.setNovoDono(Tabuleiro.jogadores[i]);
+                    Tabuleiro.jogadores[i].adicionarTerritorio(ter);
+                    
+                }
+                i++;
             }
 
         }

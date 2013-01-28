@@ -14,42 +14,98 @@ namespace War
 {
     class Token
     {
-        private Vector2 tokenPosition;
+        private Vector2 tokenPos;
         private Texture2D tokenTexture;
         private String imgFile;
+        private int currentFrame;
+        private int numberOfFrames;
         private Color color;
-        public Token(int x, int y, Color c)
+        private int numberOfSoldiers;
+        public Token(float x, float y, int num, Color c)
         {
-            tokenPosition.X = x;
-            tokenPosition.Y = y;
-            imgFile = "circle";
+
+            tokenPos = new Vector2(x, y);
+            currentFrame = 0;
+            numberOfFrames = num;
             color = c;
 
+
+
         }
-        public Vector2 getPosition()
+        public Color getColor()
         {
-            return this.tokenPosition;
+            return color;
         }
-        public void setUpdatePosition(int x, int y)
+        public int getNumberOfSoldiers()
         {
-            tokenPosition.X += x;
-            tokenPosition.Y += y;
+            return numberOfSoldiers;
+        }
+        public Boolean isInRange(int x, int y)
+        {
+            return true;
+        }
+        public Vector2 getTokenPosition()
+        {
+            return tokenPos;
+        }
+        public Texture2D getTokenTexture()
+        {
+            return tokenTexture;
         }
         public String getImgFile()
         {
             return imgFile;
         }
-        public void setTexture(Texture2D t)
+        public void setTokenPosition(Vector2 v)
+        {
+            tokenPos = v;
+        }
+        public void setTokenTexture(Texture2D t)
         {
             tokenTexture = t;
         }
-        public Texture2D getTexture()
+        public void getImgFile(String s)
         {
-            return tokenTexture;
+            imgFile = s;
         }
-        public Color getColor()
+        public Boolean isCollided(float x, float y)
         {
-            return color;
+            if (x > tokenPos.X && x < tokenPos.X + tokenTexture.Width / numberOfFrames && y > tokenPos.Y && y < tokenPos.Y + tokenTexture.Height)
+                return true;
+            else
+                return false;
+        }
+        public void changeCurrentFrame(float x, float y)
+        {
+            if (x > tokenPos.X && x < tokenPos.X + tokenTexture.Width / 2 && y > tokenPos.Y && y < tokenPos.Y + tokenTexture.Height)
+                currentFrame = 1;
+            else
+                currentFrame = 0;
+        }
+        public void setNextFrame()
+        {
+            if (currentFrame == numberOfFrames - 1)
+                currentFrame = 0;
+            else
+                currentFrame += 1;
+        }
+        public void setPreviousFrame()
+        {
+            if (currentFrame == 0)
+                currentFrame = numberOfFrames - 1;
+            else
+                currentFrame -= 1;
+        }
+        public Rectangle getCurrentFrame()
+        {
+            int x = tokenTexture.Width / numberOfFrames;
+            int y = tokenTexture.Height;
+            return new Rectangle(currentFrame * x, 0, x, y);
+
+        }
+        public int getNumberOfFrame()
+        {
+            return currentFrame;
         }
     }
 }

@@ -28,6 +28,10 @@ namespace War
         {
             return recompensa;
         }
+        public List<Territorio> getTerritorios()
+        {
+            return territorios;
+        }
 
 
         public Boolean continenteComandadoPorUnicoJogador()

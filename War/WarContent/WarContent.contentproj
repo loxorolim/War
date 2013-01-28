@@ -134,18 +134,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="rules1.png">
-      <Name>rules1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="rules2.png">
-      <Name>rules2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="gameSetLogo.png">
       <Name>gameSetLogo</Name>
       <Importer>TextureImporter</Importer>
@@ -167,18 +155,6 @@
   <ItemGroup>
     <Compile Include="creditsLogo.png">
       <Name>creditsLogo</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="rules1Window.png">
-      <Name>rules1Window</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="rules2Window.png">
-      <Name>rules2Window</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -509,6 +485,133 @@
   <ItemGroup>
     <Compile Include="Cartas\coringa.png">
       <Name>coringa</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="buttonTemplate.png">
+      <Name>buttonTemplate</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="peon.png">
+      <Name>peon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState10Novo.png">
+      <Name>rulesState10Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState10Novo800x600.png">
+      <Name>rulesState10Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState11Novo.png">
+      <Name>rulesState11Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState11Novo800x600.png">
+      <Name>rulesState11Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState1Novo.png">
+      <Name>rulesState1Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState1Novo800x600.png">
+      <Name>rulesState1Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState2Novo.png">
+      <Name>rulesState2Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState2Novo800x600.png">
+      <Name>rulesState2Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState3Novo.png">
+      <Name>rulesState3Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState3Novo800x600.png">
+      <Name>rulesState3Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState4Novo.png">
+      <Name>rulesState4Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState4Novo800x600.png">
+      <Name>rulesState4Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState5Novo.png">
+      <Name>rulesState5Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState5Novo800x600.png">
+      <Name>rulesState5Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState6Novo.png">
+      <Name>rulesState6Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState6Novo800x600.png">
+      <Name>rulesState6Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState7Novo.png">
+      <Name>rulesState7Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState7Novo800x600.png">
+      <Name>rulesState7Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState8Novo.png">
+      <Name>rulesState8Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState8Novo800x600.png">
+      <Name>rulesState8Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState9Novo.png">
+      <Name>rulesState9Novo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="rulesState9Novo800x600.png">
+      <Name>rulesState9Novo800x600</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="WarMap.jpg">
+      <Name>WarMap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
