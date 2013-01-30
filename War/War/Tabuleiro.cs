@@ -69,8 +69,8 @@ namespace War
 
             Territorio rusarov = new Territorio("Rusarov", 383, 85);
             Territorio ultim = new Territorio("Ultim", 326, 74);
-            Territorio lotium = new Territorio("Lotium", 290, 27);
-            Territorio yut = new Territorio("Yut", 245, 91);
+            Territorio lotium = new Territorio("Lotium", 285, 51);
+            Territorio yut = new Territorio("Yut", 244, 83);
 
             List<Territorio> v = new List<Territorio>();
             v.Add(cravoksi); v.Add(zerkopolis); v.Add(soliumEmpire);

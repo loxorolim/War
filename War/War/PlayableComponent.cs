@@ -141,7 +141,7 @@ namespace War
             buttonBatch = new SpriteBatch(Game.GraphicsDevice);
             tokenBatch = new SpriteBatch(Game.GraphicsDevice);
             font = Game.Content.Load<SpriteFont>("font");
-            warMap = Game.Content.Load<Texture2D>("warMapWindow");
+            warMap = Game.Content.Load<Texture2D>("warMapNewWindow");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("getCardButton"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("attackButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("realocateButton"));
