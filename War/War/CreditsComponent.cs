@@ -75,7 +75,7 @@ namespace War
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             batch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
             spriteBatch.Draw(menuButton.getButtonTexture(), menuButton.getButtonPosition(),menuButton.getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
-            spriteBatch.Draw(creditsLogo, creditsLogoPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            //spriteBatch.Draw(creditsLogo, creditsLogoPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             batch.End();
             spriteBatch.End();
             base.Draw(gameTime);
@@ -84,10 +84,10 @@ namespace War
         {
             batch = new SpriteBatch(Game.GraphicsDevice);
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
-            creditsLogo = Game.Content.Load<Texture2D>("creditsLogo");
-            warMap = Game.Content.Load<Texture2D>("warMapWindowGrey");
+            //creditsLogo = Game.Content.Load<Texture2D>("creditsLogo");
+            warMap = Game.Content.Load<Texture2D>("creditsState800x600");
             menuButton.setButtonTexture(Game.Content.Load<Texture2D>("menuButton"));
-            creditsLogoPosition = new Vector2(Global.WIDTH / 2 - creditsLogo.Width / 2, 0);
+            //creditsLogoPosition = new Vector2(Global.WIDTH / 2 - creditsLogo.Width / 2, 0);
             base.LoadContent();
         }
     }
