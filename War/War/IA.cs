@@ -101,7 +101,14 @@ namespace War
 
         public override void remanejarExercito(Territorio origem, Territorio destino, int quantidade)
         {
-            throw new NotImplementedException();
+            int randomNumber;
+            Random random = new Random();
+            randomNumber = random.Next(0, quantidade);
+            if (MaquinaDeRegras.validaMovimentoRemanejamento(origem, destino))
+            {
+                origem.setNumeroExercitos(origem.getNumeroExercito() - randomNumber);
+                destino.setNumeroExercitos(destino.getNumeroExercito() + randomNumber);
+            }
         }
 
         public override void finalizarJogada()
