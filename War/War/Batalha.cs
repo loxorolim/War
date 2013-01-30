@@ -70,8 +70,11 @@ namespace War
             int exercitoDefesaNovo = defesaT.getNumeroExercito() - defesa;
             ataqueT.setNumeroExercitos(exercitoAtaqueNovo);
             defesaT.setNumeroExercitos(exercitoDefesaNovo);
-            defesaT.setNovoDono(ataqueT.getDono());
-           // atacanteJog.remanejarExercito();
+            if (exercitoDefesaNovo <= 0)
+            {
+                defesaT.setNovoDono(ataqueT.getDono());
+                atacanteJog.remanejarExercito(ataqueT, defesaT, exercitoAtaqueNovo - 1);
+            }      
 
         }
 

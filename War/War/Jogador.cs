@@ -84,6 +84,8 @@ namespace War
 
         
         public abstract void distribuirExercito(int quantidade);
+
+        public abstract void atacar();
         
 
         public int[] lancarDados(int quantidade)
@@ -119,7 +121,8 @@ namespace War
         {
             return this.cor.Equals(((Jogador)jog).getCor());
         }
-
+        
+       
     }
 
 }

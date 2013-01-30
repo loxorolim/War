@@ -8,16 +8,11 @@ namespace War
     
     class IA : Jogador
     {
-        public List<CartaTerritorio> trocarCarta()
+        public  void trocarCarta()
         {
             List<CartaTerritorio> cartasJogador = this.getCartasJogador();
-            List<CartaTerritorio> cartasJogadorTroca = new List<CartaTerritorio>();
-            if (cartasJogador.Count() < 3)
-            {
-                return null;
-            }
-            else
-            {
+            if (cartasJogador.Count() >= 3)
+            { 
                 for (int i = 0; i < cartasJogador.Count(); i++)
                 {
                     for (int j = 0; j < cartasJogador.Count(); j++)
@@ -27,29 +22,18 @@ namespace War
                              if (i != k && i != j && j != k)
                                 {
                                     if (cartasJogador[i].Equals(cartasJogador[j]) && cartasJogador[i].Equals(cartasJogador[k]) && cartasJogador[k].Equals(cartasJogador[j]))
-                                    {
-
-                                        cartasJogadorTroca.Add(cartasJogador[i]);
-                                        cartasJogadorTroca.Add(cartasJogador[j]);
-                                        cartasJogadorTroca.Add(cartasJogador[k]);
-                                        return cartasJogadorTroca;
+                                    {                                        
+                                        distribuirExercito(MaquinaDeRegras.efetuaTroca(cartasJogador[i], cartasJogador[j], cartasJogador[k]));
                                     }
                                     if (!cartasJogador[i].Equals(cartasJogador[j]) && !cartasJogador[i].Equals(cartasJogador[k]) && !cartasJogador[k].Equals(cartasJogador[j]))
                                     {
-
-                                        cartasJogadorTroca.Add(cartasJogador[i]);
-                                        cartasJogadorTroca.Add(cartasJogador[j]);
-                                        cartasJogadorTroca.Add(cartasJogador[k]);
-                                        return cartasJogadorTroca;
+                                        distribuirExercito(MaquinaDeRegras.efetuaTroca(cartasJogador[i], cartasJogador[j], cartasJogador[k]));
                                     }
                             }
                         }
                     }
                 }
             }
-            cartasJogador = this.getCartasJogador();
-
-            return cartasJogador;
         }
 
         public override void distribuirExercito(int quantidade)
@@ -62,13 +46,13 @@ namespace War
             }
         }
 
-        public Batalha atacar()
+        public override void atacar()
         {
 
             Territorio atacante;
             Territorio defensor;
+            Batalha batalha = null;
             int randomNumber;
-            int tropas;
             List<Territorio> vizinhos = new List<Territorio>();
             List<Territorio> possiveisAtacantes = new List<Territorio>();
             Random random = new Random();
@@ -81,7 +65,7 @@ namespace War
             }
             if (possiveisAtacantes.Count() == 0)
             {
-                return null;
+                batalha = null;
             }
             randomNumber = random.Next(0, possiveisAtacantes.Count - 1);
             atacante = possiveisAtacantes[randomNumber];
@@ -94,8 +78,34 @@ namespace War
             }
             randomNumber = random.Next(0, vizinhos.Count - 1);
             defensor = vizinhos[randomNumber];
-            tropas = random.Next(1, atacante.getNumeroExercito() - 1);
-            return new Batalha(atacante.getDono(), defensor.getDono(), atacante, defensor);
+            batalha = new Batalha(atacante.getDono(), defensor.getDono(), atacante, defensor);
+            while (batalha != null)
+            {
+                //deve entrar uma validaçao de ataque aq
+                batalha.iniciar();
+                for (int i = 0; i < this.getTerritorios().Count; i++)
+                {
+                    if (this.getTerritorios()[i].temVizinho() && this.getTerritorios()[i].getNumeroExercito() > 1)
+                    {
+                        possiveisAtacantes.Add(getTerritorios()[i]);
+                    }
+                }
+                if (possiveisAtacantes.Count() == 0)
+                {
+                    batalha = null;
+                }
+                randomNumber = random.Next(0, possiveisAtacantes.Count - 1);
+                atacante = possiveisAtacantes[randomNumber];
+                for (int j = 0; j < atacante.getListaVizinhos().Count; j++)
+                {
+                    if (!atacante.getListaVizinhos()[j].getDono().Equals(this))
+                    {
+                        vizinhos.Add(atacante.getListaVizinhos()[j]);
+                    }
+                }
+                randomNumber = random.Next(0, vizinhos.Count - 1);
+                defensor = vizinhos[randomNumber];
+            }
         }
 
 
@@ -113,7 +123,17 @@ namespace War
 
         public override void finalizarJogada()
         {
-            throw new NotImplementedException();
+            int randomNumber;
+            Random random = new Random();
+            
+            for (int i = 0; i < this.getTerritorios().Count(); i++)
+            {
+                for (int j = 0; j < this.getTerritorios().Count(); j++)
+                {
+                    randomNumber = random.Next(0, this.getTerritorios()[i].getNumeroExercito()-1);
+                    remanejarExercito(this.getTerritorios()[i], this.getTerritorios()[j], randomNumber);
+                }
+            }
         }
              
     }

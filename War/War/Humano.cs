@@ -25,7 +25,7 @@ namespace War
         {
         }
 
-        public void atacar()
+        public override void atacar()
         {
           /* Territorio atacante;
            // atacante = pegar o territorio pela interface
@@ -46,8 +46,7 @@ namespace War
         }
 
         public override void finalizarJogada()
-        {
-
+        {            
         }
     }
 }
