@@ -51,47 +51,65 @@ namespace War
             return destino.getDono().Equals(vizinho.getDono());
         }
 
-       /* public static void sortearTerritorios()
+        public static void sortearTerritorios()
         {
             Random r = new Random();
-
-            List<Jogador> jogadores = Tabuleiro.jogadores;
-            foreach (Territorio territorio in Tabuleiro.mapa)
+            
+            List<int> jogadores = new List<int>();
+            
+            for (int i = 0; i < Tabuleiro.jogadores.Count; i++)
+            {
+                jogadores.Add(i);
+            }
+            List<Territorio> temp = Tabuleiro.mapa;
+            foreach (Territorio territorio in temp)
             {
                 int indexJogador = r.Next(0, jogadores.Count);
-                territorio.setNovoDono(jogadores[indexJogador]);
+                territorio.setNovoDono(Tabuleiro.jogadores[jogadores[indexJogador]]);
                 territorio.setNumeroExercitos(1);
+                Tabuleiro.jogadores[jogadores[indexJogador]].adicionarTerritorio(territorio);
                 jogadores.RemoveAt(indexJogador);
                 if (jogadores.Count == 0)
                 {
-                    jogadores = Tabuleiro.jogadores;
+                    for (int i = 0; i < Tabuleiro.jogadores.Count; i++)
+                    {
+                        jogadores.Add(i);
+                    }
                 }
-            }
-
-        }*/
-        public static void sortearTerritorios()
-        {
-            int numJogadores = Tabuleiro.jogadores.Count;
-            int i = 0;
-            foreach (Territorio ter in Tabuleiro.mapa)
-            {
-                if (i < numJogadores)
-                {
-                    ter.setNovoDono(Tabuleiro.jogadores[i]);
-                    Tabuleiro.jogadores[i].adicionarTerritorio(ter);
-                    
-                }
-                else
-                {
-                    i = 0;
-                    ter.setNovoDono(Tabuleiro.jogadores[i]);
-                    Tabuleiro.jogadores[i].adicionarTerritorio(ter);
-                    
-                }
-                i++;
             }
 
         }
+        //public static void sortearTerritorios()
+        //{
+        //    Random r = new Random();
+        //    int numJogadores = Tabuleiro.jogadores.Count;
+        //    int i = 0;
+        //    List<Territorio> temp = Tabuleiro.mapa;
+        //    for(int j = 0; j<Tabuleiro.mapa.Count;j++)
+        //    {
+        //        int index = r.Next(0, temp.Count);
+        //        Territorio ter = temp[index];
+        //        temp.Remove(ter);
+                
+                
+        //        if (i < numJogadores)
+        //        {
+        //            ter.setNovoDono(Tabuleiro.jogadores[i]);
+        //            Tabuleiro.jogadores[i].adicionarTerritorio(ter);
+                    
+        //        }
+        //        else
+        //        {
+        //            i = 0;
+        //            ter.setNovoDono(Tabuleiro.jogadores[i]);
+        //            Tabuleiro.jogadores[i].adicionarTerritorio(ter);
+                    
+        //        }
+        //        ter.setNumeroExercitos(1);
+        //        i++;
+        //    }
+
+        //}
 
         public static CartaObjetivo sortearObjetivo()
         {

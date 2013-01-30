@@ -151,6 +151,7 @@ namespace War
                             if (buttons[5].getNumberOfFrame() == 1)
                                 Tabuleiro.adicionarJogador(new Humano(Global.AMARELO));
                             MaquinaDeRegras.sortearTerritorios();
+               
                             PlayableComponent.playersSelected = true;
                             
                             War.CurrentState = War.GameState.InPlay;
@@ -229,6 +230,7 @@ namespace War
 
             base.LoadContent();
         }
+        
        
     }
     

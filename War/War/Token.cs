@@ -21,16 +21,32 @@ namespace War
         private int numberOfFrames;
         private Color color;
         private int numberOfSoldiers;
-        public Token(float x, float y, int num, Color c)
+        private Territorio territorio;
+        public Token(float x, float y, int num, Territorio ter)
+        {
+
+            tokenPos = new Vector2(x, y);
+            currentFrame = 0;
+            numberOfFrames = num;
+            territorio = ter;
+
+
+
+        }
+        public Token(float x, float y, int num, Color c, int numSoldiers,Territorio ter)
         {
 
             tokenPos = new Vector2(x, y);
             currentFrame = 0;
             numberOfFrames = num;
             color = c;
+            numberOfSoldiers = numSoldiers;
+            territorio = ter;
 
 
-
+        }
+        public Token()
+        {
         }
         public Color getColor()
         {
@@ -106,6 +122,22 @@ namespace War
         public int getNumberOfFrame()
         {
             return currentFrame;
+        }
+        public void setNumberOfSoldiers(int soldiers)
+        {
+            numberOfSoldiers = soldiers;
+        }
+        public int setNumberOfSoldiers()
+        {
+            return numberOfSoldiers;
+        }
+        public Territorio getTerritorio()
+        {
+            return territorio;
+        }
+        public void setTerritorio(Territorio ter)
+        {
+            territorio = ter;
         }
     }
 }

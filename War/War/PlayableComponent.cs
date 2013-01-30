@@ -22,10 +22,14 @@ namespace War
         SpriteBatch tokenBatch;
         SpriteBatch buttonBatch;
         SpriteBatch logoBatch;
+        SpriteFont font;
+        MouseState mouseStateCurrent,mouseStatePrevious;
         public static Boolean playersSelected { get; set; }
+        Boolean showAddButton = false;
+        Token addToken;
 
         List<Button> buttons;
-        List<Token> tokens;
+        List<Token> tokens;      
         
         
         public PlayableComponent(Game game)
@@ -33,6 +37,7 @@ namespace War
         {
             buttons = new List<Button>();
             tokens = new List<Token>();
+            
             
             // TODO: Construct any child components here
         }
@@ -50,6 +55,7 @@ namespace War
             buttons.Add(new Button(60, 495, 2));
             buttons.Add(new Button(60, 545, 2));
             buttons.Add(new Button(160, 545, 2));
+            addToken = new Token(-30,-30,1,null);
            //tokens.Add(new Token(400, 300, 3, Color.White));
 
             
@@ -66,8 +72,94 @@ namespace War
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
+            createTokensPositions();
+            try
+            {
+
+                mouseStateCurrent = Mouse.GetState();
+                foreach (Token tok in tokens)
+                {
+                    if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                    {
+                        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
+                        {
+                            addToken.setTokenPosition(new Vector2(tok.getTokenPosition().X, tok.getTokenPosition().Y - 25));
+                            addToken.setTerritorio(tok.getTerritorio());
+                        }
+                    }
+                }
+                if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                {
+                    addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito()+1);
+                }
+                
+
+                
+                mouseStatePrevious = mouseStateCurrent;
+            }
+            catch (Exception e)
+            {
+            }
+            
+            
+
+
+            base.Update(gameTime);
+        }
+        public override void Draw(GameTime gameTime)
+        {
+            mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            tokenBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+
+            mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            for(int i = 0; i< buttons.Count;i++)
+            {
+                buttonBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(), buttons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            }
+            for (int i = 0; i < tokens.Count; i++)
+            {                
+                tokenBatch.Draw(tokens[i].getTokenTexture(), tokens[i].getTokenPosition(), tokens[i].getCurrentFrame(), tokens[i].getColor(), 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                tokenBatch.Draw(addToken.getTokenTexture(), addToken.getTokenPosition(), addToken.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                Vector2 fontPosition = tokens[i].getTokenPosition();
+                fontPosition.X += 30;
+                tokenBatch.DrawString(font, string.Format(tokens[i].getNumberOfSoldiers().ToString()), fontPosition, tokens[i].getColor());
+                
+            }
+
+
+
+            
+            mapBatch.End();
+            buttonBatch.End();
+            tokenBatch.End();
+            base.Draw(gameTime);
+        }
+        protected override void LoadContent()
+        {
+            mapBatch = new SpriteBatch(Game.GraphicsDevice);
+            buttonBatch = new SpriteBatch(Game.GraphicsDevice);
+            tokenBatch = new SpriteBatch(Game.GraphicsDevice);
+            font = Game.Content.Load<SpriteFont>("font");
+            warMap = Game.Content.Load<Texture2D>("warMapWindow");
+            buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("getCardButton"));
+            buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("attackButton"));
+            buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("realocateButton"));
+            buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
+            addToken.setTokenTexture(Game.Content.Load<Texture2D>("addButton"));
+            
+
+            base.LoadContent();
+        }
+        public void associateNumberOfArmies()
+        {
+
+        }
+        public void createTokensPositions()
+        {
             if (playersSelected)
             {
+                tokens.Clear();
                 List<Jogador> jogadores = Tabuleiro.jogadores;
                 for (int i = 0; i < jogadores.Count; i++)
                 {
@@ -98,8 +190,9 @@ namespace War
                             default:
                                 break;
                         }
-                        tokens.Add(new Token(territorios[j].getPosX(), territorios[j].getPosY(), 3, cor));
-
+                        tokens.Add(new Token(territorios[j].getPosX(), territorios[j].getPosY(), 3, cor,territorios[j].getNumeroExercito(),territorios[j]));
+                       
+                      
                     }
                 }
                 for (int i = 0; i < tokens.Count; i++)
@@ -107,51 +200,8 @@ namespace War
                     tokens[i].setTokenTexture(Game.Content.Load<Texture2D>("peon"));
                 }
             }
-            
-            
-
-
-            base.Update(gameTime);
-        }
-        public override void Draw(GameTime gameTime)
-        {
-            mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            tokenBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-
-            mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            for(int i = 0; i< buttons.Count;i++)
-            {
-                buttonBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(), buttons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            }
-            for (int i = 0; i < tokens.Count; i++)
-            {                
-                tokenBatch.Draw(tokens[i].getTokenTexture(), tokens[i].getTokenPosition(), tokens[i].getCurrentFrame(), tokens[i].getColor(), 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            }
-
-
-
-            
-            mapBatch.End();
-            buttonBatch.End();
-            tokenBatch.End();
-            base.Draw(gameTime);
-        }
-        protected override void LoadContent()
-        {
-            mapBatch = new SpriteBatch(Game.GraphicsDevice);
-            buttonBatch = new SpriteBatch(Game.GraphicsDevice);
-            tokenBatch = new SpriteBatch(Game.GraphicsDevice);
-            warMap = Game.Content.Load<Texture2D>("warMapWindow");
-            buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("getCardButton"));
-            buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("attackButton"));
-            buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("realocateButton"));
-            buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
-
-            
-
-            base.LoadContent();
         }
         
     }
+    
 }
