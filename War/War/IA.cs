@@ -5,7 +5,7 @@ using System.Text;
 
 namespace War
 {
-    /*
+    
     class IA : Jogador
     {
         public List<CartaTerritorio> trocarCarta()
@@ -18,14 +18,33 @@ namespace War
             }
             else
             {
-                if (cartasJogador[0].getFigura().Equals(CartaTerritorio.circulo))
+                for (int i = 0; i < cartasJogador.Count(); i++)
                 {
-                     foreach (CartaTerritorio carta in cartasJogador){
-                         if (carta.getFigura().Equals(CartaTerritorio.circulo))
-                         {
-                         }
-                     }
-            
+                    for (int j = 0; j < cartasJogador.Count(); j++)
+                    {
+                        for (int k = 0; k < cartasJogador.Count(); k++)
+                        {
+                             if (i != k && i != j && j != k)
+                                {
+                                    if (cartasJogador[i].Equals(cartasJogador[j]) && cartasJogador[i].Equals(cartasJogador[k]) && cartasJogador[k].Equals(cartasJogador[j]))
+                                    {
+
+                                        cartasJogadorTroca.Add(cartasJogador[i]);
+                                        cartasJogadorTroca.Add(cartasJogador[j]);
+                                        cartasJogadorTroca.Add(cartasJogador[k]);
+                                        return cartasJogadorTroca;
+                                    }
+                                    if (!cartasJogador[i].Equals(cartasJogador[j]) && !cartasJogador[i].Equals(cartasJogador[k]) && !cartasJogador[k].Equals(cartasJogador[j]))
+                                    {
+
+                                        cartasJogadorTroca.Add(cartasJogador[i]);
+                                        cartasJogadorTroca.Add(cartasJogador[j]);
+                                        cartasJogadorTroca.Add(cartasJogador[k]);
+                                        return cartasJogadorTroca;
+                                    }
+                            }
+                        }
+                    }
                 }
             }
             cartasJogador = this.getCartasJogador();
@@ -43,7 +62,7 @@ namespace War
             }
         }
 
-        public override Ataque atacar()
+        public Batalha atacar()
         {
 
             Territorio atacante;
@@ -76,9 +95,20 @@ namespace War
             randomNumber = random.Next(0, vizinhos.Count - 1);
             defensor = vizinhos[randomNumber];
             tropas = random.Next(1, atacante.getNumeroExercito() - 1);
-            return new Ataque(atacante, defensor, tropas);
+            return new Batalha(atacante.getDono(), defensor.getDono(), atacante, defensor);
         }
 
+
+        public override void remanejarExercito(Territorio origem, Territorio destino, int quantidade)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void finalizarJogada()
+        {
+            throw new NotImplementedException();
+        }
+             
     }
-    */
+    
 }

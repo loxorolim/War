@@ -21,6 +21,10 @@ namespace War
           //  this.setTerritorios();
         }
 
+        public Jogador()
+        {
+        }
+
         public int getCor()
         {
             return cor;
@@ -40,12 +44,7 @@ namespace War
             return numTerritorios;
         }
 
-        //Deve retornar os territorios que pertencem ao jogador
-    /*    public List<Territorio> getTerritorios()
-        {
-            this.setTerritorios();
-            return territorios;
-        }*/
+      
         public List<Territorio> getTerritorios()
         {
             return territorios;
@@ -85,8 +84,7 @@ namespace War
 
         
         public abstract void distribuirExercito(int quantidade);
-
-        public abstract void atacar();
+        
 
         public int[] lancarDados(int quantidade)
         {
