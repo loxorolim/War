@@ -48,7 +48,6 @@ namespace War
 
         public override void atacar()
         {
-
             Territorio atacante;
             Territorio defensor;
             Batalha batalha = null;
