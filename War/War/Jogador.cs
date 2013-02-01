@@ -8,17 +8,34 @@ namespace War
     public abstract class Jogador
     {
 
+        public const int easy = 0, mediun = 1, hard = 2, insane = 3;
         protected int cor;
         protected List<CartaTerritorio> cartasJogador = new List<CartaTerritorio>(5);
         protected CartaObjetivo objetivo;
         private List<Territorio> territorios = new List<Territorio>();
+        private int dificuldade;
+
+        //acrescentei o construtor com a dificuldade da IA
+        public Jogador(int cor, int dificuldade)
+        {
+            this.cor = cor;
+            this.dificuldade = dificuldade;
+           // this.objetivo = MaquinaDeRegras.sortearObjetivo();
+            cartasJogador = null;
+          //  this.setTerritorios();
+        }
 
         public Jogador(int cor)
         {
             this.cor = cor;
-           // this.objetivo = MaquinaDeRegras.sortearObjetivo();
+            // this.objetivo = MaquinaDeRegras.sortearObjetivo();
             cartasJogador = null;
-          //  this.setTerritorios();
+            //  this.setTerritorios();
+        }
+
+        public int getDificuldade()
+        {
+            return this.dificuldade;
         }
 
         public Jogador()
