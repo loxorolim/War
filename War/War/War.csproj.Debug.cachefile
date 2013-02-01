@@ -75,6 +75,8 @@ Content\Cartas\triangulo\ultim.xnb
 Content\Cartas\triangulo\unteon.xnb
 Content\Cartas\triangulo\vostok.xnb
 Content\Cartas\coringa.xnb
+Content\swordSound.xnb
+Content\Medieval Music.xnb
 Content\buttonTemplate.xnb
 Content\peon.xnb
 Content\rulesState10Novo.xnb
@@ -101,8 +103,6 @@ Content\rulesState9Novo.xnb
 Content\rulesState9Novo800x600.xnb
 Content\WarMap.xnb
 Content\creditsState800x600.xnb
-Content\swordSound.xnb
-Content\Medieval Music.xnb
 Content\addButton.xnb
 Content\warMapNewWindow.xnb
 Content\infoButton.xnb
