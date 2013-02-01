@@ -34,11 +34,11 @@ namespace War
         }
 
 
-        public static Boolean validaMovimentoRemanejamento(Territorio origem, Territorio destino)
+        public static Boolean validaMovimentoRemanejamento(Territorio origem, Territorio destino, int quantidade)
         {
             foreach (Territorio vizinho in origem.getListaVizinhos())
             {
-                if (destino.Equals(vizinho) && paisesComMesmoDono(destino, vizinho))
+                if (destino.Equals(vizinho) && paisesComMesmoDono(destino, vizinho) && quantidade < origem.getNumeroExercitoRemanejavel())
                 {
                     return true;
                 }

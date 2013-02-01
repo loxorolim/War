@@ -11,6 +11,7 @@ namespace War
         private Continente continente;
         private Jogador dono;
         private int numExercitos;
+        private int numExercitosRemanejaveis;
         private List<Territorio> vizinhos;
         private float posX, posY;
 
@@ -64,6 +65,16 @@ namespace War
             this.numExercitos = quantidade;
         }
 
+        public int getNumeroExercitoRemanejavel()
+        {
+            return numExercitosRemanejaveis;
+        }
+
+        public void setNumeroExercitosRemanejavel(int quantidade)
+        {
+            this.numExercitosRemanejaveis = quantidade;
+        }
+
         public void setNovoDono(Jogador dono)
         {
             this.dono = dono;
@@ -72,6 +83,19 @@ namespace War
         public List<Territorio> getListaVizinhos()
         {
             return vizinhos;
+        }
+
+        public List<Territorio> getListaVizinhosInimigos()
+        {
+            List<Territorio> vizinhosInimigos = new List<Territorio>();
+            for (int i = 0; i < vizinhos.Count; i++)
+            {
+                if (!vizinhos[i].getDono().Equals(dono))
+                {
+                    vizinhosInimigos.Add(vizinhos[i]);
+                }
+            }
+            return vizinhosInimigos;
         }
 
         public void setListaVizinhos(List<Territorio> vizinhos)

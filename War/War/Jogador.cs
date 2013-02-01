@@ -120,10 +120,9 @@ namespace War
 
         }
 
-
-        public abstract void remanejarExercito(Territorio origem, Territorio destino, int quantidade);
-
         public abstract void finalizarJogada();
+
+        public abstract Boolean isIA();
 
         public Boolean igual(Jogador jogador)
         {
@@ -138,7 +137,8 @@ namespace War
         {
             return this.cor.Equals(((Jogador)jog).getCor());
         }
-        
+
+        public abstract void remanejarExercitoAtaque(Territorio atacante, Territorio defensor, int quantidade);
        
     }
 

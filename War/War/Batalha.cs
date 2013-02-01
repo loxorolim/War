@@ -25,6 +25,11 @@ namespace War
            
         }
 
+        public Territorio getTerritorioDefesa()
+        {
+            return this.defesaT;
+        }
+
         public void iniciar()
         {
             int numDadosDefesa, numDadosAtaque;
@@ -73,7 +78,10 @@ namespace War
             if (exercitoDefesaNovo <= 0)
             {
                 defesaT.setNovoDono(ataqueT.getDono());
-                atacanteJog.remanejarExercito(ataqueT, defesaT, exercitoAtaqueNovo - 1);
+                if (atacanteJog.isIA())
+                {
+                    atacanteJog.remanejarExercitoAtaque(ataqueT, defesaT, exercitoAtaqueNovo - 1);
+                }
             }      
 
         }

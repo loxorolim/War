@@ -36,9 +36,9 @@ namespace War
             */
         }
 
-        public override void remanejarExercito(Territorio origem, Territorio destino, int quantidade){
+        public void remanejarExercito(Territorio origem, Territorio destino, int quantidade){
 
-            if (MaquinaDeRegras.validaMovimentoRemanejamento(origem, destino))
+            if (MaquinaDeRegras.validaMovimentoRemanejamento(origem, destino, quantidade))
             {
                 origem.setNumeroExercitos(origem.getNumeroExercito() - quantidade);
                 destino.setNumeroExercitos(destino.getNumeroExercito() + quantidade);
@@ -47,6 +47,16 @@ namespace War
 
         public override void finalizarJogada()
         {            
+        }
+
+        public override Boolean isIA()
+        {
+            return false;
+        }
+
+        public override void remanejarExercitoAtaque(Territorio atacante, Territorio defensor, int quantidade)
+        {
+            throw new NotImplementedException();
         }
     }
 }
