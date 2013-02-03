@@ -8,7 +8,7 @@ namespace War
     class MetodosAtaque
     {
 
-        //so ataca se o territorio atacante tiver mais territorios que o defensor
+        //so ataca se o territorio atacante tiver mais tropas que o defensor
         private Batalha ataqueCauteloso(IA iA)
         {
             Territorio atacante;
@@ -33,6 +33,40 @@ namespace War
             for (int j = 0; j < atacante.getListaVizinhos().Count; j++)
             {
                 if (!atacante.getListaVizinhos()[j].getDono().Equals(iA) && atacante.getListaVizinhos()[j].getNumeroExercito() < atacante.getNumeroExercito())
+                {
+                    vizinhos.Add(atacante.getListaVizinhos()[j]);
+                }
+            }
+            randomNumber = random.Next(0, vizinhos.Count - 1);
+            defensor = vizinhos[randomNumber];
+            return new Batalha(atacante.getDono(), defensor.getDono(), atacante, defensor);
+        }
+
+        //so ataca se o territorio atacante tiver o dobro de exercitos que o defensor
+        private Batalha ataqueCautelosoDobro(IA iA)
+        {
+            Territorio atacante;
+            Territorio defensor;
+            int randomNumber;
+            List<Territorio> vizinhos = new List<Territorio>();
+            List<Territorio> possiveisAtacantes = new List<Territorio>();
+            Random random = new Random();
+            for (int i = 0; i < iA.getTerritorios().Count; i++)
+            {
+                if (iA.getTerritorios()[i].temVizinhoComMenosQueDobroTropas() && iA.getTerritorios()[i].getNumeroExercito() > 1)
+                {
+                    possiveisAtacantes.Add(iA.getTerritorios()[i]);
+                }
+            }
+            if (possiveisAtacantes.Count() == 0)
+            {
+                return null;
+            }
+            randomNumber = random.Next(0, possiveisAtacantes.Count - 1);
+            atacante = possiveisAtacantes[randomNumber];
+            for (int j = 0; j < atacante.getListaVizinhos().Count; j++)
+            {
+                if (!atacante.getListaVizinhos()[j].getDono().Equals(iA) && atacante.getListaVizinhos()[j].getNumeroExercito() < atacante.getNumeroExercito()*2)
                 {
                     vizinhos.Add(atacante.getListaVizinhos()[j]);
                 }

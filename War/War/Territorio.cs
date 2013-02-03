@@ -131,5 +131,17 @@ namespace War
             }
             return false;
         }
+
+        public bool temVizinhoComMenosQueDobroTropas()
+        {
+            for (int i = 0; i < vizinhos.Count; i++)
+            {
+                if (!vizinhos[i].getDono().Equals(dono) && vizinhos[i].getNumeroExercito() < this.getNumeroExercito()*2)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
