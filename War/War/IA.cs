@@ -48,10 +48,12 @@ namespace War
                     randomNumber = random.Next(0, 100);
                     if (randomNumber > 50)
                     {
+                        //Mantem os territorios de borda com o mesmo numero de tropas
                         metodosDistribuirExercito.distribuiExercitoTerritoriosBorda(quantidade, this);
                     }
                     else
                     {
+                        //Mantem os territorios de borda com o mesmo numero de tropas do territorio vizinho inimigo
                         metodosDistribuirExercito.distribuiExercitoTerritoriosEgualizandoInimigo(quantidade, this);
                     }
                     break;
@@ -110,19 +112,11 @@ namespace War
                     //Erro
                     break;
             }
-            limpaExercitosRemanejaveis();
-        }
-
-        private void limpaExercitosRemanejaveis()
-        {
-            foreach (Territorio territ in this.getTerritorios())
-            {
-                territ.setNumeroExercitosRemanejavel(territ.getNumeroExercito()-1);
-            }
-        }
+        }        
 
         public override void finalizarJogada()
-        {                     
+        {
+            this.limpaExercitosRemanejaveis();         
         }       
 
         public override Boolean isIA()
@@ -132,14 +126,23 @@ namespace War
 
         public override void remanejarExercitoAtaque(Territorio atacante, Territorio defensor, int quantidade)
         {
-            int randomNumber;
-            Random random = new Random();
-            randomNumber = random.Next(0, atacante.getNumeroExercitoRemanejavel() - 1);
-            if (MaquinaDeRegras.validaMovimentoRemanejamento(atacante, defensor, randomNumber))
+            switch (this.getDificuldade())
             {
-                atacante.setNumeroExercitos(atacante.getNumeroExercito() - randomNumber);
-                defensor.setNumeroExercitos(defensor.getNumeroExercito() + randomNumber);
-                defensor.setNumeroExercitosRemanejavel(defensor.getNumeroExercitoRemanejavel() + randomNumber);
+                case 0:
+                    metodosRemanejamento.remanejarExercitoAtaqueFullRandom(atacante, defensor, quantidade);
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                default:
+                    //Erro
+                    break;
             }
         }
 

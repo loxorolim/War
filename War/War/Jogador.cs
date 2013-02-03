@@ -138,6 +138,14 @@ namespace War
 
         public abstract Boolean isIA();
 
+        public void limpaExercitosRemanejaveis()
+        {
+            foreach (Territorio territ in this.getTerritorios())
+            {
+                territ.setNumeroExercitosRemanejavel(territ.getNumeroExercito() - 1);
+            }
+        }
+
         public Boolean igual(Jogador jogador)
         {
             if (this.cor.CompareTo(jogador.cor) == 0)

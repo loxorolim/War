@@ -20,9 +20,22 @@ namespace War
                     {
                         iA.getTerritorios()[i].setNumeroExercitos(iA.getTerritorios()[i].getNumeroExercito() - randomNumber);
                         iA.getTerritorios()[j].setNumeroExercitos(iA.getTerritorios()[j].getNumeroExercito() + randomNumber);
-
+                        iA.getTerritorios()[i].setNumeroExercitosRemanejavel(iA.getTerritorios()[i].getNumeroExercitoRemanejavel() - randomNumber);
                     }
                 }
+            }
+        }
+
+        public void remanejarExercitoAtaqueFullRandom(Territorio atacante, Territorio defensor, int quantidade)
+        {
+            int randomNumber;
+            Random random = new Random();
+            randomNumber = random.Next(0, atacante.getNumeroExercitoRemanejavel() - 1);
+            if (MaquinaDeRegras.validaMovimentoRemanejamento(atacante, defensor, randomNumber))
+            {
+                atacante.setNumeroExercitos(atacante.getNumeroExercito() - randomNumber);
+                defensor.setNumeroExercitos(defensor.getNumeroExercito() + randomNumber);
+                atacante.setNumeroExercitosRemanejavel(atacante.getNumeroExercitoRemanejavel() - randomNumber);
             }
         }
         

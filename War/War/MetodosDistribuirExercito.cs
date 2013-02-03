@@ -17,6 +17,7 @@ namespace War
             {
                 randomNumber = random.Next(0, iA.getTerritorios().Count() - 1);
                 iA.getTerritorios()[randomNumber].setNumeroExercitos(1 + iA.getTerritorios()[randomNumber].getNumeroExercito());
+                iA.getTerritorios()[randomNumber].setNumeroExercitosRemanejavel(1 + iA.getTerritorios()[randomNumber].getNumeroExercitoRemanejavel());
             }
         }
 
@@ -29,6 +30,7 @@ namespace War
             {
                 randomNumber = random.Next(0, iA.getTerritorios().Count() - 1);
                 territoriosComBorda[randomNumber].setNumeroExercitos(1 + territoriosComBorda[randomNumber].getNumeroExercito());
+                territoriosComBorda[randomNumber].setNumeroExercitosRemanejavel(1 + territoriosComBorda[randomNumber].getNumeroExercitoRemanejavel());
             }
         }
 
@@ -47,6 +49,7 @@ namespace War
                     }
                 }
                 bordaMenosTerrit.setNumeroExercitos(1 + bordaMenosTerrit.getNumeroExercito());
+                bordaMenosTerrit.setNumeroExercitosRemanejavel(1 + bordaMenosTerrit.getNumeroExercitoRemanejavel());
             }
         }
 
@@ -77,11 +80,13 @@ namespace War
                     if (dif < quantidade)
                     {
                         meu.setNumeroExercitos(meu.getNumeroExercito() + dif);
+                        meu.setNumeroExercitosRemanejavel(meu.getNumeroExercitoRemanejavel() + dif);
                         quantidade = quantidade - dif;
                     }
                     else
                     {
                         meu.setNumeroExercitos(meu.getNumeroExercito() + quantidade);
+                        meu.setNumeroExercitosRemanejavel(meu.getNumeroExercitoRemanejavel() + quantidade);
                         quantidade = 0;
                     }
                 }

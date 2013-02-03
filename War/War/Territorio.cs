@@ -62,7 +62,7 @@ namespace War
 
         public void setNumeroExercitos(int quantidade)
         {
-            this.numExercitos = quantidade;
+            this.numExercitos = quantidade;            
         }
 
         public int getNumeroExercitoRemanejavel()
