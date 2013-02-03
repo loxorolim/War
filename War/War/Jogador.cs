@@ -66,6 +66,20 @@ namespace War
         {
             return territorios;
         }
+
+        public List<Territorio> getTerritoriosBorda()
+        {
+            List<Territorio> territoriosComBorda = new List<Territorio>();
+            for (int i = 0; i < this.getNumTerritorios(); i++)
+            {
+                if (this.getTerritorios()[i].temVizinho())
+                {
+                    territoriosComBorda.Add(this.getTerritorios()[i]);
+                }
+            }
+            return territoriosComBorda;
+        }      
+
         public void adicionarTerritorio(Territorio ter)
         {
             territorios.Add(ter);

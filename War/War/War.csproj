@@ -116,10 +116,13 @@
     </Compile>
     <Compile Include="CartaObjetivo.cs" />
     <Compile Include="CartaTerritorio.cs" />
-    <Compile Include="Ataque.cs" />
     <Compile Include="Continente.cs" />
     <Compile Include="Humano.cs" />
     <Compile Include="IA.cs" />
+    <Compile Include="MetodosAtaque.cs" />
+    <Compile Include="MetodosDistribuirExercito.cs" />
+    <Compile Include="MetodosRemanejamento.cs" />
+    <Compile Include="MetodosTrocaCarta.cs" />
     <Compile Include="Tabuleiro.cs" />
     <Compile Include="MaquinaDeRegras.cs" />
     <Compile Include="CreditsComponent.cs" />
