@@ -308,7 +308,6 @@ namespace War
             Continente metalIslands = new Continente("Metal Islands", 4, continente);
             continentes.Add(metalIslands);
 
-
             foreach (Continente cont in continentes)
             {
                 foreach (Territorio ter in cont.getTerritorios())
@@ -317,9 +316,102 @@ namespace War
                 }
             }
 
-            
-            
+            //INICIALIZANDO CARTAS DE TERRITÓRIO
 
+            List<CartaTerritorio> cartas = new List<CartaTerritorio>();
+
+            CartaTerritorio carta = new CartaTerritorio("Cartas/coringa", CartaTerritorio.coringa);
+            cartas.Add(carta);
+            cartas.Add(carta);
+
+            carta = new CartaTerritorio("Cartas/circulo/ambrixon", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/dinia", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/erikum", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/frokazea", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/kerto", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/lotium", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/mastrik", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/nepali", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/onykwa", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/Republic of karv", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/viskit", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/wung", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/yntrois", CartaTerritorio.circulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/circulo/zerkopolis", CartaTerritorio.circulo);
+            cartas.Add(carta);
+
+            carta = new CartaTerritorio("Cartas/quadrado/craviko", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/cravoksi", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/drasil", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/estorfea", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/golus", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/niktela", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/omsk", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/ontrea", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/porgulai", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/quelia", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/rusarov", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/tikto", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/ygrot", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/quadrado/yut", CartaTerritorio.quadrado);
+            cartas.Add(carta);
+
+            carta = new CartaTerritorio("Cartas/triangulo/chirpwa", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/corvotea", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/ewal", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/fantasia", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/forceus", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/fron", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/Jing", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/rolinius", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/shirkwa", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/solidu", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/solium empire", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/ultim", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/unteon", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+            carta = new CartaTerritorio("Cartas/triangulo/vostok", CartaTerritorio.triangulo);
+            cartas.Add(carta);
+
+            MaquinaDeRegras.cartas = cartas;
         }
 
         public static void adicionarTerritorio(Territorio ter)

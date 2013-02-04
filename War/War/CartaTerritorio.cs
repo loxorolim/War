@@ -7,7 +7,7 @@ namespace War
 {
     public class CartaTerritorio
     {
-        public const string quadrado = "QUADRADO", triangulo = "TRIANGULO", circulo = "CIRCULO";
+        public const string quadrado = "QUADRADO", triangulo = "TRIANGULO", circulo = "CIRCULO", coringa = "CORINGA";
         private string figura;
         private int tipo;
 

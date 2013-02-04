@@ -195,7 +195,11 @@ namespace War
 
         public static Boolean validaTroca(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
         {
-
+            if (CartaTerritorio.coringa.Equals(carta1.getFigura()) || CartaTerritorio.coringa.Equals(carta2.getFigura()) || CartaTerritorio.coringa.Equals(carta3.getFigura()))
+            {
+                //possui carta coringa
+                return true;
+            }
             if (carta1.getFigura().Equals(carta2.getFigura()) && carta2.getFigura().Equals(carta3.getFigura()))
             {
                 //tres figuras iguais
