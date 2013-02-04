@@ -53,10 +53,10 @@ namespace War
             // TODO: Add your initialization code here
             //Botoes pegar carta, atacar, realocar, finalizar
             playersSelected = false;
-            buttons.Add(new Button(10, 530, 1));
-            buttons.Add(new Button(60, 495, 2));
-            buttons.Add(new Button(60, 545, 2));
-            buttons.Add(new Button(160, 545, 2));
+            buttons.Add(new Button(10, 498, 1));
+            buttons.Add(new Button(75, 495, 2));
+            buttons.Add(new Button(75, 545, 2));
+            buttons.Add(new Button(175, 545, 2));
             buttons.Add(new Button(751, 12, 2));
             addToken = new Token(-30,-30,1,null);
            //tokens.Add(new Token(400, 300, 3, Color.White));
@@ -159,7 +159,7 @@ namespace War
             font = Game.Content.Load<SpriteFont>("font");
             warMap = Game.Content.Load<Texture2D>("warMapNewWindow");
             mapGuide = Game.Content.Load<Texture2D>("mapGuide");
-            buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("getCardButton"));
+            buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("Cartas/verso-carta"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("attackButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("realocateButton"));
             buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
