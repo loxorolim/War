@@ -10,7 +10,7 @@ namespace War
         public static List<Jogador> jogadores;
         public static List<Territorio> mapa;
         public static List<Continente> continentes;
-        public static List<Jogador> jogadoresEmOrdem;
+        public static List<int> ordemDeJogadores;
         public static int numJogadores = 0;
         public static Jogador jogadorDaVez = null;
 
@@ -27,7 +27,7 @@ namespace War
             continentes = new List<Continente>();
             mapa = new List<Territorio>();
             jogadores = new List<Jogador>();
-            jogadoresEmOrdem = new List<Jogador>();
+            ordemDeJogadores= new List<int>();
             List<Territorio> continente = new List<Territorio>();
             Territorio fantasia = new Territorio("Fantasia", 92, 67);
             Territorio cravoksi = new Territorio("Cravoksi", 128, 166);

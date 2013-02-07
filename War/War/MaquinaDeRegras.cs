@@ -24,18 +24,16 @@ namespace War
         public static void sorteaOrdemJogadores()
         {
             int qtdJogadores = Tabuleiro.numJogadores;
-            List<Jogador> ordem = new List<Jogador>();
-            List<Jogador> temp = Tabuleiro.jogadores; 
+            List<int> ordem = new List<int>();
             Random r = new Random();
             for (int i = 0; i < qtdJogadores; i++)
             {
                 int j = r.Next(0, qtdJogadores);
-                ordem.Add(temp.ElementAt(j));
-                temp.RemoveAt(j);
-
+                ordem.Add(j);
+                qtdJogadores--;             
             }
-            Tabuleiro.jogadoresEmOrdem = ordem;
-            Tabuleiro.jogadorDaVez = Tabuleiro.jogadoresEmOrdem.ElementAt(0);
+            Tabuleiro.ordemDeJogadores = ordem;
+            Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[ordem[0]];
         }
 
         //método chamado quando o Jogador finalizar a jogada
@@ -46,7 +44,7 @@ namespace War
             {
                 contadorVez = 0;
             }
-            Tabuleiro.jogadorDaVez = Tabuleiro.jogadoresEmOrdem.ElementAt(contadorVez);
+            Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[Tabuleiro.ordemDeJogadores[contadorVez]];
 
         }
 

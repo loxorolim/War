@@ -29,7 +29,7 @@ namespace War
         public static Boolean playersSelected { get; set; }
         Boolean showAddButton = false;
         Token addToken;
-
+        Jogador turnPlayer;
         List<Button> buttons;
         List<Token> tokens;      
         
@@ -76,6 +76,7 @@ namespace War
         public override void Update(GameTime gameTime)
         {
             createTokensPositions();
+            turnPlayer = Tabuleiro.jogadorDaVez;
             try
             {
 
@@ -90,7 +91,7 @@ namespace War
                 {
                     if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
                     {
-                        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
+                        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())))
                         {
                             addToken.setTokenPosition(new Vector2(tok.getTokenPosition().X, tok.getTokenPosition().Y - 25));
                             addToken.setTerritorio(tok.getTerritorio());
@@ -137,10 +138,13 @@ namespace War
                 tokenBatch.Draw(addToken.getTokenTexture(), addToken.getTokenPosition(), addToken.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 Vector2 fontPosition = tokens[i].getTokenPosition();
                 fontPosition.X += 30;
-                tokenBatch.DrawString(font, string.Format(tokens[i].getNumberOfSoldiers().ToString()), fontPosition, tokens[i].getColor());
+                tokenBatch.DrawString(font, string.Format(tokens[i].getNumberOfSoldiers().ToString()), fontPosition, tokens[i].getColor());           
                 
             }
-
+            if (playersSelected)
+            {
+                tokenBatch.DrawString(font, string.Format(Global.getColorName(turnPlayer.getCor()) + "Player"), new Vector2(340, 0), Global.getColor(turnPlayer.getCor()));
+            }
 
 
             
@@ -184,31 +188,7 @@ namespace War
                     List<Territorio> territorios = jogadores[i].getTerritorios();
                     for (int j = 0; j < territorios.Count; j++)
                     {
-                        Color cor = new Color();
-                        switch (jogadores[i].getCor())
-                        {
-                            case Global.AMARELO:
-                                cor = Color.Yellow;
-                                break;
-                            case Global.AZUL:
-                                cor = Color.Blue;
-                                break;
-                            case Global.BRANCO:
-                                cor = Color.White;
-                                break;
-                            case Global.PRETO:
-                                cor = Color.Black;
-                                break;
-                            case Global.VERDE:
-                                cor = Color.Green;
-                                break;
-                            case Global.VERMELHO:
-                                cor = Color.Red;
-                                break;
-                            default:
-                                break;
-                        }
-                        tokens.Add(new Token(territorios[j].getPosX(), territorios[j].getPosY(), 3, cor,territorios[j].getNumeroExercito(),territorios[j]));
+                        tokens.Add(new Token(territorios[j].getPosX(), territorios[j].getPosY(), 3, Global.getColor(jogadores[i].getCor()),territorios[j].getNumeroExercito(),territorios[j]));
                        
                       
                     }
@@ -219,7 +199,13 @@ namespace War
                 }
             }
         }
+        public void checkClickableTokens()
+        {
+            turnPlayer.getCor();
+
+        }
         
     }
+    
     
 }

@@ -23,6 +23,46 @@ namespace War
         public const int AZUL = 4;
         public const int AMARELO = 5;
         
+        public static Color getColor(int i)
+        {
+            switch(i)
+            {
+                case 0:
+                    return Color.White;
+                case 1:
+                    return Color.Black;
+                case 2:
+                    return Color.Red;
+                case 3:
+                    return Color.Green;
+                case 4:
+                    return Color.Blue;
+                case 5:
+                    return Color.Yellow;
+                default:
+                    return Color.Pink;
+            }
+        }
+        public static String getColorName(int i)
+        {
+            switch (i)
+            {
+                case 0:
+                    return "White";
+                case 1:
+                    return "Black";
+                case 2:
+                    return "Red";
+                case 3:
+                    return "Green";
+                case 4:
+                    return "Blue";
+                case 5:
+                    return "Yellow";
+                default:
+                    return "Pink";
+            }
+        }
         public static MouseState mouse;       
       
         public static float calculateScale()
