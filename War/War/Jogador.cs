@@ -8,7 +8,7 @@ namespace War
     public abstract class Jogador
     {
 
-        public const int easy = 0, mediun = 1, hard = 2, insane = 3;
+        public const int easy = 0, medium = 1, hard = 2, insane = 3;
         protected int cor;
         protected List<CartaTerritorio> cartasJogador = new List<CartaTerritorio>(5);
         protected CartaObjetivo objetivo;

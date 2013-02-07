@@ -133,7 +133,7 @@ namespace War
             return quantVitoriasAnteriores;
         }
 
-        public void ataqueMediun(IA iA)
+        public void ataqueMedium(IA iA)
         {
             Boolean[] vitoriasAteriores = new Boolean[5];
             int batalhasAterioresCounter = 0;

@@ -78,7 +78,7 @@ namespace War
                     metodosAtaque.ataqueEasy(this);
                     break;
                 case 1:
-                    metodosAtaque.ataqueMediun(this);
+                    metodosAtaque.ataqueMedium(this);
                     break;
                 case 2:
 
@@ -132,7 +132,7 @@ namespace War
                     metodosRemanejamento.remanejarExercitoAtaqueFullRandom(atacante, defensor, quantidade);
                     break;
                 case 1:
-
+                    metodosRemanejamento.remanejarExercitoAtaqueFullRandom(atacante, defensor, quantidade);
                     break;
                 case 2:
 
