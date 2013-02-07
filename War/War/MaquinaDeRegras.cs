@@ -11,6 +11,45 @@ namespace War
         public static List<CartaObjetivo> objetivos;
         public static List<CartaTerritorio> cartas;
         public static int exercitosRecompensa = 4;
+        private static int contadorVez = 0; //utilizado para ver qual é o jogador da vez
+
+        //retorna quem é o jogador atual
+        public static Jogador jogadorAtual()
+        {
+            
+            return Tabuleiro.jogadorDaVez;
+        }
+
+        //sorteia no inicio do jogo qual vai ser a ordem dos jogadores
+        public static void sorteaOrdemJogadores()
+        {
+            int qtdJogadores = Tabuleiro.numJogadores;
+            List<Jogador> ordem = new List<Jogador>();
+            List<Jogador> temp = Tabuleiro.jogadores; 
+            Random r = new Random();
+            for (int i = 0; i < qtdJogadores; i++)
+            {
+                int j = r.Next(0, qtdJogadores);
+                ordem.Add(temp.ElementAt(j));
+                temp.RemoveAt(j);
+
+            }
+            Tabuleiro.jogadoresEmOrdem = ordem;
+            Tabuleiro.jogadorDaVez = Tabuleiro.jogadoresEmOrdem.ElementAt(0);
+        }
+
+        //método chamado quando o Jogador finalizar a jogada
+        public static void passaVez()
+        {
+            contadorVez++;
+            if (contadorVez == Tabuleiro.numJogadores)
+            {
+                contadorVez = 0;
+            }
+            Tabuleiro.jogadorDaVez = Tabuleiro.jogadoresEmOrdem.ElementAt(contadorVez);
+
+        }
+
 
         public static Boolean validaPaisVizinho(Territorio origem, Territorio destino)
         {
@@ -57,7 +96,7 @@ namespace War
             
             List<int> jogadores = new List<int>();
             
-            for (int i = 0; i < Tabuleiro.jogadores.Count; i++)
+            for (int i = 0; i < Tabuleiro.numJogadores; i++)
             {
                 jogadores.Add(i);
             }
