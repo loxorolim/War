@@ -9,6 +9,8 @@ Content\WarMap16x9Grey.xnb
 Content\backButton.xnb
 Content\menuButton.xnb
 Content\nextButton.xnb
+Content\swordSound.xnb
+Content\Medieval Music.xnb
 Content\gameSetLogo.xnb
 Content\warMapWindow.xnb
 Content\warMapWindowGrey.xnb
@@ -75,8 +77,6 @@ Content\Cartas\triangulo\ultim.xnb
 Content\Cartas\triangulo\unteon.xnb
 Content\Cartas\triangulo\vostok.xnb
 Content\Cartas\coringa.xnb
-Content\swordSound.xnb
-Content\Medieval Music.xnb
 Content\buttonTemplate.xnb
 Content\peon.xnb
 Content\rulesState10Novo.xnb
@@ -108,5 +108,21 @@ Content\warMapNewWindow.xnb
 Content\infoButton.xnb
 Content\mapGuide.xnb
 Content\mapGuideButton.xnb
+Content\Cartas\objetivos\1.xnb
+Content\Cartas\objetivos\10.xnb
+Content\Cartas\objetivos\11.xnb
+Content\Cartas\objetivos\12.xnb
+Content\Cartas\objetivos\13.xnb
+Content\Cartas\objetivos\14.xnb
+Content\Cartas\objetivos\2.xnb
+Content\Cartas\objetivos\3.xnb
+Content\Cartas\objetivos\4.xnb
+Content\Cartas\objetivos\5.xnb
+Content\Cartas\objetivos\6.xnb
+Content\Cartas\objetivos\7.xnb
+Content\Cartas\objetivos\8.xnb
+Content\Cartas\objetivos\9.xnb
+Content\Cartas\verso-carta.xnb
+Content\Cartas\verso-carta-acesa.xnb
 Content\font.xnb
 Content\Medieval Music.wma
