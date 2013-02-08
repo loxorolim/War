@@ -33,15 +33,17 @@ namespace War
             //  this.setTerritorios();
         }
 
+        public Jogador()
+        {
+        }
+
+
         public int getDificuldade()
         {
             return this.dificuldade;
         }
 
-        public Jogador()
-        {
-        }
-
+      
         public int getCor()
         {
             return cor;
@@ -134,7 +136,12 @@ namespace War
 
         }
 
-        public abstract void finalizarJogada();
+        //A interface irá chamar esta função quando o jogador clicar no botao "Finalizar Jogada"
+        public void finalizarJogada()
+        {
+            MaquinaDeRegras.passaVez();
+        }
+
 
         public abstract Boolean isIA();
 
