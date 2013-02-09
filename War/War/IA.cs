@@ -54,7 +54,7 @@ namespace War
                     else
                     {
                         //Mantem os territorios de borda com o mesmo numero de tropas do territorio vizinho inimigo
-                        metodosDistribuirExercito.distribuiExercitoTerritoriosEgualizandoInimigo(quantidade, this);
+                        metodosDistribuirExercito.distribuiExercitoTerritoriosEqualizandoInimigo(quantidade, this);
                     }
                     break;
                 case 2:
@@ -114,10 +114,10 @@ namespace War
             }
         }        
 
-        public override void finalizarJogada()
-        {
-            this.limpaExercitosRemanejaveis();         
-        }       
+        //public void finalizarJogada()
+        //{
+        //    this.limpaExercitosRemanejaveis();         
+        //}       
 
         public override Boolean isIA()
         {

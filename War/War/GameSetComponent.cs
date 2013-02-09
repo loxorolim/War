@@ -139,17 +139,17 @@ namespace War
                         {
                       
                             if (buttons[0].getNumberOfFrame() == 1)
-                              Tabuleiro.adicionarJogador(new Humano(Global.BRANCO));
+                              Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.White));
                             if (buttons[1].getNumberOfFrame() == 1)
-                                Tabuleiro.adicionarJogador(new Humano(Global.PRETO));
+                                Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Black));
                             if (buttons[2].getNumberOfFrame() == 1)
-                                Tabuleiro.adicionarJogador(new Humano(Global.VERMELHO));
+                                Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Red));
                             if (buttons[3].getNumberOfFrame() == 1)
-                                Tabuleiro.adicionarJogador(new Humano(Global.VERDE));
+                                Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Green));
                             if (buttons[4].getNumberOfFrame() == 1)
-                                Tabuleiro.adicionarJogador(new Humano(Global.AZUL));
+                                Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Blue));
                             if (buttons[5].getNumberOfFrame() == 1)
-                                Tabuleiro.adicionarJogador(new Humano(Global.AMARELO));
+                                Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Yellow));
                             MaquinaDeRegras.sortearTerritorios();
                             MaquinaDeRegras.sorteaOrdemJogadores();
                             PlayableComponent.playersSelected = true;

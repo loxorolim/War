@@ -30,6 +30,7 @@ namespace War
         Boolean showAddButton = false;
         Token addToken;
         Jogador turnPlayer;
+        List<CartaObjetivo> objCards;
         List<Button> buttons;
         List<Token> tokens;      
         
@@ -39,7 +40,7 @@ namespace War
         {
             buttons = new List<Button>();
             tokens = new List<Token>();
-            
+            objCards = new List<CartaObjetivo>();            
             
             // TODO: Construct any child components here
         }

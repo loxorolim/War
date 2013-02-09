@@ -20,7 +20,7 @@ namespace War
         {
             this.cor = cor;
             this.dificuldade = dificuldade;
-           // this.objetivo = MaquinaDeRegras.sortearObjetivo();
+            MaquinaDeRegras.sortearObjetivo(this);
             cartasJogador = null;
           //  this.setTerritorios();
         }
@@ -109,6 +109,10 @@ namespace War
             return objetivo;
         }
 
+        public void setObjetivo(CartaObjetivo co) {
+            this.objetivo = co;
+        }
+
 
         public void receberCarta()
         {
@@ -137,10 +141,13 @@ namespace War
         }
 
         //A interface irá chamar esta função quando o jogador clicar no botao "Finalizar Jogada"
-        public void finalizarJogada()
-        {
-            MaquinaDeRegras.passaVez();
+        public void finalizarJogada() {
+            this.limpaExercitosRemanejaveis();
         }
+        //public void finalizarJogada()
+        //{
+        //    MaquinaDeRegras.passaVez();
+        //}
 
 
         public abstract Boolean isIA();

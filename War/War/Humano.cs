@@ -45,10 +45,10 @@ namespace War
             }
         }
 
-        public override void finalizarJogada()
-        {
-            this.limpaExercitosRemanejaveis();
-        }
+        //public override void finalizarJogada()
+        //{
+        //    this.limpaExercitosRemanejaveis();
+        //}
 
         public override Boolean isIA()
         {

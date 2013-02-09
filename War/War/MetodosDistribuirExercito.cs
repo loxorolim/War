@@ -54,7 +54,7 @@ namespace War
         }
 
         //Mantem os territorios de borda com o mesmo numero de tropas do territorio vizinho inimigo
-        public void distribuiExercitoTerritoriosEgualizandoInimigo(int quantidade, IA iA)
+        public void distribuiExercitoTerritoriosEqualizandoInimigo(int quantidade, IA iA)
         {
             List<Territorio> territoriosComBorda = iA.getTerritoriosBorda();
             while (quantidade > 0)

@@ -148,9 +148,8 @@ namespace War
 
         //}
 
-        public static CartaObjetivo sortearObjetivo()
+        public static void sortearObjetivo(Jogador j)
         {
-
             Random random = new Random();
             int randomIndex = 0;
             Boolean sorteou = false;
@@ -158,14 +157,13 @@ namespace War
             while (!sorteou)
             {
                 randomIndex = random.Next(0, (objetivos.Count));
-                if (!objetivos[randomIndex].temDono)
+                if (!objetivos[randomIndex].isOwned())
                 {
-                    objetivos[randomIndex].temDono = true;
+                    objetivos[randomIndex].setOwner(j);
+                    j.setObjetivo(objetivos[randomIndex]);
                     sorteou = true;
                 }
             }
-            return objetivos[randomIndex];
-
         }
 
         public static CartaTerritorio darCartaTerritorio()
