@@ -74,6 +74,7 @@ ipch/
 *.ncb
 *.opensdf
 *.sdf
+*.cachefile
 
 # Visual Studio profiler
 *.psess
@@ -163,6 +164,3 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
-War/War/War.csproj.Debug.cachefile
-War/War/War.csproj.Debug.cachefile
-War/War/War.csproj.Debug.cachefile
