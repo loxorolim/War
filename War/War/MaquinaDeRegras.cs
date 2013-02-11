@@ -8,7 +8,23 @@ namespace War
     public static class MaquinaDeRegras
     {
 
-        public static List<CartaObjetivo> objetivos;
+        public static CartaObjetivo[] objetivos = new CartaObjetivo[] {
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/1", "Destruir completamente os exércitos brancos."),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/2", "Destruir completamente os exércitos azuis."),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/3", "Destruir completamente os exércitos pretos."),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/4", "Destruir completamente os exércitos verdes"),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/5", "Destruir completamente os exércitos vermelhos"),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/6", "Destruir completamente os exércitos amarelos"),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/7", "Conquistar 18 territórios, à sua escolha, com, pelo menos, 2 exércitos em cada um."),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/8", "Conquistar 24 territórios à sua escolha"),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/9", "Conquistar, em sua totalidade, os continentes Desert Plains e Rainbow Peninsula"),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/10", "Conquistar, em sua totalidade, os continentes Rocky Cliffs e Snowy Ridges"),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/11", "Conquistar, em sua totalidade, os continentes Metal Islands e Wild Woods"),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/12", "Conquistar, em sua totalidade, os continentes Rocky Cliffs, Snowy Ridges e um terceiro à sua escolha"),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/13", "Conquistar, em sua totalidade, os continentes Rainbow Peninsula, Snowy Ridges e um terceiro à sua escolha"),
+            new CartaObjetivo(-450, -636, "Cartas/objetivos/14", "Conquistar, em sua totalidade, os continentes Wild Woods e Rocky Cliffs")
+        };
+
         public static List<CartaTerritorio> cartas;
         public static int exercitosRecompensa = 4;
         private static int contadorVez = 0; //utilizado para ver qual é o jogador da vez
@@ -16,7 +32,6 @@ namespace War
         //retorna quem é o jogador atual
         public static Jogador jogadorAtual()
         {
-            
             return Tabuleiro.jogadorDaVez;
         }
 
@@ -154,14 +169,16 @@ namespace War
             int randomIndex = 0;
             Boolean sorteou = false;
 
+
             while (!sorteou)
             {
-                randomIndex = random.Next(0, (objetivos.Count));
+                randomIndex = random.Next(0, 13);
                 if (!objetivos[randomIndex].isOwned())
                 {
                     objetivos[randomIndex].setOwner(j);
                     j.setObjetivo(objetivos[randomIndex]);
                     sorteou = true;
+                    Console.WriteLine("SORTEOU O OBJ: {0}", j.getObjetivo().getDescription());
                 }
             }
         }

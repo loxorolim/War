@@ -23,14 +23,16 @@ namespace War
         SpriteBatch tokenBatch;
         SpriteBatch buttonBatch;
         SpriteBatch logoBatch;
+        SpriteBatch cardsBatch;
         SpriteFont font;
         MouseState mouseStateCurrent,mouseStatePrevious;
         Boolean drawGuide = false;
+        Boolean drawObj = false;
         public static Boolean playersSelected { get; set; }
         Boolean showAddButton = false;
         Token addToken;
         Jogador turnPlayer;
-        List<CartaObjetivo> objCards;
+        CartaObjetivo[] objCards;
         List<Button> buttons;
         List<Token> tokens;      
         
@@ -40,7 +42,7 @@ namespace War
         {
             buttons = new List<Button>();
             tokens = new List<Token>();
-            objCards = new List<CartaObjetivo>();            
+            objCards = MaquinaDeRegras.objetivos;           
             
             // TODO: Construct any child components here
         }
@@ -54,19 +56,15 @@ namespace War
             // TODO: Add your initialization code here
             //Botoes pegar carta, atacar, realocar, finalizar
             playersSelected = false;
-            buttons.Add(new Button(10, 498, 1));
+            buttons.Add(new Button(10, 498, 2));
             buttons.Add(new Button(75, 495, 2));
             buttons.Add(new Button(75, 545, 2));
             buttons.Add(new Button(175, 545, 2));
             buttons.Add(new Button(751, 12, 2));
             addToken = new Token(-30,-30,1,null);
            //tokens.Add(new Token(400, 300, 3, Color.White));
-
-            
-
-            
-
-            
+            foreach (CartaObjetivo obj in objCards)
+                obj.setObjCardTexture(Game.Content.Load<Texture2D>(obj.getImgFile()));
             base.Initialize();
         }
 
@@ -82,11 +80,18 @@ namespace War
             {
 
                 mouseStateCurrent = Mouse.GetState();
-                
+
+                buttons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                {
+                    drawObj = !drawObj;
+                }
+
                 buttons[4].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 if (buttons[4].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
                 {
                     drawGuide = !drawGuide;
+
                 }
                 foreach (Token tok in tokens)
                 {
@@ -123,9 +128,16 @@ namespace War
             buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             tokenBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            cardsBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             if (drawGuide)
             {
                 logoBatch.Draw(mapGuide, new Vector2(90, 40), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            }
+            if (drawObj)
+            {
+                DisplayMode disp = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
+                CartaObjetivo obj = turnPlayer.getObjetivo();
+                cardsBatch.Draw(obj.getObjCardTexture(), new Vector2((Global.WIDTH/ 2) - (obj.getObjCardTexture().Width*0.8f / 2), (Global.HEIGHT / 2) - (obj.getObjCardTexture().Height*0.8f / 2)), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
             }
             mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             
@@ -148,11 +160,11 @@ namespace War
             }
 
 
-            
             mapBatch.End();
             buttonBatch.End();
             tokenBatch.End();
             logoBatch.End();
+            cardsBatch.End();
             base.Draw(gameTime);
         }
         protected override void LoadContent()
@@ -161,16 +173,16 @@ namespace War
             buttonBatch = new SpriteBatch(Game.GraphicsDevice);
             tokenBatch = new SpriteBatch(Game.GraphicsDevice);
             logoBatch = new SpriteBatch(Game.GraphicsDevice);
+            cardsBatch = new SpriteBatch(Game.GraphicsDevice);
             font = Game.Content.Load<SpriteFont>("font");
             warMap = Game.Content.Load<Texture2D>("warMapNewWindow");
             mapGuide = Game.Content.Load<Texture2D>("mapGuide");
-            buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("Cartas/verso-carta"));
+            buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("cardsButton"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("attackButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("realocateButton"));
             buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
             buttons[4].setButtonTexture(Game.Content.Load<Texture2D>("mapGuideButton"));
             addToken.setTokenTexture(Game.Content.Load<Texture2D>("addButton"));
-            
 
             base.LoadContent();
         }

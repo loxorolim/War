@@ -31,11 +31,12 @@ namespace War
         public Vector2 getObjCardPosition(){
             return objCardPos;
         }
-        public void setObjCardPosition(Vector2 v){
-            objCardPos = v;
+        public void setObjCardPosition(float x, float y){
+            objCardPos.X = x;
+            objCardPos.Y = y;
         }
 
-        public Texture2D ObjCardTexture(){
+        public Texture2D getObjCardTexture(){
             return objCardTexture;
         }
 
@@ -74,7 +75,7 @@ namespace War
         }
 
         public Boolean isOwned(){
-            if (!getOwner().Equals(null))
+            if (getOwner() != null)
                 return true;
             return false;
         }

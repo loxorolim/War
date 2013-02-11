@@ -11,7 +11,7 @@ namespace War
         public Humano(int cor) : base(cor)
         {
             base.cor = cor;
-            //base.objetivo = MaquinaDeRegras.sortearObjetivo();
+            MaquinaDeRegras.sortearObjetivo(this);
             base.cartasJogador = null;
         }
 
