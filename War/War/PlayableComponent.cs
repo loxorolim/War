@@ -137,7 +137,7 @@ namespace War
             {
                 DisplayMode disp = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
                 CartaObjetivo obj = turnPlayer.getObjetivo();
-                cardsBatch.Draw(obj.getObjCardTexture(), new Vector2((Global.WIDTH/ 2) - (obj.getObjCardTexture().Width*0.8f / 2), (Global.HEIGHT / 2) - (obj.getObjCardTexture().Height*0.8f / 2)), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                cardsBatch.Draw(obj.getObjCardTexture(), new Vector2((Global.WIDTH/ 2) - (obj.getObjCardTexture().Width*0.8f / 2), (Global.HEIGHT / 2) - (obj.getObjCardTexture().Height*0.8f / 2)), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0);
             }
             mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             
