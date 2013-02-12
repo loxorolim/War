@@ -75,8 +75,6 @@ Content\Cartas\triangulo\ultim.xnb
 Content\Cartas\triangulo\unteon.xnb
 Content\Cartas\triangulo\vostok.xnb
 Content\Cartas\coringa.xnb
-Content\swordSound.xnb
-Content\Medieval Music.xnb
 Content\buttonTemplate.xnb
 Content\peon.xnb
 Content\rulesState10Novo.xnb
@@ -102,13 +100,14 @@ Content\rulesState8Novo800x600.xnb
 Content\rulesState9Novo.xnb
 Content\rulesState9Novo800x600.xnb
 Content\WarMap.xnb
+Content\swordSound.xnb
+Content\Medieval Music.xnb
 Content\creditsState800x600.xnb
 Content\addButton.xnb
 Content\warMapNewWindow.xnb
 Content\infoButton.xnb
 Content\mapGuide.xnb
 Content\mapGuideButton.xnb
-Content\font.xnb
 Content\Cartas\objetivos\1.xnb
 Content\Cartas\objetivos\10.xnb
 Content\Cartas\objetivos\11.xnb
@@ -124,6 +123,22 @@ Content\Cartas\objetivos\7.xnb
 Content\Cartas\objetivos\8.xnb
 Content\Cartas\objetivos\9.xnb
 Content\Cartas\verso-carta.xnb
+Content\font.xnb
 Content\Cartas\verso-carta-acesa.xnb
 Content\cardsButton.xnb
+Content\Dados\amarelo-1.xnb
+Content\Dados\amarelo-2.xnb
+Content\Dados\amarelo-3.xnb
+Content\Dados\amarelo-4.xnb
+Content\Dados\amarelo-5.xnb
+Content\Dados\amarelo-6.xnb
+Content\Dados\vermelho-1.xnb
+Content\Dados\vermelho-2.xnb
+Content\Dados\vermelho-3.xnb
+Content\Dados\vermelho-4.xnb
+Content\Dados\vermelho-5.xnb
+Content\Dados\vermelho-6.xnb
+Content\cardsBackground.xnb
+Content\objectiveButton.xnb
+Content\tradeButton.xnb
 Content\Medieval Music.wma

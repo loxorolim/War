@@ -67,8 +67,8 @@ namespace War
             buttons.Add(new Button(75, 545, 2));
             buttons.Add(new Button(175, 545, 2));
             buttons.Add(new Button(751, 12, 2));
-            cardButtons.Add(new Button(100, 350, 2));
-            cardButtons.Add(new Button(600, 350, 2));
+            cardButtons.Add(new Button(124, 350, 2));
+            cardButtons.Add(new Button(598, 350, 2));
             addToken = new Token(-30, -30, 1, null);
             //tokens.Add(new Token(400, 300, 3, Color.White));
             foreach (CartaObjetivo obj in objCards)
@@ -155,6 +155,20 @@ namespace War
             {
                 //Desenhando background das cartas (pergaminho)
                 cardsBatch.Draw(cardsBackground, new Vector2(40, 90), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                Random r = new Random();
+                //Será utilizado quando os jogadores tiverem cartas
+                //int distancia = 114;
+                //foreach (CartaTerritorio carta in Tabuleiro.jogadorDaVez.getCartasJogador())
+                //{
+                //    cardsBatch.Draw(carta.getTerritCardTexture(), new Vector2(10 + distancia, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
+                //    distancia += 114;
+                //}
+                //Desenhando cartas aleatórias por enquanto
+                cardsBatch.Draw(MaquinaDeRegras.cartas[5].getTerritCardTexture(), new Vector2(10 + 114, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
+                cardsBatch.Draw(MaquinaDeRegras.cartas[16].getTerritCardTexture(), new Vector2(10 + 228, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
+                cardsBatch.Draw(MaquinaDeRegras.cartas[20].getTerritCardTexture(), new Vector2(10 + 342, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
+                cardsBatch.Draw(MaquinaDeRegras.cartas[2].getTerritCardTexture(), new Vector2(10 + 456, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
+                cardsBatch.Draw(MaquinaDeRegras.cartas[40].getTerritCardTexture(), new Vector2(10 + 570, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
                 //Desenhando botões de troca de cartas e de visualizar objetivo
                 buttonBatch.Draw(cardButtons[0].getButtonTexture(), cardButtons[0].getButtonPosition(), cardButtons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 buttonBatch.Draw(cardButtons[1].getButtonTexture(), cardButtons[1].getButtonPosition(), cardButtons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
@@ -162,7 +176,7 @@ namespace War
             if (drawObj)
             {
                 CartaObjetivo obj = turnPlayer.getObjetivo();
-                cardsBatch.Draw(obj.getObjCardTexture(), new Vector2((800 / 2) - (obj.getObjCardTexture().Width * 0.8f / 2), (600 / 2) - (obj.getObjCardTexture().Height * 0.8f / 2)), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                cardsBatch.Draw(obj.getObjCardTexture(), new Vector2((800 / 2) - (obj.getObjCardTexture().Width * 0.6f / 2), (600 / 2) - (obj.getObjCardTexture().Height * 0.6f / 2)), null, Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
             }
             mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
 

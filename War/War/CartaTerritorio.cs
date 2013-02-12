@@ -16,7 +16,6 @@ namespace War
         public const string quadrado = "QUADRADO", triangulo = "TRIANGULO", circulo = "CIRCULO", coringa = "CORINGA";
         private string figura;
         private int tipo;
-        private Vector2 territCardPos;
         private Texture2D territCardTexture;
 
         public CartaTerritorio(string nomeImagem,string tipoFigura)   //necessário adicionar as imagens a cada cartaTerritorio
