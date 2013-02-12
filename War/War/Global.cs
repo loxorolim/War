@@ -14,8 +14,8 @@ namespace War
 {
     public static class Global
     {
-        public static int HEIGHT = 960/*GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height*/;
-        public static int WIDTH = 1280/*GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width*/;
+        public static int HEIGHT = 600/*GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height*/;
+        public static int WIDTH = 800/*GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width*/;
         public static float SCALE = (float)Global.WIDTH / 800f;
         public enum Cor { White, Black, Red, Green, Blue, Yellow, Pink };
         public static Matrix ScalingMatrix = Matrix.CreateScale((float)Global.WIDTH / 800f);

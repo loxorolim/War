@@ -94,7 +94,7 @@ namespace War
                 buttons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 cardButtons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 cardButtons[1].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards)
                 {
                     drawObj = !drawObj;
                 }
