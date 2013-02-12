@@ -14,11 +14,11 @@ namespace War
 {
     public static class Global
     {
-        public static int HEIGHT = 600/*GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height*/;
         public static int WIDTH = 800/*GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width*/;
+        public static int HEIGHT = 600/*GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height*/;
         public static float SCALE = (float)Global.WIDTH / 800f;
         public enum Cor { White, Black, Red, Green, Blue, Yellow, Pink };
-        public static Matrix ScalingMatrix = Matrix.CreateScale((float)Global.WIDTH / 800f);
+        public static Matrix ScalingMatrix = Matrix.CreateScale((float)Global.WIDTH / 800f, (float)Global.WIDTH / 800f, 1);
         //public const int BRANCO = 0;
         //public const int PRETO = 1;
         //public const int VERMELHO = 2;
