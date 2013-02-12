@@ -19,31 +19,37 @@ namespace War
     {
         Texture2D warMap;
         Texture2D mapGuide;
+        Texture2D cardsBackground;
         SpriteBatch mapBatch;
         SpriteBatch tokenBatch;
         SpriteBatch buttonBatch;
         SpriteBatch logoBatch;
         SpriteBatch cardsBatch;
         SpriteFont font;
-        MouseState mouseStateCurrent,mouseStatePrevious;
+        MouseState mouseStateCurrent, mouseStatePrevious;
         Boolean drawGuide = false;
         Boolean drawObj = false;
+        Boolean drawCards = false;
         public static Boolean playersSelected { get; set; }
         Boolean showAddButton = false;
         Token addToken;
         Jogador turnPlayer;
         CartaObjetivo[] objCards;
+        List<CartaTerritorio> territCards;
         List<Button> buttons;
-        List<Token> tokens;      
-        
-        
+        List<Button> cardButtons;
+        List<Token> tokens;
+
+
         public PlayableComponent(Game game)
             : base(game)
         {
             buttons = new List<Button>();
+            cardButtons = new List<Button>();
             tokens = new List<Token>();
-            objCards = MaquinaDeRegras.objetivos;           
-            
+            objCards = MaquinaDeRegras.objetivos;
+            territCards = MaquinaDeRegras.cartas;
+
             // TODO: Construct any child components here
         }
 
@@ -61,10 +67,14 @@ namespace War
             buttons.Add(new Button(75, 545, 2));
             buttons.Add(new Button(175, 545, 2));
             buttons.Add(new Button(751, 12, 2));
-            addToken = new Token(-30,-30,1,null);
-           //tokens.Add(new Token(400, 300, 3, Color.White));
+            cardButtons.Add(new Button(100, 350, 2));
+            cardButtons.Add(new Button(600, 350, 2));
+            addToken = new Token(-30, -30, 1, null);
+            //tokens.Add(new Token(400, 300, 3, Color.White));
             foreach (CartaObjetivo obj in objCards)
                 obj.setObjCardTexture(Game.Content.Load<Texture2D>(obj.getImgFile()));
+            foreach (CartaTerritorio territ in territCards)
+                territ.setTerritCardTexture(Game.Content.Load<Texture2D>(territ.getFigura()));
             base.Initialize();
         }
 
@@ -82,9 +92,16 @@ namespace War
                 mouseStateCurrent = Mouse.GetState();
 
                 buttons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                cardButtons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                cardButtons[1].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
                 {
                     drawObj = !drawObj;
+                }
+
+                if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                {
+                    drawCards = !drawCards;
                 }
 
                 buttons[4].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
@@ -106,53 +123,61 @@ namespace War
                 }
                 if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
                 {
-                    addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito()+1);
+                    addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
                 }
-                
 
-                
+
+
                 mouseStatePrevious = mouseStateCurrent;
             }
             catch (Exception e)
             {
             }
-            
-            
+
+
 
 
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
-            mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            tokenBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            cardsBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix); ;
+            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix); ;
+            tokenBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix); ;
+            logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix); ;
+            cardsBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
             if (drawGuide)
             {
                 logoBatch.Draw(mapGuide, new Vector2(90, 40), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
+            //Ao clicar no botão para visualizar cartas o boolean será true
+            if (drawCards)
+            {
+                //Desenhando background das cartas (pergaminho)
+                cardsBatch.Draw(cardsBackground, new Vector2(40, 90), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                //Desenhando botões de troca de cartas e de visualizar objetivo
+                buttonBatch.Draw(cardButtons[0].getButtonTexture(), cardButtons[0].getButtonPosition(), cardButtons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                buttonBatch.Draw(cardButtons[1].getButtonTexture(), cardButtons[1].getButtonPosition(), cardButtons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            }
             if (drawObj)
             {
-                DisplayMode disp = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
                 CartaObjetivo obj = turnPlayer.getObjetivo();
-                cardsBatch.Draw(obj.getObjCardTexture(), new Vector2((Global.WIDTH/ 2) - (obj.getObjCardTexture().Width*0.8f / 2), (Global.HEIGHT / 2) - (obj.getObjCardTexture().Height*0.8f / 2)), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0);
+                cardsBatch.Draw(obj.getObjCardTexture(), new Vector2((800 / 2) - (obj.getObjCardTexture().Width * 0.8f / 2), (600 / 2) - (obj.getObjCardTexture().Height * 0.8f / 2)), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
             }
-            mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            
-            for(int i = 0; i< buttons.Count;i++)
+            mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+
+            for (int i = 0; i < buttons.Count; i++)
             {
                 buttonBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(), buttons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
             for (int i = 0; i < tokens.Count; i++)
-            {                
-                tokenBatch.Draw(tokens[i].getTokenTexture(), tokens[i].getTokenPosition(), tokens[i].getCurrentFrame(), tokens[i].getColor(), 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-                tokenBatch.Draw(addToken.getTokenTexture(), addToken.getTokenPosition(), addToken.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            {
+                tokenBatch.Draw(tokens[i].getTokenTexture(), tokens[i].getTokenPosition(), tokens[i].getCurrentFrame(), tokens[i].getColor(), 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                tokenBatch.Draw(addToken.getTokenTexture(), addToken.getTokenPosition(), addToken.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
                 Vector2 fontPosition = tokens[i].getTokenPosition();
                 fontPosition.X += 30;
-                tokenBatch.DrawString(font, string.Format(tokens[i].getNumberOfSoldiers().ToString()), fontPosition, tokens[i].getColor());           
-                
+                tokenBatch.DrawString(font, string.Format(tokens[i].getNumberOfSoldiers().ToString()), fontPosition, tokens[i].getColor());
+
             }
             if (playersSelected)
             {
@@ -161,10 +186,10 @@ namespace War
 
 
             mapBatch.End();
-            buttonBatch.End();
             tokenBatch.End();
             logoBatch.End();
             cardsBatch.End();
+            buttonBatch.End();
             base.Draw(gameTime);
         }
         protected override void LoadContent()
@@ -175,13 +200,16 @@ namespace War
             logoBatch = new SpriteBatch(Game.GraphicsDevice);
             cardsBatch = new SpriteBatch(Game.GraphicsDevice);
             font = Game.Content.Load<SpriteFont>("font");
-            warMap = Game.Content.Load<Texture2D>("warMapNewWindow");
+            warMap = Game.Content.Load<Texture2D>("WarMapNewWindow");
             mapGuide = Game.Content.Load<Texture2D>("mapGuide");
+            cardsBackground = Game.Content.Load<Texture2D>("cardsBackground");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("cardsButton"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("attackButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("realocateButton"));
             buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
             buttons[4].setButtonTexture(Game.Content.Load<Texture2D>("mapGuideButton"));
+            cardButtons[0].setButtonTexture(Game.Content.Load<Texture2D>("tradeButton"));
+            cardButtons[1].setButtonTexture(Game.Content.Load<Texture2D>("objectiveButton"));
             addToken.setTokenTexture(Game.Content.Load<Texture2D>("addButton"));
 
             base.LoadContent();
@@ -201,9 +229,9 @@ namespace War
                     List<Territorio> territorios = jogadores[i].getTerritorios();
                     for (int j = 0; j < territorios.Count; j++)
                     {
-                        tokens.Add(new Token(territorios[j].getPosX(), territorios[j].getPosY(), 3, Global.getColor(jogadores[i].getCor()),territorios[j].getNumeroExercito(),territorios[j]));
-                       
-                      
+                        tokens.Add(new Token(territorios[j].getPosX(), territorios[j].getPosY(), 3, Global.getColor(jogadores[i].getCor()), territorios[j].getNumeroExercito(), territorios[j]));
+
+
                     }
                 }
                 for (int i = 0; i < tokens.Count; i++)
@@ -217,8 +245,8 @@ namespace War
             turnPlayer.getCor();
 
         }
-        
+
     }
-    
-    
+
+
 }

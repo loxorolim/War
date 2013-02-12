@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 namespace War
 {
     public class CartaTerritorio
@@ -10,6 +16,8 @@ namespace War
         public const string quadrado = "QUADRADO", triangulo = "TRIANGULO", circulo = "CIRCULO", coringa = "CORINGA";
         private string figura;
         private int tipo;
+        private Vector2 territCardPos;
+        private Texture2D territCardTexture;
 
         public CartaTerritorio(string nomeImagem,string tipoFigura)   //necessário adicionar as imagens a cada cartaTerritorio
         {
@@ -36,6 +44,15 @@ namespace War
             return tipo;
         }
 
+        public Texture2D getTerritCardTexture()
+        {
+            return territCardTexture;
+        }
+
+        public void setTerritCardTexture(Texture2D t)
+        {
+            territCardTexture = t;
+        }
 
     }
 }

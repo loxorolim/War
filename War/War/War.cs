@@ -153,7 +153,7 @@ namespace War
             foreach (Microsoft.Xna.Framework.Graphics.DisplayMode displayMode
                 in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
             {
-                if (displayMode.Width == 800 && displayMode.Height == 600)
+                if (displayMode.Width == 1280/*GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width*/ && displayMode.Height == 960/*GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height*/)
                 {
                     e.GraphicsDeviceInformation.PresentationParameters.
                         BackBufferFormat = displayMode.Format;

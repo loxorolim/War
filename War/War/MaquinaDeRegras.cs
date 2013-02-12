@@ -178,7 +178,6 @@ namespace War
                     objetivos[randomIndex].setOwner(j);
                     j.setObjetivo(objetivos[randomIndex]);
                     sorteou = true;
-                    Console.WriteLine("SORTEOU O OBJ: {0}", j.getObjetivo().getDescription());
                 }
             }
         }
