@@ -145,7 +145,7 @@ namespace War
             this.limpaExercitosRemanejaveis();
         }
         //public void finalizarJogada()
-        //{
+        //{b 
         //    MaquinaDeRegras.passaVez();
         //}
 

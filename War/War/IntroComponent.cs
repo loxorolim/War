@@ -44,9 +44,9 @@ namespace War
         {
             // TODO: Add your initialization code here
             
-            buttons.Add(new Button(Global.WIDTH/ 2 - 50 ,Global.HEIGHT/10 + 100,2));
-            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT/ 10 + 150,2));
-            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 200,2));
+            buttons.Add(new Button(800 / 2 - 50 ,600 / 10 + 100,2));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 150,2));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 200,2));
             base.Initialize();
         }
 
@@ -104,8 +104,8 @@ namespace War
         }
         public override void Draw(GameTime gameTime)
         {
-            mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
+            logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
             mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero,1, SpriteEffects.None, 0);           
             logoBatch.Draw(warLogo,warLogoPosition, logoRectangle, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             for (int i = 0; i < buttons.Count; i++)
@@ -127,13 +127,14 @@ namespace War
         {         
             mapBatch = new SpriteBatch(Game.GraphicsDevice);
             logoBatch = new SpriteBatch(Game.GraphicsDevice);
-            warMap = Game.Content.Load<Texture2D>("warMapWindowGrey");
+            warMap = Game.Content.Load<Texture2D>("WarMapWindowGrey");
             warLogo = Game.Content.Load<Texture2D>("WarLogo");
             swordSound = Game.Content.Load<SoundEffect>("swordSound");
+            Texture2D tex = Game.Content.Load<Texture2D>("startButton");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("startButton"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("instructionsButton"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("creditsButton"));
-            warLogoPosition = new Vector2(Global.WIDTH / 2 - warLogo.Width/4, -warLogo.Height - 20);
+            warLogoPosition = new Vector2(800 / 2 - warLogo.Width/4, -warLogo.Height - 20);
             logoRectangle = new Rectangle(0, 0, warLogo.Width/2, warLogo.Height);
             
           //  font = Game.Content.Load<SpriteFont>("Font/stats");

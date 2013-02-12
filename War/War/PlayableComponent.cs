@@ -124,20 +124,19 @@ namespace War
         }
         public override void Draw(GameTime gameTime)
         {
-            mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            tokenBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            cardsBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);;
+            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);;
+            tokenBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);;
+            logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);;
+            cardsBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
             if (drawGuide)
             {
                 logoBatch.Draw(mapGuide, new Vector2(90, 40), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
             if (drawObj)
             {
-                DisplayMode disp = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
                 CartaObjetivo obj = turnPlayer.getObjetivo();
-                cardsBatch.Draw(obj.getObjCardTexture(), new Vector2((Global.WIDTH/ 2) - (obj.getObjCardTexture().Width*0.8f / 2), (Global.HEIGHT / 2) - (obj.getObjCardTexture().Height*0.8f / 2)), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
+                cardsBatch.Draw(obj.getObjCardTexture(), new Vector2((800/ 2) - (obj.getObjCardTexture().Width*0.8f / 2), (600 / 2) - (obj.getObjCardTexture().Height*0.8f / 2)), null, Color.White, 0, Vector2.Zero, 0.8f, SpriteEffects.None, 0);
             }
             mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             
@@ -175,7 +174,7 @@ namespace War
             logoBatch = new SpriteBatch(Game.GraphicsDevice);
             cardsBatch = new SpriteBatch(Game.GraphicsDevice);
             font = Game.Content.Load<SpriteFont>("font");
-            warMap = Game.Content.Load<Texture2D>("warMapNewWindow");
+            warMap = Game.Content.Load<Texture2D>("WarMapNewWindow");
             mapGuide = Game.Content.Load<Texture2D>("mapGuide");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("cardsButton"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("attackButton"));

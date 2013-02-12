@@ -34,42 +34,42 @@ namespace War
         /// </summary>
         public override void Initialize()
         {
-            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 100,5));
-            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 150,5));
-            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 200,5));
-            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 250,5));
-            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 300,5));
-            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT / 10 + 350,5));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 100,5));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 150,5));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 200,5));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 250,5));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 300,5));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 350,5));
             //setas
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 100,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 100,2));
+            buttons.Add(new Button(800 / 2 - 100, 600 / 10 + 100,2));
+            buttons.Add(new Button(800 / 2 + 50, 600 / 10 + 100,2));
 
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 150,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 150,2));
+            buttons.Add(new Button(800 / 2 - 100, 600 / 10 + 150,2));
+            buttons.Add(new Button(800 / 2 + 50, 600 / 10 + 150,2));
 
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 200,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 200,2));
+            buttons.Add(new Button(800 / 2 - 100, 600 / 10 + 200,2));
+            buttons.Add(new Button(800 / 2 + 50, 600 / 10 + 200,2));
 
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 250,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 250,2));
+            buttons.Add(new Button(800 / 2 - 100, 600 / 10 + 250,2));
+            buttons.Add(new Button(800 / 2 + 50, 600 / 10 + 250,2));
 
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 300,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 300,2));
+            buttons.Add(new Button(800 / 2 - 100, 600 / 10 + 300,2));
+            buttons.Add(new Button(800 / 2 + 50, 600 / 10 + 300,2));
 
-            buttons.Add(new Button(Global.WIDTH / 2 - 100, Global.HEIGHT / 10 + 350,2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 50, Global.HEIGHT / 10 + 350,2));
+            buttons.Add(new Button(800 / 2 - 100, 600 / 10 + 350,2));
+            buttons.Add(new Button(800 / 2 + 50, 600 / 10 + 350,2));
 
             //menu e play
-            buttons.Add(new Button(Global.WIDTH / 2 - 200, Global.HEIGHT -75, 2));
-            buttons.Add(new Button(Global.WIDTH / 2 + 100, Global.HEIGHT -75, 2));
+            buttons.Add(new Button(800 / 2 - 200, 600 -75, 2));
+            buttons.Add(new Button(800 / 2 + 100, 600 -75, 2));
 
             //cores
-            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 100, 1));
-            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 150, 1));
-            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 200, 1));
-            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 250, 1));
-            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 300, 1));
-            buttons.Add(new Button(Global.WIDTH / 2 +150, Global.HEIGHT / 10 + 350, 1));
+            buttons.Add(new Button(800 / 2 +150, 600 / 10 + 100, 1));
+            buttons.Add(new Button(800 / 2 +150, 600 / 10 + 150, 1));
+            buttons.Add(new Button(800 / 2 +150, 600 / 10 + 200, 1));
+            buttons.Add(new Button(800 / 2 +150, 600 / 10 + 250, 1));
+            buttons.Add(new Button(800 / 2 +150, 600 / 10 + 300, 1));
+            buttons.Add(new Button(800 / 2 +150, 600 / 10 + 350, 1));
             
             // TODO: Add your initialization code here
 
@@ -171,8 +171,8 @@ namespace War
         }
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);;
+            logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);;
 
             spriteBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero,1, SpriteEffects.None, 0);
             logoBatch.Draw(gameSetLogo, gameSetPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
@@ -192,7 +192,7 @@ namespace War
             logoBatch = new SpriteBatch(Game.GraphicsDevice);
             warMap = Game.Content.Load<Texture2D>("WarMapWindowGrey");
             gameSetLogo = Game.Content.Load<Texture2D>("gameSetLogo");
-            gameSetPosition = new Vector2(Global.WIDTH / 2 - gameSetLogo.Width / 2, 0);
+            gameSetPosition = new Vector2(800 / 2 - gameSetLogo.Width / 2, 0);
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("optionButtons"));
             buttons[1].setButtonTexture(Game.Content.Load<Texture2D>("optionButtons"));
             buttons[2].setButtonTexture(Game.Content.Load<Texture2D>("optionButtons"));

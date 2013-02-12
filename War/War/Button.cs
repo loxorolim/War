@@ -13,7 +13,8 @@ namespace War
 {
     class Button
     {
-        private Vector2 buttonPos;
+        private Vector2 absButtonPos;
+        private Vector2 relButtonPos;
         private Texture2D buttonTexture;
         private String imgFile;
         private int currentFrame;
@@ -21,12 +22,10 @@ namespace War
         public Button(float x, float y, int num)
         {
             
-            buttonPos = new Vector2(x, y);
+            absButtonPos = new Vector2(x, y);
+            relButtonPos = absButtonPos * Global.SCALE;
             currentFrame = 0;
             numberOfFrames = num;
-
-            
-           
 
         }
         public Boolean isInRange(int x, int y)
@@ -35,7 +34,7 @@ namespace War
         }
         public Vector2 getButtonPosition()
         {
-            return buttonPos;
+            return absButtonPos;
         }
         public Texture2D getButtonTexture()
         {
@@ -47,7 +46,8 @@ namespace War
         }
         public void setButtonPosition(Vector2 v)
         {
-            buttonPos = v;
+            absButtonPos = v;
+            relButtonPos = absButtonPos*Global.SCALE;
         }
         public void setButtonTexture(Texture2D t)
         {
@@ -59,14 +59,14 @@ namespace War
         }
         public Boolean isCollided(float x, float y)
         {
-            if (x > buttonPos.X && x < buttonPos.X + buttonTexture.Width/numberOfFrames && y > buttonPos.Y && y < buttonPos.Y + buttonTexture.Height)
+            if (x > relButtonPos.X && x < relButtonPos.X + buttonTexture.Width*Global.SCALE / numberOfFrames && y > relButtonPos.Y && y < relButtonPos.Y + buttonTexture.Height*Global.SCALE)
                 return true;
             else
                 return false;
         }
         public void changeCurrentFrame(float x, float y)
         {
-            if (x > buttonPos.X && x < buttonPos.X + buttonTexture.Width/2 && y > buttonPos.Y && y < buttonPos.Y + buttonTexture.Height)
+            if (x > relButtonPos.X && x < relButtonPos.X + buttonTexture.Width*Global.SCALE / 2 && y > relButtonPos.Y && y < relButtonPos.Y + buttonTexture.Height*Global.SCALE)
                 currentFrame = 1;
             else
                 currentFrame = 0;

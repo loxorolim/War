@@ -14,7 +14,8 @@ namespace War
 {
     class Token
     {
-        private Vector2 tokenPos;
+        private Vector2 absTokenPos;
+        private Vector2 relTokenPos;
         private Texture2D tokenTexture;
         private String imgFile;
         private int currentFrame;
@@ -24,26 +25,22 @@ namespace War
         private Territorio territorio;
         public Token(float x, float y, int num, Territorio ter)
         {
-
-            tokenPos = new Vector2(x, y);
+            absTokenPos = new Vector2(x, y);
+            relTokenPos = absTokenPos * Global.SCALE;
             currentFrame = 0;
             numberOfFrames = num;
             territorio = ter;
-
-
-
         }
         public Token(float x, float y, int num, Color c, int numSoldiers,Territorio ter)
         {
 
-            tokenPos = new Vector2(x, y);
+            absTokenPos = new Vector2(x, y);
+            relTokenPos = absTokenPos * Global.SCALE;
             currentFrame = 0;
             numberOfFrames = num;
             color = c;
             numberOfSoldiers = numSoldiers;
             territorio = ter;
-
-
         }
         public Token()
         {
@@ -62,7 +59,7 @@ namespace War
         }
         public Vector2 getTokenPosition()
         {
-            return tokenPos;
+            return absTokenPos;
         }
         public Texture2D getTokenTexture()
         {
@@ -74,7 +71,8 @@ namespace War
         }
         public void setTokenPosition(Vector2 v)
         {
-            tokenPos = v;
+            absTokenPos = v;
+            relTokenPos = absTokenPos * Global.SCALE;
         }
         public void setTokenTexture(Texture2D t)
         {
@@ -86,14 +84,14 @@ namespace War
         }
         public Boolean isCollided(float x, float y)
         {
-            if (x > tokenPos.X && x < tokenPos.X + tokenTexture.Width / numberOfFrames && y > tokenPos.Y && y < tokenPos.Y + tokenTexture.Height)
+            if (x > relTokenPos.X && x < relTokenPos.X + tokenTexture.Width*Global.SCALE / numberOfFrames && y > relTokenPos.Y && y < relTokenPos.Y + tokenTexture.Height*Global.SCALE)
                 return true;
             else
                 return false;
         }
         public void changeCurrentFrame(float x, float y)
         {
-            if (x > tokenPos.X && x < tokenPos.X + tokenTexture.Width / 2 && y > tokenPos.Y && y < tokenPos.Y + tokenTexture.Height)
+            if (x > relTokenPos.X && x < relTokenPos.X + tokenTexture.Width*Global.SCALE / 2 && y > relTokenPos.Y && y < relTokenPos.Y + tokenTexture.Height*Global.SCALE)
                 currentFrame = 1;
             else
                 currentFrame = 0;

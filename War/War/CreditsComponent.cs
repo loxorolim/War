@@ -38,7 +38,7 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            menuButton = new Button(Global.WIDTH/ 2 - 50, Global.HEIGHT - 75,2);
+            menuButton = new Button(800 / 2 - 50, 600 - 75,2);
             base.Initialize();
         }
 
@@ -71,9 +71,9 @@ namespace War
         }
         public override void Draw(GameTime gameTime)
         {
-            batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            batch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
+            batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
+            batch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             spriteBatch.Draw(menuButton.getButtonTexture(), menuButton.getButtonPosition(),menuButton.getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
             //spriteBatch.Draw(creditsLogo, creditsLogoPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             batch.End();

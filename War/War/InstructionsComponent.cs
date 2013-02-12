@@ -38,9 +38,9 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            buttons.Add(new Button(Global.WIDTH / 2 - 50, Global.HEIGHT - 75,2));
-            buttons.Add(new Button(50, Global.HEIGHT - 75,2));
-            buttons.Add(new Button(Global.WIDTH - 150, Global.HEIGHT - 75,2));
+            buttons.Add(new Button(800 / 2 - 50, 600 - 75,2));
+            buttons.Add(new Button(50, 600 - 75,2));
+            buttons.Add(new Button(800 - 150, 600 - 75,2));
             currentRuleNumber = 0;
             numberOfRules = 10;
             base.Initialize();
@@ -151,15 +151,15 @@ namespace War
         }
         public override void Draw(GameTime gameTime)
         {
-            insBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            insBatch.Draw(currentRule, Vector2.Zero, null, Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
+            insBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);;
+            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);;
+            insBatch.Draw(currentRule, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
-            buttonBatch.Draw(buttons[0].getButtonTexture(), buttons[0].getButtonPosition(), buttons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
+            buttonBatch.Draw(buttons[0].getButtonTexture(), buttons[0].getButtonPosition(), buttons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             if(currentRuleNumber > 0)
-                buttonBatch.Draw(buttons[1].getButtonTexture(), buttons[1].getButtonPosition(), buttons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
+                buttonBatch.Draw(buttons[1].getButtonTexture(), buttons[1].getButtonPosition(), buttons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             if(currentRuleNumber < numberOfRules)
-                buttonBatch.Draw(buttons[2].getButtonTexture(), buttons[2].getButtonPosition(), buttons[2].getCurrentFrame(), Color.White, 0, Vector2.Zero, Global.SCALE, SpriteEffects.None, 0);
+                buttonBatch.Draw(buttons[2].getButtonTexture(), buttons[2].getButtonPosition(), buttons[2].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             insBatch.End();
             buttonBatch.End();
 
