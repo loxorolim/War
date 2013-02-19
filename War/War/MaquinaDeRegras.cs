@@ -39,12 +39,19 @@ namespace War
         public static void sorteaOrdemJogadores()
         {
             int qtdJogadores = Tabuleiro.numJogadores;
-            List<int> ordem = new List<int>();
-            Random r = new Random();
+            int tam = qtdJogadores;
+            List<int> nums = new List<int>();
             for (int i = 0; i < qtdJogadores; i++)
             {
-                int j = r.Next(0, qtdJogadores);
-                ordem.Add(j);
+                nums.Add(i);
+            }
+            List<int> ordem = new List<int>();
+            Random r = new Random();
+            for (int i = 0; i < tam; i++)
+            {
+                int j = r.Next(0, nums.Count);
+                ordem.Add(nums[j]);
+                nums.Remove(nums[j]);
                 qtdJogadores--;             
             }
             Tabuleiro.ordemDeJogadores = ordem;
@@ -263,6 +270,17 @@ namespace War
                 return true;
             }
             return false;
+        }
+        public static void adicionarExercitosIniciais()
+        {
+            foreach(Jogador jog in Tabuleiro.jogadores)
+            {
+                jog.addExercitosParaColocar(4);
+            }
+        }
+        public static void adicionarExercitosParaSeremColocados(Jogador jog,int n)
+        {
+            jog.addExercitosParaColocar(n);
         }
 
         //Compara os dados do exército atacante e do exército defensor e retorna o numero de soldados perdidos na rodada

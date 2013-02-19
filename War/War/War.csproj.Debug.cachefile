@@ -9,6 +9,8 @@ Content\WarMap16x9Grey.xnb
 Content\backButton.xnb
 Content\menuButton.xnb
 Content\nextButton.xnb
+Content\swordSound.xnb
+Content\Medieval Music.xnb
 Content\gameSetLogo.xnb
 Content\warMapWindow.xnb
 Content\warMapWindowGrey.xnb
@@ -28,10 +30,6 @@ Content\green.xnb
 Content\red.xnb
 Content\white.xnb
 Content\yellow.xnb
-Content\attackButton.xnb
-Content\endTurnButton.xnb
-Content\getCardButton.xnb
-Content\realocateButton.xnb
 Content\Cartas\circulo\ambrixon.xnb
 Content\Cartas\circulo\dinia.xnb
 Content\Cartas\circulo\erikum.xnb
@@ -75,8 +73,10 @@ Content\Cartas\triangulo\ultim.xnb
 Content\Cartas\triangulo\unteon.xnb
 Content\Cartas\triangulo\vostok.xnb
 Content\Cartas\coringa.xnb
-Content\swordSound.xnb
-Content\Medieval Music.xnb
+Content\attackButton.xnb
+Content\endTurnButton.xnb
+Content\getCardButton.xnb
+Content\realocateButton.xnb
 Content\buttonTemplate.xnb
 Content\peon.xnb
 Content\rulesState10Novo.xnb
@@ -103,12 +103,12 @@ Content\rulesState9Novo.xnb
 Content\rulesState9Novo800x600.xnb
 Content\WarMap.xnb
 Content\creditsState800x600.xnb
+Content\font.xnb
 Content\addButton.xnb
 Content\warMapNewWindow.xnb
-Content\infoButton.xnb
 Content\mapGuide.xnb
 Content\mapGuideButton.xnb
-Content\font.xnb
+Content\infoButton.xnb
 Content\Cartas\objetivos\1.xnb
 Content\Cartas\objetivos\10.xnb
 Content\Cartas\objetivos\11.xnb

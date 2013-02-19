@@ -14,6 +14,7 @@ namespace War
         protected CartaObjetivo objetivo;
         private List<Territorio> territorios = new List<Territorio>();
         private int dificuldade;
+        private int exercitosParaColocar;
 
         //acrescentei o construtor com a dificuldade da IA
         public Jogador(int cor, int dificuldade)
@@ -80,7 +81,19 @@ namespace War
                 }
             }
             return territoriosComBorda;
-        }      
+        }
+        public void addExercitosParaColocar(int n)
+        {
+            exercitosParaColocar += n;
+        }
+        public void removeExercitoParacolocar()
+        {
+            exercitosParaColocar--;
+        }
+        public int getNumExercitoParacolocar()
+        {
+            return exercitosParaColocar;
+        }
 
         public void adicionarTerritorio(Territorio ter)
         {

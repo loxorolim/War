@@ -152,6 +152,7 @@ namespace War
                                 Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Yellow));
                             MaquinaDeRegras.sortearTerritorios();
                             MaquinaDeRegras.sorteaOrdemJogadores();
+                            MaquinaDeRegras.adicionarExercitosIniciais();
                             PlayableComponent.playersSelected = true;
                             
                             War.CurrentState = War.GameState.InPlay;

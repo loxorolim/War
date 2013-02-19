@@ -27,6 +27,11 @@ namespace War
         SpriteBatch cardsBatch;
         SpriteFont font;
         MouseState mouseStateCurrent, mouseStatePrevious;
+        GamePhase currentPhase ;
+      //  Boolean firstPhase = true;
+     //   Boolean addArmyPhase = false;
+     //   Boolean attackPhase = false;
+     //   Boolean reallocatePhase = false;
         Boolean drawGuide = false;
         Boolean drawObj = false;
         Boolean drawCards = false;
@@ -86,54 +91,7 @@ namespace War
         {
             createTokensPositions();
             turnPlayer = Tabuleiro.jogadorDaVez;
-            try
-            {
-
-                mouseStateCurrent = Mouse.GetState();
-
-                buttons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                cardButtons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                cardButtons[1].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards)
-                {
-                    drawObj = !drawObj;
-                }
-
-                if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
-                {
-                    if(!drawObj)
-                        drawCards = !drawCards;
-                }
-
-                buttons[4].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                if (buttons[4].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards)
-                {
-                    drawGuide = !drawGuide;
-
-                }
-                foreach (Token tok in tokens)
-                {
-                    if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
-                    {
-                        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
-                        {
-                            addToken.setTokenPosition(new Vector2(tok.getTokenPosition().X, tok.getTokenPosition().Y - 25));
-                            addToken.setTerritorio(tok.getTerritorio());
-                        }
-                    }
-                }
-                if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
-                {
-                    addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
-                }
-
-
-
-                mouseStatePrevious = mouseStateCurrent;
-            }
-            catch (Exception e)
-            {
-            }
+            checkButtonsClick();
 
 
 
@@ -259,6 +217,78 @@ namespace War
         {
             turnPlayer.getCor();
 
+        }
+        public void checkButtonsClick()
+        {
+            try
+            {
+
+                mouseStateCurrent = Mouse.GetState();
+
+                buttons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                cardButtons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                cardButtons[1].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards)
+                {
+                    drawObj = !drawObj;
+                }
+
+                if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
+                {
+                    if (!drawObj)
+                        drawCards = !drawCards;
+                }
+                buttons[3].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                if (buttons[3].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
+                {
+                    MaquinaDeRegras.passaVez();
+                }
+
+                buttons[4].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                if (buttons[4].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards)
+                {
+                    drawGuide = !drawGuide;
+
+                }
+                foreach (Token tok in tokens)
+                {
+                    if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                    {
+                        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
+                        {
+                            addToken.setTokenPosition(new Vector2(tok.getTokenPosition().X, tok.getTokenPosition().Y - 25));
+                            addToken.setTerritorio(tok.getTerritorio());
+                        }
+                    }
+                }
+                if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                {
+                    if (turnPlayer.getNumExercitoParacolocar() > 0)
+                    {
+                        addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
+                        turnPlayer.removeExercitoParacolocar();
+                    }
+                }
+
+
+
+                mouseStatePrevious = mouseStateCurrent;
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        public void distributeArmyPhase()
+        {
+
+        }
+        public enum GamePhase
+        {
+            FirstPhase, AddArmyPhase, AttackPhase, ReallocatePhase
+        }
+        public void changeToNextPhase()
+        {
+            
         }
 
     }
