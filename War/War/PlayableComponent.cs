@@ -27,8 +27,9 @@ namespace War
         SpriteBatch cardsBatch;
         SpriteFont font;
         MouseState mouseStateCurrent, mouseStatePrevious;
-        GamePhase currentPhase ;
-      //  Boolean firstPhase = true;
+        GamePhase currentPhase = GamePhase.AddArmyPhase;
+     //   Boolean firstPhase = true;
+        public static int firstCounter { get; set;} 
      //   Boolean addArmyPhase = false;
      //   Boolean attackPhase = false;
      //   Boolean reallocatePhase = false;
@@ -44,6 +45,7 @@ namespace War
         List<Button> buttons;
         List<Button> cardButtons;
         List<Token> tokens;
+        Boolean[]  readinessArray;
 
 
         public PlayableComponent(Game game)
@@ -54,6 +56,7 @@ namespace War
             tokens = new List<Token>();
             objCards = MaquinaDeRegras.objetivos;
             territCards = MaquinaDeRegras.cartas;
+            readinessArray = new Boolean[Tabuleiro.jogadores.Count];
 
             // TODO: Construct any child components here
         }
@@ -91,6 +94,10 @@ namespace War
         {
             createTokensPositions();
             turnPlayer = Tabuleiro.jogadorDaVez;
+            if (currentPhase.Equals(GamePhase.AddArmyPhase))
+            {
+                addArmyPhaseOperations();
+            }
             checkButtonsClick();
 
 
@@ -139,14 +146,35 @@ namespace War
             }
             mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
 
-            for (int i = 0; i < buttons.Count; i++)
-            {
-                buttonBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(), buttons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            }
+           // for (int i = 0; i < buttons.Count; i++)
+          //  {
+                if (currentPhase == GamePhase.AddArmyPhase)
+                {
+                    buttonBatch.Draw(buttons[0].getButtonTexture(), buttons[0].getButtonPosition(), buttons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    buttonBatch.Draw(buttons[4].getButtonTexture(), buttons[4].getButtonPosition(), buttons[4].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    buttonBatch.Draw(buttons[3].getButtonTexture(), buttons[3].getButtonPosition(), buttons[3].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
+                if (currentPhase == GamePhase.AttackPhase)
+                {
+                    buttonBatch.Draw(buttons[0].getButtonTexture(), buttons[0].getButtonPosition(), buttons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    buttonBatch.Draw(buttons[4].getButtonTexture(), buttons[4].getButtonPosition(), buttons[4].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    buttonBatch.Draw(buttons[3].getButtonTexture(), buttons[3].getButtonPosition(), buttons[3].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    buttonBatch.Draw(buttons[1].getButtonTexture(), buttons[1].getButtonPosition(), buttons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
+                if (currentPhase == GamePhase.ReallocatePhase)
+                {
+                    buttonBatch.Draw(buttons[0].getButtonTexture(), buttons[0].getButtonPosition(), buttons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    buttonBatch.Draw(buttons[4].getButtonTexture(), buttons[4].getButtonPosition(), buttons[4].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    buttonBatch.Draw(buttons[3].getButtonTexture(), buttons[3].getButtonPosition(), buttons[3].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    buttonBatch.Draw(buttons[2].getButtonTexture(), buttons[2].getButtonPosition(), buttons[2].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
+                //buttonBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(), buttons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+          //  }
             for (int i = 0; i < tokens.Count; i++)
             {
                 tokenBatch.Draw(tokens[i].getTokenTexture(), tokens[i].getTokenPosition(), tokens[i].getCurrentFrame(), tokens[i].getColor(), 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-                tokenBatch.Draw(addToken.getTokenTexture(), addToken.getTokenPosition(), addToken.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                if(currentPhase.Equals(GamePhase.AddArmyPhase))
+                    tokenBatch.Draw(addToken.getTokenTexture(), addToken.getTokenPosition(), addToken.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
                 Vector2 fontPosition = tokens[i].getTokenPosition();
                 fontPosition.X += 30;
                 tokenBatch.DrawString(font, string.Format(tokens[i].getNumberOfSoldiers().ToString()), fontPosition, tokens[i].getColor());
@@ -241,7 +269,24 @@ namespace War
                 buttons[3].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 if (buttons[3].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
                 {
-                    MaquinaDeRegras.passaVez();
+                    if (firstCounter > 0)
+                    {
+                        MaquinaDeRegras.passaVez();
+                        firstCounter--;
+                    }
+                    else
+                    {
+                        if (currentPhase.Equals(GamePhase.ReallocatePhase))
+                        {
+                            currentPhase = GamePhase.AddArmyPhase;
+                            MaquinaDeRegras.passaVez();
+                        }
+                        else
+                        {
+
+                            changeToNextPhase();
+                        }
+                     }
                 }
 
                 buttons[4].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
@@ -250,6 +295,63 @@ namespace War
                     drawGuide = !drawGuide;
 
                 }
+                
+                //foreach (Token tok in tokens)
+                //{
+                //    if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                //    {
+                //        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
+                //        {
+                //            addToken.setTokenPosition(new Vector2(tok.getTokenPosition().X, tok.getTokenPosition().Y - 25));
+                //            addToken.setTerritorio(tok.getTerritorio());
+                //        }
+                //    }
+                //}
+                //if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                //{
+                //    if (turnPlayer.getNumExercitoParacolocar() > 0)
+                //    {
+                //        addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
+                //        turnPlayer.removeExercitoParacolocar();
+                //    }
+                //}
+
+
+
+                mouseStatePrevious = mouseStateCurrent;
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        public void distributeArmyPhase()
+        {
+
+        }
+        public enum GamePhase
+        {
+            AddArmyPhase, AttackPhase, ReallocatePhase
+        }
+        public void changeToNextPhase()
+        {
+            if(currentPhase == GamePhase.AddArmyPhase)
+                currentPhase = GamePhase.AttackPhase;
+            else
+            if (currentPhase == GamePhase.AttackPhase)
+                currentPhase = GamePhase.ReallocatePhase;
+            else
+            if (currentPhase == GamePhase.ReallocatePhase)
+                currentPhase = GamePhase.AddArmyPhase;
+        }
+        public void addArmyPhaseOperations()
+        {
+            try
+            {
+                if(firstCounter > 0)
+                     buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
+                else
+                     buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("nextPhaseButton"));
+                mouseStateCurrent = Mouse.GetState();
                 foreach (Token tok in tokens)
                 {
                     if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
@@ -269,27 +371,22 @@ namespace War
                         turnPlayer.removeExercitoParacolocar();
                     }
                 }
-
-
-
-                mouseStatePrevious = mouseStateCurrent;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
+
             }
         }
-        public void distributeArmyPhase()
+        public void AttackPhaseOperations()
         {
-
         }
-        public enum GamePhase
+        public void ReallocatePhaseOperations()
         {
-            FirstPhase, AddArmyPhase, AttackPhase, ReallocatePhase
         }
-        public void changeToNextPhase()
+        public void verifyReadiness()
         {
-            
         }
+      
 
     }
 
