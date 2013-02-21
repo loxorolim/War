@@ -18,6 +18,7 @@ namespace War
     public class PlayableComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {
         Texture2D warMap;
+        Texture2D armyToPass;
         Texture2D mapGuide;
         Texture2D cardsBackground;
         SpriteBatch mapBatch;
@@ -27,12 +28,16 @@ namespace War
         SpriteBatch cardsBatch;
         SpriteFont font;
         MouseState mouseStateCurrent, mouseStatePrevious;
+        Territorio atacante;
+        Territorio defensor;
         GamePhase currentPhase = GamePhase.AddArmyPhase;
+        int numArmyToPass = 0;
      //   Boolean firstPhase = true;
         public static int firstCounter { get; set;} 
      //   Boolean addArmyPhase = false;
      //   Boolean attackPhase = false;
      //   Boolean reallocatePhase = false;
+        Boolean askArmyPass = false;
         Boolean drawGuide = false;
         Boolean drawObj = false;
         Boolean drawCards = false;
@@ -43,8 +48,10 @@ namespace War
         CartaObjetivo[] objCards;
         List<CartaTerritorio> territCards;
         List<Button> buttons;
+        List<Button> numberButtons;
         List<Button> cardButtons;
         List<Token> tokens;
+        int[] tokenFrames;
         Boolean[]  readinessArray;
 
 
@@ -53,7 +60,9 @@ namespace War
         {
             buttons = new List<Button>();
             cardButtons = new List<Button>();
+            numberButtons = new List<Button>();
             tokens = new List<Token>();
+            tokenFrames = new int[42];
             objCards = MaquinaDeRegras.objetivos;
             territCards = MaquinaDeRegras.cartas;
             readinessArray = new Boolean[Tabuleiro.jogadores.Count];
@@ -75,9 +84,15 @@ namespace War
             buttons.Add(new Button(75, 545, 2));
             buttons.Add(new Button(175, 545, 2));
             buttons.Add(new Button(751, 12, 2));
+
+            numberButtons.Add(new Button(300,200,2));
+            numberButtons.Add(new Button(375,200,2));
+            numberButtons.Add(new Button(450,200,2));
+
             cardButtons.Add(new Button(124, 350, 2));
             cardButtons.Add(new Button(598, 350, 2));
             addToken = new Token(-30, -30, 1, null);
+            
             //tokens.Add(new Token(400, 300, 3, Color.White));
             foreach (CartaObjetivo obj in objCards)
                 obj.setObjCardTexture(Game.Content.Load<Texture2D>(obj.getImgFile()));
@@ -97,6 +112,10 @@ namespace War
             if (currentPhase.Equals(GamePhase.AddArmyPhase))
             {
                 addArmyPhaseOperations();
+            }
+            if (currentPhase.Equals(GamePhase.AttackPhase))
+            {
+                attackPhaseOperations();
             }
             checkButtonsClick();
 
@@ -143,6 +162,14 @@ namespace War
             {
                 CartaObjetivo obj = turnPlayer.getObjetivo();
                 cardsBatch.Draw(obj.getObjCardTexture(), new Vector2((800 / 2) - (obj.getObjCardTexture().Width * 0.6f / 2), (600 / 2) - (obj.getObjCardTexture().Height * 0.6f / 2)), null, Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
+            }
+            if (askArmyPass)
+            {
+                logoBatch.Draw(armyToPass, new Vector2(50, 40), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                foreach (Button b in numberButtons)
+                {
+                    buttonBatch.Draw(b.getButtonTexture(), b.getButtonPosition(), b.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
             }
             mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
 
@@ -202,6 +229,7 @@ namespace War
             cardsBatch = new SpriteBatch(Game.GraphicsDevice);
             font = Game.Content.Load<SpriteFont>("font");
             warMap = Game.Content.Load<Texture2D>("WarMapNewWindow");
+            armyToPass = Game.Content.Load<Texture2D>("numExercitosPassar");
             mapGuide = Game.Content.Load<Texture2D>("mapGuide");
             cardsBackground = Game.Content.Load<Texture2D>("cardsBackground");
             buttons[0].setButtonTexture(Game.Content.Load<Texture2D>("cardsButton"));
@@ -211,6 +239,9 @@ namespace War
             buttons[4].setButtonTexture(Game.Content.Load<Texture2D>("mapGuideButton"));
             cardButtons[0].setButtonTexture(Game.Content.Load<Texture2D>("tradeButton"));
             cardButtons[1].setButtonTexture(Game.Content.Load<Texture2D>("objectiveButton"));
+            numberButtons[0].setButtonTexture(Game.Content.Load<Texture2D>("1Button"));
+            numberButtons[1].setButtonTexture(Game.Content.Load<Texture2D>("2Button"));
+            numberButtons[2].setButtonTexture(Game.Content.Load<Texture2D>("3Button"));
             addToken.setTokenTexture(Game.Content.Load<Texture2D>("addButton"));
 
             base.LoadContent();
@@ -238,6 +269,7 @@ namespace War
                 for (int i = 0; i < tokens.Count; i++)
                 {
                     tokens[i].setTokenTexture(Game.Content.Load<Texture2D>("peon"));
+                    tokens[i].setFrame(tokenFrames[i]);
                 }
             }
         }
@@ -295,6 +327,7 @@ namespace War
                     drawGuide = !drawGuide;
 
                 }
+               
                 
                 //foreach (Token tok in tokens)
                 //{
@@ -334,6 +367,7 @@ namespace War
         }
         public void changeToNextPhase()
         {
+            zerarVetor(tokenFrames);
             if(currentPhase == GamePhase.AddArmyPhase)
                 currentPhase = GamePhase.AttackPhase;
             else
@@ -377,8 +411,102 @@ namespace War
 
             }
         }
-        public void AttackPhaseOperations()
+        public void attackPhaseOperations()
         {
+            try
+            {
+                
+                mouseStateCurrent = Mouse.GetState();
+                foreach (Token tok in tokens)
+                {
+                    if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                    {
+                        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
+                        {
+                            zerarVetor(tokenFrames);
+                            if(tok.getTerritorio().getNumeroExercito() > 1)
+                                changeTokenAttackFrames(tok);
+                            
+                        }
+                        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tokenFrames[verifyTokenFrameLocation(tok.getTerritorio())] == 2 && !drawCards && !drawGuide)
+                        {
+                            atacante = getAttackingTerritory();
+                            defensor = tok.getTerritorio();
+                            Batalha battle = new Batalha(turnPlayer, defensor.getDono(),atacante ,defensor);
+                            battle.iniciar();
+                            if (battle.getNumExercitosParaPassar() > 0)
+                            {
+                                askArmyPass = true;
+                            }
+                            zerarVetor(tokenFrames);
+                        }
+                    }
+                    
+                }
+                if (askArmyPass)
+                {
+                    numberButtons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                    numberButtons[1].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                    numberButtons[2].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+
+                    if (numberButtons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards)
+                    {
+                        
+                        atacante.diminuirNumeroDeExercito(1);
+                         
+                        defensor.setNumeroExercitos(1);
+                        askArmyPass = false;
+                    }
+                    else if (numberButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards)
+                    {
+
+                        atacante.diminuirNumeroDeExercito(2);
+
+                        defensor.setNumeroExercitos(2);
+                        askArmyPass = false;
+                    }
+                    else if (numberButtons[2].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards)
+                    {
+
+                        atacante.diminuirNumeroDeExercito(3);
+
+                        defensor.setNumeroExercitos(3);
+                        askArmyPass = false;
+                    }
+                   
+
+                }
+                //if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                //{
+                //    if (turnPlayer.getNumExercitoParacolocar() > 0)
+                //    {
+                //        addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
+                //        turnPlayer.removeExercitoParacolocar();
+                //    }
+                //}
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+        public void changeTokenAttackFrames(Object o)
+        {
+            Token tok = (Token)o;
+            List<Territorio> enemies = tok.getTerritorio().getListaVizinhosInimigos();
+            tokenFrames[verifyTokenFrameLocation(tok.getTerritorio())] = 1 ;
+            foreach (Token t in tokens)
+            {
+                foreach (Territorio ter in enemies)
+                {
+                    if (t.getTerritorio().Equals(ter))
+                    {
+                        tokenFrames[verifyTokenFrameLocation(t.getTerritorio())] = 2;
+                        
+                    }
+                }
+            }
+
         }
         public void ReallocatePhaseOperations()
         {
@@ -386,6 +514,37 @@ namespace War
         public void verifyReadiness()
         {
         }
+        public int verifyTokenFrameLocation(Territorio ter)
+        {
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                if(tokens[i].getTerritorio().Equals(ter))
+                    return i;
+            }
+            return 0;
+        }
+        public void zerarVetor(int[] v)
+        {
+            for (int i = 0; i < v.Length; i++)
+            {
+                v[i] = 0;
+            }
+        }
+        public Territorio getAttackingTerritory()
+        {
+            int aux = 0;
+            for (int i = 0; i < tokenFrames.Length; i++)
+            {
+                if (tokenFrames[i] == 1)
+                    aux = i;
+            }
+            return tokens[aux].getTerritorio();
+        }
+        public void passArmy(int n)
+        {
+
+        }
+       
       
 
     }

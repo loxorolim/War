@@ -103,6 +103,10 @@ namespace War
             else
                 currentFrame += 1;
         }
+        public void setFrame(int n)
+        {
+            currentFrame = n;
+        }
         public void setPreviousFrame()
         {
             if (currentFrame == 0)

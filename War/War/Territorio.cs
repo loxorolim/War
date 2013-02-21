@@ -24,7 +24,9 @@ namespace War
             this.posX = posX;
             this.posY = posY;
         }
-
+        public Territorio()
+        {
+        }
         public float getPosX()
         {
             return posX;
@@ -142,6 +144,10 @@ namespace War
                 }
             }
             return false;
+        }
+        public void diminuirNumeroDeExercito(int n)
+        {
+            numExercitos -= n;
         }
     }
 }

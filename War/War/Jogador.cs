@@ -99,7 +99,18 @@ namespace War
         {
             territorios.Add(ter);
         }
-
+        public void removerTerritorio(Territorio ter)
+        {
+            //territorios.Remove(ter);
+            for (int i = 0; i < territorios.Count; i++)
+            {
+                if(territorios[i].getNome().Equals(ter.getNome()))
+                {
+                    territorios.RemoveAt(i);
+                    break;
+                }
+            }
+        }
         //Deve retornar os territorios que pertencem ao jogador
         public void setTerritorios()
         {
@@ -142,7 +153,7 @@ namespace War
         {
             int[] numSorteados = new int[quantidade];
             Random r = new Random();
-            System.Threading.Thread.Sleep(1000);
+       //     System.Threading.Thread.Sleep(1000);
 
             for (int i = 0; i < quantidade; i++)
             {

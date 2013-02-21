@@ -11,6 +11,7 @@ namespace War
         Jogador defensorJog;
         Territorio ataqueT;
         Territorio defesaT;
+        int numExercitosParaPassar = 0;
         int[] dadosAt;
         int[] dadosDef;
 
@@ -33,17 +34,20 @@ namespace War
         public void iniciar()
         {
             int numDadosDefesa, numDadosAtaque;
-
+           
             switch (ataqueT.getNumeroExercito())
             {
                 case 2:
                     numDadosAtaque = 1;
+      
                     break;
                 case 3:
                     numDadosAtaque = 2;
+                    
                     break;
                 default:
                     numDadosAtaque = 3;
+                    
                     break;
             }
 
@@ -61,12 +65,31 @@ namespace War
             }
             
             dadosAt = atacanteJog.lancarDados(numDadosAtaque);
-            System.Threading.Thread.Sleep(500); //verificar esta linha caso de algum erro no jogo.
+          //  System.Threading.Thread.Sleep(500); //verificar esta linha caso de algum erro no jogo.
             dadosDef = defensorJog.lancarDados(numDadosDefesa);
             int[] exercitosPerdidos = MaquinaDeRegras.compararDados(dadosAt, numDadosAtaque, dadosDef, numDadosDefesa);
             //posição 0 -> exercitos Atacantes perdidos
             //posicao 1 -> exercitos Defensor perdidos
             atualizarExercitos(exercitosPerdidos[0], exercitosPerdidos[1]);
+
+            if (defesaT.getNumeroExercito() <= 0)
+            {
+                if (ataqueT.getNumeroExercito() == 1)
+                    numExercitosParaPassar = 0;
+                if (ataqueT.getNumeroExercito() == 2)
+                    numExercitosParaPassar = 1;
+                if (ataqueT.getNumeroExercito() == 3)
+                    numExercitosParaPassar = 2;
+                if (ataqueT.getNumeroExercito() >= 4)
+                    numExercitosParaPassar = 3;
+            }
+
+
+
+        }
+        public int getNumExercitosParaPassar()
+        {
+            return numExercitosParaPassar;
         }
 
         public void atualizarExercitos(int ataque, int defesa)
@@ -79,7 +102,10 @@ namespace War
             defesaT.setNumeroExercitosRemanejavel(defesaT.getNumeroExercitoRemanejavel() - defesa);
             if (exercitoDefesaNovo <= 0)
             {
+                defesaT.getDono().removerTerritorio(defesaT);
                 defesaT.setNovoDono(ataqueT.getDono());
+                ataqueT.getDono().adicionarTerritorio(defesaT);
+
                 if (atacanteJog.isIA())
                 {
                     atacanteJog.remanejarExercitoAtaque(ataqueT, defesaT, exercitoAtaqueNovo - 1);
