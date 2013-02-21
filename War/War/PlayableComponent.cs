@@ -23,6 +23,7 @@ namespace War
         Texture2D cardsBackground;
         SpriteBatch mapBatch;
         SpriteBatch tokenBatch;
+        SpriteBatch tokenBatch2;
         SpriteBatch buttonBatch;
         SpriteBatch logoBatch;
         SpriteBatch cardsBatch;
@@ -44,11 +45,13 @@ namespace War
         public static Boolean playersSelected { get; set; }
         Boolean showAddButton = false;
         Token addToken;
+        Token minusToken;
+        Token okToken;
+        Boolean okButtonPressed = true;
         Jogador turnPlayer;
         CartaObjetivo[] objCards;
         List<CartaTerritorio> territCards;
         List<Button> buttons;
-        List<Button> numberButtons;
         List<Button> cardButtons;
         List<Token> tokens;
         int[] tokenFrames;
@@ -60,7 +63,6 @@ namespace War
         {
             buttons = new List<Button>();
             cardButtons = new List<Button>();
-            numberButtons = new List<Button>();
             tokens = new List<Token>();
             tokenFrames = new int[42];
             objCards = MaquinaDeRegras.objetivos;
@@ -85,13 +87,13 @@ namespace War
             buttons.Add(new Button(175, 545, 2));
             buttons.Add(new Button(751, 12, 2));
 
-            numberButtons.Add(new Button(300,200,2));
-            numberButtons.Add(new Button(375,200,2));
-            numberButtons.Add(new Button(450,200,2));
+        
 
             cardButtons.Add(new Button(124, 350, 2));
             cardButtons.Add(new Button(598, 350, 2));
             addToken = new Token(-30, -30, 1, null);
+            minusToken = new Token(-30, -30, 1, null);
+            okToken = new Token(-30, -30, 1, null);
             
             //tokens.Add(new Token(400, 300, 3, Color.White));
             foreach (CartaObjetivo obj in objCards)
@@ -127,8 +129,9 @@ namespace War
         public override void Draw(GameTime gameTime)
         {
             mapBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix); ;
-            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix); ;
-            tokenBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix); ;
+            buttonBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix); 
+            tokenBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
+            tokenBatch2.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix); ;
             logoBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix); ;
             cardsBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
             if (drawGuide)
@@ -165,11 +168,8 @@ namespace War
             }
             if (askArmyPass)
             {
-                logoBatch.Draw(armyToPass, new Vector2(50, 40), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-                foreach (Button b in numberButtons)
-                {
-                    buttonBatch.Draw(b.getButtonTexture(), b.getButtonPosition(), b.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-                }
+               // logoBatch.Draw(armyToPass, new Vector2(50, 40), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+        
             }
             mapBatch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
 
@@ -200,11 +200,20 @@ namespace War
             for (int i = 0; i < tokens.Count; i++)
             {
                 tokenBatch.Draw(tokens[i].getTokenTexture(), tokens[i].getTokenPosition(), tokens[i].getCurrentFrame(), tokens[i].getColor(), 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-                if(currentPhase.Equals(GamePhase.AddArmyPhase))
-                    tokenBatch.Draw(addToken.getTokenTexture(), addToken.getTokenPosition(), addToken.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+               // if (currentPhase.Equals(GamePhase.AddArmyPhase))
+               // {
+                    tokenBatch2.Draw(addToken.getTokenTexture(), addToken.getTokenPosition(), addToken.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                    tokenBatch2.Draw(minusToken.getTokenTexture(), minusToken.getTokenPosition(), minusToken.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                    tokenBatch2.Draw(okToken.getTokenTexture(), okToken.getTokenPosition(), okToken.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+               // }
                 Vector2 fontPosition = tokens[i].getTokenPosition();
                 fontPosition.X += 30;
+                Vector2 fontPosition2 = tokens[i].getTokenPosition();
+                fontPosition2.X += 32;
+                fontPosition2.Y += 20;
                 tokenBatch.DrawString(font, string.Format(tokens[i].getNumberOfSoldiers().ToString()), fontPosition, tokens[i].getColor());
+                if(tokens[i].getTerritorio().getDono().Equals(turnPlayer) && currentPhase == GamePhase.AddArmyPhase)
+                     tokenBatch.DrawString(font, string.Format(tokens[i].getTerritorio().getNumeroExercitoRemanejavel().ToString()), fontPosition2, Color.Purple);
 
             }
             if (playersSelected)
@@ -212,9 +221,10 @@ namespace War
                 tokenBatch.DrawString(font, string.Format(Global.getColorName(turnPlayer.getCor()) + "Player"), new Vector2(340, 0), Global.getColor(turnPlayer.getCor()));
             }
 
-
+            
             mapBatch.End();
             tokenBatch.End();
+            tokenBatch2.End();
             logoBatch.End();
             cardsBatch.End();
             buttonBatch.End();
@@ -225,6 +235,7 @@ namespace War
             mapBatch = new SpriteBatch(Game.GraphicsDevice);
             buttonBatch = new SpriteBatch(Game.GraphicsDevice);
             tokenBatch = new SpriteBatch(Game.GraphicsDevice);
+            tokenBatch2 = new SpriteBatch(Game.GraphicsDevice);
             logoBatch = new SpriteBatch(Game.GraphicsDevice);
             cardsBatch = new SpriteBatch(Game.GraphicsDevice);
             font = Game.Content.Load<SpriteFont>("font");
@@ -239,10 +250,10 @@ namespace War
             buttons[4].setButtonTexture(Game.Content.Load<Texture2D>("mapGuideButton"));
             cardButtons[0].setButtonTexture(Game.Content.Load<Texture2D>("tradeButton"));
             cardButtons[1].setButtonTexture(Game.Content.Load<Texture2D>("objectiveButton"));
-            numberButtons[0].setButtonTexture(Game.Content.Load<Texture2D>("1Button"));
-            numberButtons[1].setButtonTexture(Game.Content.Load<Texture2D>("2Button"));
-            numberButtons[2].setButtonTexture(Game.Content.Load<Texture2D>("3Button"));
+
             addToken.setTokenTexture(Game.Content.Load<Texture2D>("addButton"));
+            minusToken.setTokenTexture(Game.Content.Load<Texture2D>("minusButton"));
+            okToken.setTokenTexture(Game.Content.Load<Texture2D>("okButton"));
 
             base.LoadContent();
         }
@@ -303,6 +314,10 @@ namespace War
                 {
                     if (firstCounter > 0)
                     {
+                        foreach (Territorio t in Tabuleiro.mapa)
+                        {
+                            t.atribuirExercitosPendentes();
+                        }
                         MaquinaDeRegras.passaVez();
                         firstCounter--;
                     }
@@ -311,6 +326,7 @@ namespace War
                         if (currentPhase.Equals(GamePhase.ReallocatePhase))
                         {
                             currentPhase = GamePhase.AddArmyPhase;
+                            
                             MaquinaDeRegras.passaVez();
                         }
                         else
@@ -327,28 +343,7 @@ namespace War
                     drawGuide = !drawGuide;
 
                 }
-               
-                
-                //foreach (Token tok in tokens)
-                //{
-                //    if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
-                //    {
-                //        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
-                //        {
-                //            addToken.setTokenPosition(new Vector2(tok.getTokenPosition().X, tok.getTokenPosition().Y - 25));
-                //            addToken.setTerritorio(tok.getTerritorio());
-                //        }
-                //    }
-                //}
-                //if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
-                //{
-                //    if (turnPlayer.getNumExercitoParacolocar() > 0)
-                //    {
-                //        addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
-                //        turnPlayer.removeExercitoParacolocar();
-                //    }
-                //}
-
+   
 
 
                 mouseStatePrevious = mouseStateCurrent;
@@ -368,14 +363,39 @@ namespace War
         public void changeToNextPhase()
         {
             zerarVetor(tokenFrames);
-            if(currentPhase == GamePhase.AddArmyPhase)
+
+            if (currentPhase == GamePhase.AddArmyPhase)
+            {
+                foreach (Territorio t in Tabuleiro.mapa)
+                {
+                    t.atribuirExercitosPendentes();
+                }
+                addToken.setTokenPosition(new Vector2(-30, -30));
+                minusToken.setTokenPosition(new Vector2(-30, -30));
+                okToken.setTokenPosition(new Vector2(-30, -30));               
                 currentPhase = GamePhase.AttackPhase;
+
+            }
             else
-            if (currentPhase == GamePhase.AttackPhase)
-                currentPhase = GamePhase.ReallocatePhase;
-            else
-            if (currentPhase == GamePhase.ReallocatePhase)
-                currentPhase = GamePhase.AddArmyPhase;
+            {
+                if (currentPhase == GamePhase.AttackPhase)
+                {
+                    addToken.setTokenPosition(new Vector2(-30, -30));
+                    minusToken.setTokenPosition(new Vector2(-30, -30));
+                    okToken.setTokenPosition(new Vector2(-30, -30));
+                    okButtonPressed = true;
+                    askArmyPass = false;
+                    currentPhase = GamePhase.ReallocatePhase;
+                }
+                else
+                {
+                    if (currentPhase == GamePhase.ReallocatePhase)
+                    {
+                        currentPhase = GamePhase.AddArmyPhase;
+                        
+                    }
+                }
+            }
         }
         public void addArmyPhaseOperations()
         {
@@ -392,8 +412,13 @@ namespace War
                     {
                         if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
                         {
-                            addToken.setTokenPosition(new Vector2(tok.getTokenPosition().X, tok.getTokenPosition().Y - 25));
+                            addToken.setTokenPosition(new Vector2(tok.getTokenPosition().X -15, tok.getTokenPosition().Y - 25));
                             addToken.setTerritorio(tok.getTerritorio());
+                           
+                            minusToken.setTokenPosition(new Vector2(tok.getTokenPosition().X + 15, tok.getTokenPosition().Y - 25));
+                            minusToken.setTerritorio(tok.getTerritorio());
+                            okToken.setTokenPosition(new Vector2(tok.getTokenPosition().X + 45, tok.getTokenPosition().Y -25));
+                            okToken.setTerritorio(tok.getTerritorio());
                         }
                     }
                 }
@@ -401,10 +426,30 @@ namespace War
                 {
                     if (turnPlayer.getNumExercitoParacolocar() > 0)
                     {
-                        addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
+                       // addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
+                        addToken.getTerritorio().setNumeroExercitosRemanejavel(addToken.getTerritorio().getNumeroExercitoRemanejavel() + 1);
                         turnPlayer.removeExercitoParacolocar();
                     }
                 }
+                if (minusToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                {
+                    if (minusToken.getTerritorio().getNumeroExercitoRemanejavel() > 0)
+                    {
+                       // addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito()-1);
+                        minusToken.getTerritorio().setNumeroExercitosRemanejavel(minusToken.getTerritorio().getNumeroExercitoRemanejavel() - 1);
+
+                        turnPlayer.addExercitosParaColocar(1);
+                        //turnPlayer.removeExercitoParacolocar();
+                    }
+                }
+                if (okToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                {
+                    addToken.setTokenPosition(new Vector2(-30, -30));
+                    minusToken.setTokenPosition(new Vector2(-30, -30));
+                    okToken.setTokenPosition(new Vector2(-30, -30));
+                               
+                }
+                
             }
             catch(Exception e)
             {
@@ -417,73 +462,79 @@ namespace War
             {
                 
                 mouseStateCurrent = Mouse.GetState();
-                foreach (Token tok in tokens)
+                if (okButtonPressed)
                 {
-                    if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                    foreach (Token tok in tokens)
                     {
-                        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
+                        if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
                         {
-                            zerarVetor(tokenFrames);
-                            if(tok.getTerritorio().getNumeroExercito() > 1)
-                                changeTokenAttackFrames(tok);
-                            
-                        }
-                        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tokenFrames[verifyTokenFrameLocation(tok.getTerritorio())] == 2 && !drawCards && !drawGuide)
-                        {
-                            atacante = getAttackingTerritory();
-                            defensor = tok.getTerritorio();
-                            Batalha battle = new Batalha(turnPlayer, defensor.getDono(),atacante ,defensor);
-                            battle.iniciar();
-                            if (battle.getNumExercitosParaPassar() > 0)
+                            if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
                             {
-                                askArmyPass = true;
+                                zerarVetor(tokenFrames);
+                                if (tok.getTerritorio().getNumeroExercito() > 1)
+                                    changeTokenAttackFrames(tok);
+
                             }
-                            zerarVetor(tokenFrames);
+                            if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tokenFrames[verifyTokenFrameLocation(tok.getTerritorio())] == 2 && !drawCards && !drawGuide)
+                            {
+                                atacante = getAttackingTerritory();
+                                defensor = tok.getTerritorio();
+                                Batalha battle = new Batalha(turnPlayer, defensor.getDono(), atacante, defensor);
+                                battle.iniciar();
+
+                                if (battle.getNumExercitosParaPassar() > 0)
+                                {
+                                    askArmyPass = true;
+                                    numArmyToPass = battle.getNumExercitosParaPassar();
+                                    okButtonPressed = false;
+
+
+                                }
+
+                          
+                                zerarVetor(tokenFrames);
+                            }
                         }
+
                     }
-                    
                 }
                 if (askArmyPass)
                 {
-                    numberButtons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                    numberButtons[1].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                    numberButtons[2].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                    addToken.setTokenPosition(new Vector2(defensor.getPosX() - 15, defensor.getPosY() - 25));
+                    addToken.setTerritorio(defensor);
+                    minusToken.setTokenPosition(new Vector2(defensor.getPosX() + 15, defensor.getPosY() - 25));
+                    minusToken.setTerritorio(defensor);
+                    okToken.setTokenPosition(new Vector2(defensor.getPosX() + 45, defensor.getPosY() - 25));
+                    okToken.setTerritorio(defensor);
 
-                    if (numberButtons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards)
+                    if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
                     {
-                        
-                        atacante.diminuirNumeroDeExercito(1);
-                         
-                        defensor.setNumeroExercitos(1);
+                        if (numArmyToPass > 0)
+                        {
+                            addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
+                            numArmyToPass--;
+                            atacante.setNumeroExercitos(atacante.getNumeroExercito() - 1);
+                        }
+                    }
+                    if (minusToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                    {
+                        if (minusToken.getTerritorio().getNumeroExercito() > 1)
+                        {
+                            addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() - 1);
+                            atacante.setNumeroExercitos(atacante.getNumeroExercito() + 1);
+                            numArmyToPass++;
+                        }
+                    }
+                    if (okToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                    {
+                        addToken.setTokenPosition(new Vector2(-30, -30));
+                        minusToken.setTokenPosition(new Vector2(-30, -30));
+                        okToken.setTokenPosition(new Vector2(-30, -30));
+                        okButtonPressed = true;
                         askArmyPass = false;
                     }
-                    else if (numberButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards)
-                    {
-
-                        atacante.diminuirNumeroDeExercito(2);
-
-                        defensor.setNumeroExercitos(2);
-                        askArmyPass = false;
-                    }
-                    else if (numberButtons[2].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards)
-                    {
-
-                        atacante.diminuirNumeroDeExercito(3);
-
-                        defensor.setNumeroExercitos(3);
-                        askArmyPass = false;
-                    }
-                   
 
                 }
-                //if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
-                //{
-                //    if (turnPlayer.getNumExercitoParacolocar() > 0)
-                //    {
-                //        addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
-                //        turnPlayer.removeExercitoParacolocar();
-                //    }
-                //}
             }
             catch (Exception e)
             {

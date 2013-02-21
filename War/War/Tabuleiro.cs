@@ -51,7 +51,7 @@ namespace War
             Territorio estorfea = new Territorio("Estorfea", 672, 514);
             Territorio forceus = new Territorio("Forceus", 666, 445);
 
-            Territorio frokazea = new Territorio("Frokazea", 513, 500);
+            Territorio frokazea = new Territorio("Frokazea", 490, 500);
             Territorio porgulai = new Territorio("Porgulai", 447, 379);
             Territorio dinia = new Territorio("Dinia", 498, 348);
             Territorio vostok = new Territorio("Vostok", 523, 322);
@@ -74,7 +74,7 @@ namespace War
 
             Territorio rusarov = new Territorio("Rusarov", 383, 85);
             Territorio ultim = new Territorio("Ultim", 326, 74);
-            Territorio lotium = new Territorio("Lotium", 285, 51);
+            Territorio lotium = new Territorio("Lotium", 275, 46);
             Territorio yut = new Territorio("Yut", 244, 83);
 
             List<Territorio> v = new List<Territorio>();

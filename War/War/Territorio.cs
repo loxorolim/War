@@ -20,6 +20,7 @@ namespace War
             this.nome = nome;
             this.vizinhos = null;
             numExercitos = 0;
+            numExercitosRemanejaveis = 0;
             dono = null; // vai passar o dono do territorio qnd fizer o sorteio
             this.posX = posX;
             this.posY = posY;
@@ -148,6 +149,11 @@ namespace War
         public void diminuirNumeroDeExercito(int n)
         {
             numExercitos -= n;
+        }
+        public void atribuirExercitosPendentes()
+        {
+            numExercitos += numExercitosRemanejaveis;
+            numExercitosRemanejaveis = 0;
         }
     }
 }

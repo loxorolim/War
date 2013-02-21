@@ -275,7 +275,7 @@ namespace War
         {
             foreach(Jogador jog in Tabuleiro.jogadores)
             {
-                jog.addExercitosParaColocar(4);
+                jog.addExercitosParaColocar(exercitosRecompensa);
             }
         }
         public static void adicionarExercitosParaSeremColocados(Jogador jog,int n)
