@@ -110,7 +110,7 @@ namespace War
             kerto.setListaVizinhos(v);
 
             v = new List<Territorio>();
-            v.Add(omsk); v.Add(kerto);
+            v.Add(omsk); v.Add(kerto); v.Add(chirpwa);
             drasil.setListaVizinhos(v);
 
             v = new List<Territorio>();
@@ -158,7 +158,7 @@ namespace War
             nepali.setListaVizinhos(v);
 
             v = new List<Territorio>();
-            v.Add(ontrea); v.Add(nepali);
+            v.Add(ontrea); v.Add(nepali); v.Add(drasil);
             chirpwa.setListaVizinhos(v);
 
             v = new List<Territorio>();
