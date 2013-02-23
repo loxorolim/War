@@ -105,6 +105,12 @@ namespace War
 
             cardButtons.Add(new Button(124, 350, 2));
             cardButtons.Add(new Button(598, 350, 2));
+            //cartas
+            cardButtons.Add(new Button(124, 140, 2));
+            cardButtons.Add(new Button(238, 140, 2));
+            cardButtons.Add(new Button(352, 140, 2));
+            cardButtons.Add(new Button(466, 140, 2));
+            cardButtons.Add(new Button(580, 140, 2));
             addToken = new Token(-30, -30, 1, null);
             minusToken = new Token(-30, -30, 1, null);
             okToken = new Token(-30, -30, 1, null);
@@ -182,18 +188,29 @@ namespace War
                 cardsBatch.Draw(cardsBackground, new Vector2(40, 90), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
                 Random r = new Random();
                 //Será utilizado quando os jogadores tiverem cartas
-                //int distancia = 114;
+                //int i = 2;
                 //foreach (CartaTerritorio carta in Tabuleiro.jogadorDaVez.getCartasJogador())
                 //{
-                //    cardsBatch.Draw(carta.getTerritCardTexture(), new Vector2(10 + distancia, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
-                //    distancia += 114;
+                //    cardButtons[i].setButtonTexture(carta.getTerritCardTexture());
+                //    cardsBatch.Draw(cardButtons[i].getButtonTexture(), cardButtons[i].getButtonPosition(), cardButtons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
+                //    i++;
                 //}
                 //Desenhando cartas aleatórias por enquanto
-                cardsBatch.Draw(MaquinaDeRegras.cartas[5].getTerritCardTexture(), new Vector2(10 + 114, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
-                cardsBatch.Draw(MaquinaDeRegras.cartas[16].getTerritCardTexture(), new Vector2(10 + 228, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
-                cardsBatch.Draw(MaquinaDeRegras.cartas[20].getTerritCardTexture(), new Vector2(10 + 342, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
-                cardsBatch.Draw(MaquinaDeRegras.cartas[2].getTerritCardTexture(), new Vector2(10 + 456, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
-                cardsBatch.Draw(MaquinaDeRegras.cartas[40].getTerritCardTexture(), new Vector2(10 + 570, 140), null, Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
+                cardButtons[2].setButtonTexture(MaquinaDeRegras.cartas[5].getTerritCardTexture());
+                cardsBatch.Draw(cardButtons[2].getButtonTexture(), cardButtons[2].getButtonPosition(), cardButtons[2].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
+
+                cardButtons[3].setButtonTexture(MaquinaDeRegras.cartas[16].getTerritCardTexture());
+                cardsBatch.Draw(cardButtons[3].getButtonTexture(), cardButtons[3].getButtonPosition(), cardButtons[3].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
+
+                cardButtons[4].setButtonTexture(MaquinaDeRegras.cartas[20].getTerritCardTexture());
+                cardsBatch.Draw(cardButtons[4].getButtonTexture(), cardButtons[4].getButtonPosition(), cardButtons[4].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
+
+                cardButtons[5].setButtonTexture(MaquinaDeRegras.cartas[2].getTerritCardTexture());
+                cardsBatch.Draw(cardButtons[5].getButtonTexture(), cardButtons[5].getButtonPosition(), cardButtons[5].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
+
+                cardButtons[6].setButtonTexture(MaquinaDeRegras.cartas[40].getTerritCardTexture());
+                cardsBatch.Draw(cardButtons[6].getButtonTexture(), cardButtons[6].getButtonPosition(), cardButtons[6].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
+
                 //Desenhando botões de troca de cartas e de visualizar objetivo
                 buttonBatch.Draw(cardButtons[0].getButtonTexture(), cardButtons[0].getButtonPosition(), cardButtons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 buttonBatch.Draw(cardButtons[1].getButtonTexture(), cardButtons[1].getButtonPosition(), cardButtons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
