@@ -15,6 +15,7 @@ namespace War
         private List<Territorio> territorios = new List<Territorio>();
         private int dificuldade;
         private int exercitosParaColocar;
+        private Boolean vivo = true;
 
         //acrescentei o construtor com a dificuldade da IA
         public Jogador(int cor, int dificuldade)
@@ -38,6 +39,15 @@ namespace War
         {
         }
 
+        public Boolean getStatusJogador()
+        {
+            return vivo;
+        }
+
+        public void setJogadorMorto()
+        {
+            this.vivo = true;
+        }
 
         public int getDificuldade()
         {

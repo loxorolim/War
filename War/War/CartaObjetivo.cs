@@ -19,13 +19,20 @@ namespace War
         private string imgFile;
         private string description;
         private Jogador owner;
+        private int identificador;
 
 
-        public CartaObjetivo(float x, float y, string imgFile, string description)  //necessário adicionar as imagens a cada CartaObjetivo
+        public CartaObjetivo(int id,float x, float y, string imgFile, string description)  //necessário adicionar as imagens a cada CartaObjetivo
         {
+            this.identificador = id;
             this.description = description;
             this.objCardPos = new Vector2(x, y);
             this.imgFile = imgFile;
+        }
+
+        public int getIdentificador()
+        {
+           return this.identificador;
         }
 
         public Vector2 getObjCardPosition(){
@@ -80,5 +87,6 @@ namespace War
             return false;
         }
 
+        
     }
 }

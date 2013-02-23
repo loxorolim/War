@@ -85,7 +85,7 @@ namespace War
             batch = new SpriteBatch(Game.GraphicsDevice);
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             //creditsLogo = Game.Content.Load<Texture2D>("creditsLogo");
-            warMap = Game.Content.Load<Texture2D>("creditsState800x600");
+            warMap = Game.Content.Load<Texture2D>("creditsStateNew");
             menuButton.setButtonTexture(Game.Content.Load<Texture2D>("menuButton"));
             //creditsLogoPosition = new Vector2(Global.WIDTH / 2 - creditsLogo.Width / 2, 0);
             base.LoadContent();

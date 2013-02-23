@@ -258,10 +258,15 @@ namespace War
                 if(tokens[i].getTerritorio().getDono().Equals(turnPlayer) && (currentPhase == GamePhase.AddArmyPhase || currentPhase == GamePhase.ReallocatePhase))
                      tokenBatch.DrawString(font, string.Format(tokens[i].getTerritorio().getNumeroExercitoRemanejavel().ToString()), fontPosition2, Color.Purple);
 
+
             }
             if (playersSelected)
             {
-                tokenBatch.DrawString(font, string.Format(Global.getColorName(turnPlayer.getCor()) + "Player"), new Vector2(340, 0), Global.getColor(turnPlayer.getCor()));
+                String playerColor = Global.getColorName(turnPlayer.getCor());
+                Vector2 posPlayerColor =new Vector2((Global.WIDTH / 2 - font.MeasureString(playerColor).X/2), -5);
+                tokenBatch.DrawString(font, string.Format(playerColor),posPlayerColor, Global.getColor(turnPlayer.getCor()));
+                tokenBatch.DrawString(font, string.Format("Player"), new Vector2(posPlayerColor.X + font.MeasureString(playerColor).X + 5, -5), Color.Black);
+                tokenBatch.DrawString(font, string.Format("Army Income:" + turnPlayer.getNumExercitoParacolocar() ), new Vector2(0, -5), Color.Black);
             }
 
             
@@ -361,33 +366,36 @@ namespace War
                     okToken.setTokenPosition(new Vector2(-30, -30));
                     if (firstCounter > 0)
                     {
-                        foreach (Territorio t in Tabuleiro.mapa)
+                        if (turnPlayer.getNumExercitoParacolocar() == 0)
                         {
-                            t.atribuirExercitosPendentes();
-                        }
-                        
-                        if (firstCounter > 1 )
-                        {
-                            phaseLogo = Game.Content.Load<Texture2D>("firstPhaseLogo");
-  
-                            phaseLogoTimer.Interval = (1000) * 2;
-                            phaseLogoTimer.Enabled = true;
-                            phaseLogoTimer.Elapsed += setDrawLogoFalse;
-                            phaseLogoTimer.Start();
-                            drawLogo = true;
-                        }
-                        if (firstCounter == 1)
-                        {
-                            phaseLogo = Game.Content.Load<Texture2D>("incomePhaseLogo");                         
-                            phaseLogoTimer.Interval = (1000) * 2;
-                            phaseLogoTimer.Enabled = true;
-                            phaseLogoTimer.Elapsed += setDrawLogoFalse;
-                            phaseLogoTimer.Start();
-                            drawLogo = true;
-                        }
+                            foreach (Territorio t in Tabuleiro.mapa)
+                            {
+                                t.atribuirExercitosPendentes();
+                            }
 
-                        MaquinaDeRegras.passaVez();
-                        firstCounter--;
+                            if (firstCounter > 1)
+                            {
+                                phaseLogo = Game.Content.Load<Texture2D>("firstPhaseLogo");
+
+                                phaseLogoTimer.Interval = (1000) * 2;
+                                phaseLogoTimer.Enabled = true;
+                                phaseLogoTimer.Elapsed += setDrawLogoFalse;
+                                phaseLogoTimer.Start();
+                                drawLogo = true;
+                            }
+                            if (firstCounter == 1)
+                            {
+                                phaseLogo = Game.Content.Load<Texture2D>("incomePhaseLogo");
+                                phaseLogoTimer.Interval = (1000) * 2;
+                                phaseLogoTimer.Enabled = true;
+                                phaseLogoTimer.Elapsed += setDrawLogoFalse;
+                                phaseLogoTimer.Start();
+                                drawLogo = true;
+                            }
+
+                            MaquinaDeRegras.passaVez();
+                            firstCounter--;
+                        }
                     }
                     else
                     {
@@ -434,21 +442,23 @@ namespace War
 
             if (currentPhase == GamePhase.AddArmyPhase)
             {
-                foreach (Territorio t in Tabuleiro.mapa)
+                if (turnPlayer.getNumExercitoParacolocar() == 0)
                 {
-                    t.atribuirExercitosPendentes();
+                    foreach (Territorio t in Tabuleiro.mapa)
+                    {
+                        t.atribuirExercitosPendentes();
+                    }
+                    addToken.setTokenPosition(new Vector2(-30, -30));
+                    minusToken.setTokenPosition(new Vector2(-30, -30));
+                    okToken.setTokenPosition(new Vector2(-30, -30));
+                    currentPhase = GamePhase.AttackPhase;
+                    phaseLogo = Game.Content.Load<Texture2D>("attackPhaseLogo");
+                    phaseLogoTimer.Interval = (1000) * 2;
+                    phaseLogoTimer.Enabled = true;
+                    phaseLogoTimer.Elapsed += setDrawLogoFalse;
+                    phaseLogoTimer.Start();
+                    drawLogo = true;
                 }
-                addToken.setTokenPosition(new Vector2(-30, -30));
-                minusToken.setTokenPosition(new Vector2(-30, -30));
-                okToken.setTokenPosition(new Vector2(-30, -30));               
-                currentPhase = GamePhase.AttackPhase;
-                phaseLogo = Game.Content.Load<Texture2D>("attackPhaseLogo");
-                phaseLogoTimer.Interval = (1000) * 2;
-                phaseLogoTimer.Enabled = true;
-                phaseLogoTimer.Elapsed += setDrawLogoFalse;
-                phaseLogoTimer.Start();
-                drawLogo = true;
-
             }
             else
             {
@@ -619,7 +629,7 @@ namespace War
                             numArmyToPass++;
                         }
                     }
-                    if (okToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                    if (okToken.getTerritorio().getNumeroExercito() > 0 && okToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
                     {
                         addToken.setTokenPosition(new Vector2(-30, -30));
                         minusToken.setTokenPosition(new Vector2(-30, -30));

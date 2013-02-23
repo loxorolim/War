@@ -9,20 +9,20 @@ namespace War
     {
 
         public static CartaObjetivo[] objetivos = new CartaObjetivo[] {
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/1", "Destruir completamente os exércitos brancos."),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/2", "Destruir completamente os exércitos azuis."),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/3", "Destruir completamente os exércitos pretos."),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/4", "Destruir completamente os exércitos verdes"),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/5", "Destruir completamente os exércitos vermelhos"),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/6", "Destruir completamente os exércitos amarelos"),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/7", "Conquistar 18 territórios, à sua escolha, com, pelo menos, 2 exércitos em cada um."),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/8", "Conquistar 24 territórios à sua escolha"),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/9", "Conquistar, em sua totalidade, os continentes Desert Plains e Rainbow Peninsula"),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/10", "Conquistar, em sua totalidade, os continentes Rocky Cliffs e Snowy Ridges"),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/11", "Conquistar, em sua totalidade, os continentes Metal Islands e Wild Woods"),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/12", "Conquistar, em sua totalidade, os continentes Rocky Cliffs, Snowy Ridges e um terceiro à sua escolha"),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/13", "Conquistar, em sua totalidade, os continentes Rainbow Peninsula, Snowy Ridges e um terceiro à sua escolha"),
-            new CartaObjetivo(-450, -636, "Cartas/objetivos/14", "Conquistar, em sua totalidade, os continentes Wild Woods e Rocky Cliffs")
+            new CartaObjetivo(1,-450, -636, "Cartas/objetivos/1", "Destruir completamente os exércitos brancos."),
+            new CartaObjetivo(2,-450, -636, "Cartas/objetivos/2", "Destruir completamente os exércitos azuis."),
+            new CartaObjetivo(3,-450, -636, "Cartas/objetivos/3", "Destruir completamente os exércitos pretos."),
+            new CartaObjetivo(4,-450, -636, "Cartas/objetivos/4", "Destruir completamente os exércitos verdes"),
+            new CartaObjetivo(5,-450, -636, "Cartas/objetivos/5", "Destruir completamente os exércitos vermelhos"),
+            new CartaObjetivo(6,-450, -636, "Cartas/objetivos/6", "Destruir completamente os exércitos amarelos"),
+            new CartaObjetivo(7,-450, -636, "Cartas/objetivos/7", "Conquistar 18 territórios, à sua escolha, com, pelo menos, 2 exércitos em cada um."),
+            new CartaObjetivo(8,-450, -636, "Cartas/objetivos/8", "Conquistar 24 territórios à sua escolha"),
+            new CartaObjetivo(9,-450, -636, "Cartas/objetivos/9", "Conquistar, em sua totalidade, os continentes Desert Plains e Rainbow Peninsula"),
+            new CartaObjetivo(10,-450, -636, "Cartas/objetivos/10", "Conquistar, em sua totalidade, os continentes Rocky Cliffs e Snowy Ridges"),
+            new CartaObjetivo(11,-450, -636, "Cartas/objetivos/11", "Conquistar, em sua totalidade, os continentes Metal Islands e Wild Woods"),
+            new CartaObjetivo(12,-450, -636, "Cartas/objetivos/12", "Conquistar, em sua totalidade, os continentes Rocky Cliffs, Snowy Ridges e um terceiro à sua escolha"),
+            new CartaObjetivo(13,-450, -636, "Cartas/objetivos/13", "Conquistar, em sua totalidade, os continentes Rainbow Peninsula, Snowy Ridges e um terceiro à sua escolha"),
+            new CartaObjetivo(14,-450, -636, "Cartas/objetivos/14", "Conquistar, em sua totalidade, os continentes Wild Woods e Rocky Cliffs")
         };
 
         public static List<CartaTerritorio> cartas;
@@ -367,6 +367,204 @@ namespace War
 
             }
 
+        }
+
+        public Boolean verificaVitoria()
+        {
+            CartaObjetivo c = Tabuleiro.jogadorDaVez.getObjetivo();
+            Boolean vitoria = false;
+            switch (c.getIdentificador())
+            {
+                case 1:
+                    vitoria = verificaExercitoMorto(0);
+                    // destruir os exercitos brancos
+                    break;
+                case 2:
+                    vitoria = verificaExercitoMorto(4);    
+                // destruir os exercitos azul
+                    break;
+                case 3:
+                    vitoria = verificaExercitoMorto(1);
+                    // destruir os exercitos preto
+                    break;
+                case 4:
+                    vitoria = verificaExercitoMorto(3);
+                    // destruir os exercitos verde
+                    break;
+                case 5:
+                    vitoria = verificaExercitoMorto(2);
+                    // destruir os exercitos vermelho
+                    break;
+                case 6:
+                    vitoria = verificaExercitoMorto(5);
+                    // destruir os exercitos amarelo
+                    break;
+                case 7:
+                    vitoria = verificaQtdTerritorios(18);
+                    break;
+                case 8:
+                    vitoria = verificaQtdTerritorios(24);
+                    break;
+                case 9:
+                    vitoria = verificaContinentesConquistados("Desert Plains", "Rainbow Peninsula", false);
+                    //conquistar Desert Plains e Rainbow Peninsula
+                    break;
+                case 10:
+                    vitoria = verificaContinentesConquistados("Rocky Cliffs", "Snowy Ridges", false);
+                    // Rocky Cliffs e Snowy Ridges 
+                    break;
+                case 11:
+                    vitoria = verificaContinentesConquistados("Metal Islands", "Wild Woods", false);
+                    //Metal Islands e Wild Woods
+                    break;
+                case 12:
+                    vitoria = verificaContinentesConquistados("Rocky Cliffs", "Snowy Ridges", true);
+                    // Rocky Cliffs, Snowy Ridges e um terceiro
+                    break;
+                case 13:
+                    vitoria = verificaContinentesConquistados("Rainbow Peninsula", "Snowy Ridges", true);
+                    //Rainbow Peninsula, Snowy Ridges e um terceiro
+                    break;
+                case 14:
+                    vitoria = verificaContinentesConquistados("Wild Woods", "Rocky Cliffs", false);
+                    //Wild Woods e Rocky Cliffs
+                    break;
+                }
+            return vitoria;
+
+        }
+
+        //Usado para verificar objetivo
+        private Boolean verificaExercitoMorto(int cor)
+        {
+            Jogador inimigo = getJogadorDesejado(cor);
+            if (inimigo.Equals(null) || inimigo.Equals(Tabuleiro.jogadorDaVez))
+                return verificaQtdTerritorios(24);
+            else{
+                if (inimigo.getTerritorios().Count == 0)
+                {
+                    //inimigo morreu
+                    if (inimigo.getStatusJogador())
+                    {
+                        //o jogador atual acabou de matar o inimigo
+                        //é necessário setar a variavel VIVO para False
+                        return true;
+                    }
+                    else
+                    {
+                        //o inimigo foi morto por outro jogador
+                        //o objetivo muda para conquistar 24 territorios
+                        return verificaQtdTerritorios(24);
+                    }
+                }
+               }
+
+            return true;
+        }
+
+        private Jogador getJogadorDesejado(int cor)
+        {
+            foreach (Jogador j in Tabuleiro.jogadores)
+            {
+                if (j.getCor().CompareTo(cor) == 0)
+                    return j;
+            }
+            return null;
+        }
+
+        //Usado para verificar objetivo
+        private Boolean verificaQtdTerritorios(int quantidade)
+        {
+            Jogador atual = Tabuleiro.jogadorDaVez;
+            switch (quantidade)
+            {
+                case 18:
+                    int contador = 0;
+                    if (atual.getTerritorios().Count >= quantidade)
+                    {
+                        foreach (Territorio t in Tabuleiro.jogadorDaVez.getTerritorios())
+                        {
+                            if (t.getNumeroExercito() < 2)
+                                return false;
+                            else
+                                contador++;
+                        }
+                        if (contador == 18)
+                            return true;
+                        else
+                            return false;
+                    }
+                    else
+                        return false;
+                        
+
+                case 24:
+                    if (atual.getTerritorios().Count == quantidade)
+                        return true;
+                    else
+                        return false;
+                
+                default:
+                    return false;
+        
+            }
+        }
+
+        //Usado para verificar Objetivo
+        private Boolean verificaContinentesConquistados(String c1, String c2, Boolean terceiro)
+        {
+            Jogador atual = Tabuleiro.jogadorDaVez;
+            Continente cont1 = getContinenteDesejado(c1);
+            Continente cont2 = getContinenteDesejado(c2);
+
+            foreach (Territorio t in cont1.getTerritorios())
+            {
+                if (!t.getDono().Equals(atual))
+                    return false;
+            }
+
+            foreach (Territorio t in cont2.getTerritorios())
+            {
+                if (!t.getDono().Equals(atual))
+                    return false;
+            }
+
+            if (terceiro)
+            {
+                Boolean dono = true;
+                foreach (Continente continente in Tabuleiro.continentes)
+                {
+                    if (!(continente.Equals(cont1) || continente.Equals(cont2)))
+                    {
+                        dono = true;
+                        foreach (Territorio t in continente.getTerritorios())
+                        {
+                            if (!t.getDono().Equals(atual))
+                            {
+                                dono = false;
+                                break;
+                            }
+                        }
+                        if (dono)
+                            return true;
+                    }
+                }
+                return false;
+                
+            }
+            
+            return true;
+            
+        }
+
+        private Continente getContinenteDesejado(String nome)
+        {
+            foreach (Continente c in Tabuleiro.continentes)
+            {
+                if (c.getNome().CompareTo(nome) == 0)
+                    return c;
+            }
+            return null;
         }
 
     }
