@@ -53,6 +53,7 @@ namespace War
         Boolean drawObj = false;
         Boolean drawCards = false;
         Boolean firstTime = false;
+        Boolean reallocationSelected = false;
         public static Boolean playersSelected { get; set; }
         public static Boolean gameBegin { get; set; }
         Boolean showAddButton = false;
@@ -470,6 +471,10 @@ namespace War
                 {
                     if (currentPhase == GamePhase.ReallocatePhase)
                     {
+                        foreach (Territorio t in Tabuleiro.mapa)
+                        {
+                            t.atribuirExercitosPendentes();
+                        }
                         addToken.setTokenPosition(new Vector2(-30, -30));
                         minusToken.setTokenPosition(new Vector2(-30, -30));
                         okToken.setTokenPosition(new Vector2(-30, -30));
@@ -676,34 +681,27 @@ namespace War
                 {
                     foreach (Token tok in tokens)
                     {
-                        if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                        if (mouseStateCurrent.LeftButton == ButtonState.Pressed  && mouseStatePrevious.LeftButton == ButtonState.Released)
                         {
-                            if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
+                            if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && !reallocationSelected && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
                             {
                                 zerarVetor(tokenFrames);
                                 if (tok.getTerritorio().getNumeroExercito() > 1)
                                 {
                                     origem = tok.getTerritorio();
                                     changeTokenReallocateFrames(tok);
+                                    reallocationSelected = true;
                                 }
+                                
                             }
-                            if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tokenFrames[verifyTokenFrameLocation(tok.getTerritorio())] == 3 && !drawCards && !drawGuide)
+                            else 
+                            if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && !tok.getTerritorio().Equals(origem) && tokenFrames[verifyTokenFrameLocation(tok.getTerritorio())] == 3 && !drawCards && !drawGuide)
                             {
                                 destino = tok.getTerritorio();
-                                //Batalha battle = new Batalha(turnPlayer, defensor.getDono(), atacante, defensor);
-                                //battle.iniciar();
+                                askArmyReallocation = true;
+                                okButtonPressed = false;
+                                reallocationSelected = false;
 
-                             //   if (battle.getNumExercitosParaPassar() > 0)
-                             //   {
-                                    askArmyReallocation = true;
-                                    //numArmyToPass = battle.getNumExercitosParaPassar();
-                                    okButtonPressed = false;
-
-
-                             //   }
-
-
-                               // zerarVetor(tokenFrames);
                             }
                         }
 
@@ -711,26 +709,29 @@ namespace War
                 }
                 if (askArmyReallocation)
                 {
-                    addToken.setTokenPosition(new Vector2(defensor.getPosX() - 15, defensor.getPosY() - 25));
+                    addToken.setTokenPosition(new Vector2(destino.getPosX() - 15, destino.getPosY() - 25));
                     addToken.setTerritorio(destino);
-                    minusToken.setTokenPosition(new Vector2(defensor.getPosX() + 15, defensor.getPosY() - 25));
+                    minusToken.setTokenPosition(new Vector2(destino.getPosX() + 15, destino.getPosY() - 25));
                     minusToken.setTerritorio(destino);
-                    okToken.setTokenPosition(new Vector2(defensor.getPosX() + 45, defensor.getPosY() - 25));
+                    okToken.setTokenPosition(new Vector2(destino.getPosX() + 45, destino.getPosY() - 25));
                     okToken.setTerritorio(destino);
 
                     if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
                     {
 
-                            addToken.getTerritorio().setNumeroExercitosRemanejavel(addToken.getTerritorio().getNumeroExercito() + 1);
+                        if (origem.getNumeroExercito() > 1)
+                        {
+                            addToken.getTerritorio().setNumeroExercitosRemanejavel(addToken.getTerritorio().getNumeroExercitoRemanejavel() + 1);
                             origem.diminuirNumeroDeExercito(1);
+                        }
                            // atacante.setNumeroExercitos(atacante.getNumeroExercito() - 1);
                         
                     }
                     if (minusToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
                     {
-                        if (minusToken.getTerritorio().getNumeroExercito() > 1)
+                        if (destino.getNumeroExercitoRemanejavel() > 0)
                         {
-                            addToken.getTerritorio().setNumeroExercitosRemanejavel(addToken.getTerritorio().getNumeroExercitoRemanejavel() - 1);
+                            destino.setNumeroExercitosRemanejavel(destino.getNumeroExercitoRemanejavel() - 1);
                             origem.setNumeroExercitos(origem.getNumeroExercito() + 1);
                           //  atacante.setNumeroExercitos(atacante.getNumeroExercito() + 1);
                           //  numArmyReallocate++;
@@ -742,6 +743,7 @@ namespace War
                         minusToken.setTokenPosition(new Vector2(-30, -30));
                         okToken.setTokenPosition(new Vector2(-30, -30));
                         okButtonPressed = true;
+                        zerarVetor(tokenFrames);
                         askArmyReallocation = false;
                     }
 
