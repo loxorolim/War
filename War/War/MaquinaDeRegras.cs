@@ -67,6 +67,7 @@ namespace War
                 contadorVez = 0;
             }
             Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[Tabuleiro.ordemDeJogadores[contadorVez]];
+            distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
 
         }
 
@@ -227,7 +228,7 @@ namespace War
             return retorno;
         }
 
-        public static int distribuicaoDeExercito(Jogador jogador)
+        public static void distribuicaoDeExercito(Jogador jogador)
         {
             int qtdTerritorios = 0;
             int qtdExercito = 0;
@@ -240,7 +241,8 @@ namespace War
                 }
             }
             qtdExercito = qtdTerritorios / 2;
-            return qtdExercito;
+            jogador.addExercitosParaColocar(qtdExercito);
+           // return qtdExercito;
 
         }
 
@@ -271,13 +273,14 @@ namespace War
             }
             return false;
         }
-        public static void adicionarExercitosIniciais()
-        {
-            foreach(Jogador jog in Tabuleiro.jogadores)
-            {
-                jog.addExercitosParaColocar(exercitosRecompensa);
-            }
-        }
+        //public static void adicionarExercitosIniciais()
+        //{
+        //    foreach(Jogador jog in Tabuleiro.jogadores)
+        //    {
+        //        int num = distribuicaoDeExercito(jog);
+        //        jog.addExercitosParaColocar(num);
+        //    }
+        //}
         public static void adicionarExercitosParaSeremColocados(Jogador jog,int n)
         {
             jog.addExercitosParaColocar(n);

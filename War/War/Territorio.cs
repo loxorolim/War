@@ -101,6 +101,18 @@ namespace War
             return vizinhosInimigos;
         }
 
+        public List<Territorio> getListaVizinhosAmigos()
+        {
+            List<Territorio> vizinhosAmigos = new List<Territorio>();
+            for (int i = 0; i < vizinhos.Count; i++)
+            {
+                if (vizinhos[i].getDono().Equals(dono))
+                {
+                    vizinhosAmigos.Add(vizinhos[i]);
+                }
+            }
+            return vizinhosAmigos;
+        }
         public void setListaVizinhos(List<Territorio> vizinhos)
         {
             this.vizinhos = vizinhos;
