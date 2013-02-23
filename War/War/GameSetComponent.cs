@@ -155,6 +155,7 @@ namespace War
                             MaquinaDeRegras.adicionarExercitosIniciais();
                             PlayableComponent.playersSelected = true;
                             PlayableComponent.firstCounter = Tabuleiro.jogadores.Count;
+                            PlayableComponent.gameBegin = true;
                             
                             War.CurrentState = War.GameState.InPlay;
                             

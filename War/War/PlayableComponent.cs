@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Timers;
 
 
 namespace War
@@ -17,10 +18,15 @@ namespace War
     /// </summary>
     public class PlayableComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {
+        Timer phaseLogoTimer = new Timer();
+
+        
+
         Texture2D warMap;
         Texture2D armyToPass;
         Texture2D mapGuide;
         Texture2D cardsBackground;
+        Texture2D phaseLogo;
         SpriteBatch mapBatch;
         SpriteBatch tokenBatch;
         SpriteBatch tokenBatch2;
@@ -42,7 +48,9 @@ namespace War
         Boolean drawGuide = false;
         Boolean drawObj = false;
         Boolean drawCards = false;
+        Boolean firstTime = false;
         public static Boolean playersSelected { get; set; }
+        public static Boolean gameBegin { get; set; }
         Boolean showAddButton = false;
         Token addToken;
         Token minusToken;
@@ -56,7 +64,7 @@ namespace War
         List<Token> tokens;
         int[] tokenFrames;
         Boolean[]  readinessArray;
-
+        Boolean drawLogo = false;
 
         public PlayableComponent(Game game)
             : base(game)
@@ -81,6 +89,7 @@ namespace War
             // TODO: Add your initialization code here
             //Botoes pegar carta, atacar, realocar, finalizar
             playersSelected = false;
+            gameBegin = false;
             buttons.Add(new Button(10, 498, 2));
             buttons.Add(new Button(75, 495, 2));
             buttons.Add(new Button(75, 545, 2));
@@ -110,16 +119,35 @@ namespace War
         public override void Update(GameTime gameTime)
         {
             createTokensPositions();
-            turnPlayer = Tabuleiro.jogadorDaVez;
-            if (currentPhase.Equals(GamePhase.AddArmyPhase))
+            if (!drawLogo)
             {
-                addArmyPhaseOperations();
+
+                turnPlayer = Tabuleiro.jogadorDaVez;
+                if (currentPhase.Equals(GamePhase.AddArmyPhase))
+                {
+                    addArmyPhaseOperations();
+                }
+                if (currentPhase.Equals(GamePhase.AttackPhase))
+                {
+                    attackPhaseOperations();
+                }
+
+                checkButtonsClick();
             }
-            if (currentPhase.Equals(GamePhase.AttackPhase))
+            if (gameBegin)
             {
-                attackPhaseOperations();
+                phaseLogo = Game.Content.Load<Texture2D>("firstPhaseLogo");
+
+                phaseLogoTimer.Interval = (1000) * 2;
+                phaseLogoTimer.Enabled = true;
+                phaseLogoTimer.Elapsed += setDrawLogoFalse;
+                phaseLogoTimer.Start();
+                drawLogo = true;
+                gameBegin = false;
             }
-            checkButtonsClick();
+  
+            
+            
 
 
 
@@ -160,6 +188,12 @@ namespace War
                 //Desenhando botões de troca de cartas e de visualizar objetivo
                 buttonBatch.Draw(cardButtons[0].getButtonTexture(), cardButtons[0].getButtonPosition(), cardButtons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 buttonBatch.Draw(cardButtons[1].getButtonTexture(), cardButtons[1].getButtonPosition(), cardButtons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            }
+            if (drawLogo )
+            {            
+                
+                logoBatch.Draw(phaseLogo, new Vector2(Global.WIDTH/2 - phaseLogo.Width/2, Global.HEIGHT/2-phaseLogo.Height), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+
             }
             if (drawObj)
             {
@@ -239,6 +273,7 @@ namespace War
             logoBatch = new SpriteBatch(Game.GraphicsDevice);
             cardsBatch = new SpriteBatch(Game.GraphicsDevice);
             font = Game.Content.Load<SpriteFont>("font");
+            phaseLogo= Game.Content.Load<Texture2D>("incomePhaseLogo");
             warMap = Game.Content.Load<Texture2D>("WarMapNewWindow");
             armyToPass = Game.Content.Load<Texture2D>("numExercitosPassar");
             mapGuide = Game.Content.Load<Texture2D>("mapGuide");
@@ -318,6 +353,27 @@ namespace War
                         {
                             t.atribuirExercitosPendentes();
                         }
+                        
+                        if (firstCounter > 1 )
+                        {
+                            phaseLogo = Game.Content.Load<Texture2D>("firstPhaseLogo");
+  
+                            phaseLogoTimer.Interval = (1000) * 2;
+                            phaseLogoTimer.Enabled = true;
+                            phaseLogoTimer.Elapsed += setDrawLogoFalse;
+                            phaseLogoTimer.Start();
+                            drawLogo = true;
+                        }
+                        if (firstCounter == 1)
+                        {
+                            phaseLogo = Game.Content.Load<Texture2D>("incomePhaseLogo");                         
+                            phaseLogoTimer.Interval = (1000) * 2;
+                            phaseLogoTimer.Enabled = true;
+                            phaseLogoTimer.Elapsed += setDrawLogoFalse;
+                            phaseLogoTimer.Start();
+                            drawLogo = true;
+                        }
+
                         MaquinaDeRegras.passaVez();
                         firstCounter--;
                     }
@@ -325,7 +381,7 @@ namespace War
                     {
                         if (currentPhase.Equals(GamePhase.ReallocatePhase))
                         {
-                            currentPhase = GamePhase.AddArmyPhase;
+                            changeToNextPhase();
                             
                             MaquinaDeRegras.passaVez();
                         }
@@ -374,6 +430,12 @@ namespace War
                 minusToken.setTokenPosition(new Vector2(-30, -30));
                 okToken.setTokenPosition(new Vector2(-30, -30));               
                 currentPhase = GamePhase.AttackPhase;
+                phaseLogo = Game.Content.Load<Texture2D>("attackPhaseLogo");
+                phaseLogoTimer.Interval = (1000) * 2;
+                phaseLogoTimer.Enabled = true;
+                phaseLogoTimer.Elapsed += setDrawLogoFalse;
+                phaseLogoTimer.Start();
+                drawLogo = true;
 
             }
             else
@@ -385,13 +447,25 @@ namespace War
                     okToken.setTokenPosition(new Vector2(-30, -30));
                     okButtonPressed = true;
                     askArmyPass = false;
+                    phaseLogo = Game.Content.Load<Texture2D>("reallocationPhaseLogo");
                     currentPhase = GamePhase.ReallocatePhase;
+                    phaseLogoTimer.Interval = (1000) * 2;
+                    phaseLogoTimer.Enabled = true;
+                    phaseLogoTimer.Elapsed += setDrawLogoFalse;
+                    phaseLogoTimer.Start();
+                    drawLogo = true;
                 }
                 else
                 {
                     if (currentPhase == GamePhase.ReallocatePhase)
                     {
+                        phaseLogo = Game.Content.Load<Texture2D>("incomePhaseLogo");
                         currentPhase = GamePhase.AddArmyPhase;
+                        phaseLogoTimer.Interval = (1000) * 2;
+                        phaseLogoTimer.Enabled = true;
+                        phaseLogoTimer.Elapsed += setDrawLogoFalse;
+                        phaseLogoTimer.Start();
+                        drawLogo = true;
                         
                     }
                 }
@@ -595,7 +669,13 @@ namespace War
         {
 
         }
-       
+
+        private void setDrawLogoFalse(object source, ElapsedEventArgs e)
+        {
+            ((Timer)(source)).Enabled = false;
+            drawLogo = false;
+        }
+   
       
 
     }
