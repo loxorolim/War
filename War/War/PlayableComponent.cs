@@ -629,7 +629,7 @@ namespace War
                             numArmyToPass++;
                         }
                     }
-                    if (okToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                    if (okToken.getTerritorio().getNumeroExercito() > 0 && okToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
                     {
                         addToken.setTokenPosition(new Vector2(-30, -30));
                         minusToken.setTokenPosition(new Vector2(-30, -30));
