@@ -636,8 +636,17 @@ namespace War
                         okToken.setTokenPosition(new Vector2(-30, -30));
                         okButtonPressed = true;
                         askArmyPass = false;
-                    }
 
+                        if (MaquinaDeRegras.verificaVitoria())
+                        {
+                            //mostra tela de vitoria do jogador atual
+                        }
+                        Jogador defesa = defensor.getDono();
+                        if (defesa.getTerritorios().Count == 0)
+                            defesa.setJogadorMorto();
+
+                    }
+                   
                 }
             }
             catch (Exception e)
