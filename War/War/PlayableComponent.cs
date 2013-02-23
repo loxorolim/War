@@ -27,6 +27,7 @@ namespace War
         Texture2D mapGuide;
         Texture2D cardsBackground;
         Texture2D phaseLogo;
+        Texture2D[] dados;
         SpriteBatch mapBatch;
         SpriteBatch tokenBatch;
         SpriteBatch tokenBatch2;
@@ -81,6 +82,7 @@ namespace War
             objCards = MaquinaDeRegras.objetivos;
             territCards = MaquinaDeRegras.cartas;
             readinessArray = new Boolean[Tabuleiro.jogadores.Count];
+            dados = new Texture2D[6];
 
             // TODO: Construct any child components here
         }
@@ -192,9 +194,10 @@ namespace War
                 //foreach (CartaTerritorio carta in Tabuleiro.jogadorDaVez.getCartasJogador())
                 //{
                 //    cardButtons[i].setButtonTexture(carta.getTerritCardTexture());
-                //    cardsBatch.Draw(cardButtons[i].getButtonTexture(), cardButtons[i].getButtonPosition(), cardButtons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 0.5f);
+                //    cardsBatch.Draw(cardButtons[i].getButtonTexture(), cardButtons[i].getButtonPosition(), cardButtons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 1);
                 //    i++;
                 //}
+                
                 //Desenhando cartas aleatórias por enquanto
                 cardButtons[2].setButtonTexture(MaquinaDeRegras.cartas[5].getTerritCardTexture());
                 cardsBatch.Draw(cardButtons[2].getButtonTexture(), cardButtons[2].getButtonPosition(), cardButtons[2].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
@@ -316,6 +319,12 @@ namespace War
             buttons[4].setButtonTexture(Game.Content.Load<Texture2D>("mapGuideButton"));
             cardButtons[0].setButtonTexture(Game.Content.Load<Texture2D>("tradeButton"));
             cardButtons[1].setButtonTexture(Game.Content.Load<Texture2D>("objectiveButton"));
+            dados[0] = Game.Content.Load<Texture2D>("Dados/dados-vermelhos");
+            dados[1] = Game.Content.Load<Texture2D>("Dados/dados-vermelhos");
+            dados[2] = Game.Content.Load<Texture2D>("Dados/dados-vermelhos");
+            dados[3] = Game.Content.Load<Texture2D>("Dados/dados-amarelo");
+            dados[4] = Game.Content.Load<Texture2D>("Dados/dados-amarelo");
+            dados[5] = Game.Content.Load<Texture2D>("Dados/dados-amarelo");
 
             addToken.setTokenTexture(Game.Content.Load<Texture2D>("addButton"));
             minusToken.setTokenTexture(Game.Content.Load<Texture2D>("minusButton"));
@@ -365,6 +374,11 @@ namespace War
                 buttons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 cardButtons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 cardButtons[1].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                cardButtons[2].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                cardButtons[3].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                cardButtons[4].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                cardButtons[5].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                cardButtons[6].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards)
                 {
                     drawObj = !drawObj;

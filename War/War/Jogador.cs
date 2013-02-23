@@ -23,7 +23,6 @@ namespace War
             this.cor = cor;
             this.dificuldade = dificuldade;
             MaquinaDeRegras.sortearObjetivo(this);
-            cartasJogador = null;
           //  this.setTerritorios();
         }
 
@@ -31,7 +30,6 @@ namespace War
         {
             this.cor = cor;
             // this.objetivo = MaquinaDeRegras.sortearObjetivo();
-            cartasJogador = null;
             //  this.setTerritorios();
         }
 

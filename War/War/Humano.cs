@@ -12,7 +12,6 @@ namespace War
         {
             base.cor = cor;
             MaquinaDeRegras.sortearObjetivo(this);
-            base.cartasJogador = null;
         }
 
 
