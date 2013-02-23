@@ -876,6 +876,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dados\dados-amarelo.png">
+      <Name>dados-amarelo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Dados\dados-vermelhos.png">
+      <Name>dados-vermelhos</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="creditsStateNew.png">
       <Name>creditsStateNew</Name>
       <Importer>TextureImporter</Importer>
