@@ -347,6 +347,9 @@ namespace War
                 buttons[3].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 if (buttons[3].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
                 {
+                    addToken.setTokenPosition(new Vector2(-30, -30));
+                    minusToken.setTokenPosition(new Vector2(-30, -30));
+                    okToken.setTokenPosition(new Vector2(-30, -30));
                     if (firstCounter > 0)
                     {
                         foreach (Territorio t in Tabuleiro.mapa)
