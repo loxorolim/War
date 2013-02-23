@@ -151,8 +151,8 @@ namespace War
                             if (buttons[5].getNumberOfFrame() == 1)
                                 Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Yellow));
                             MaquinaDeRegras.sortearTerritorios();
-                            MaquinaDeRegras.sorteaOrdemJogadores();
-                            MaquinaDeRegras.adicionarExercitosIniciais();
+                            MaquinaDeRegras.sorteaOrdemJogadores();                           
+                            MaquinaDeRegras.distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
                             PlayableComponent.playersSelected = true;
                             PlayableComponent.firstCounter = Tabuleiro.jogadores.Count;
                             PlayableComponent.gameBegin = true;
