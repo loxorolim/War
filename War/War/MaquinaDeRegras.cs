@@ -369,7 +369,7 @@ namespace War
 
         }
 
-        public Boolean verificaVitoria()
+        public static Boolean verificaVitoria()
         {
             CartaObjetivo c = Tabuleiro.jogadorDaVez.getObjetivo();
             Boolean vitoria = false;
@@ -435,7 +435,7 @@ namespace War
         }
 
         //Usado para verificar objetivo
-        private Boolean verificaExercitoMorto(int cor)
+        private static Boolean verificaExercitoMorto(int cor)
         {
             Jogador inimigo = getJogadorDesejado(cor);
             if (inimigo.Equals(null) || inimigo.Equals(Tabuleiro.jogadorDaVez))
@@ -462,7 +462,7 @@ namespace War
             return true;
         }
 
-        private Jogador getJogadorDesejado(int cor)
+        private static Jogador getJogadorDesejado(int cor)
         {
             foreach (Jogador j in Tabuleiro.jogadores)
             {
@@ -473,7 +473,7 @@ namespace War
         }
 
         //Usado para verificar objetivo
-        private Boolean verificaQtdTerritorios(int quantidade)
+        private static Boolean verificaQtdTerritorios(int quantidade)
         {
             Jogador atual = Tabuleiro.jogadorDaVez;
             switch (quantidade)
@@ -511,7 +511,7 @@ namespace War
         }
 
         //Usado para verificar Objetivo
-        private Boolean verificaContinentesConquistados(String c1, String c2, Boolean terceiro)
+        private static Boolean verificaContinentesConquistados(String c1, String c2, Boolean terceiro)
         {
             Jogador atual = Tabuleiro.jogadorDaVez;
             Continente cont1 = getContinenteDesejado(c1);
@@ -557,7 +557,7 @@ namespace War
             
         }
 
-        private Continente getContinenteDesejado(String nome)
+        private static Continente getContinenteDesejado(String nome)
         {
             foreach (Continente c in Tabuleiro.continentes)
             {
