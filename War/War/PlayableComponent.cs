@@ -199,19 +199,15 @@ namespace War
                 //}
                 
                 //Desenhando cartas aleatórias por enquanto
-                cardButtons[2].setButtonTexture(MaquinaDeRegras.cartas[5].getTerritCardTexture());
+                
                 cardsBatch.Draw(cardButtons[2].getButtonTexture(), cardButtons[2].getButtonPosition(), cardButtons[2].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
 
-                cardButtons[3].setButtonTexture(MaquinaDeRegras.cartas[16].getTerritCardTexture());
                 cardsBatch.Draw(cardButtons[3].getButtonTexture(), cardButtons[3].getButtonPosition(), cardButtons[3].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
 
-                cardButtons[4].setButtonTexture(MaquinaDeRegras.cartas[20].getTerritCardTexture());
                 cardsBatch.Draw(cardButtons[4].getButtonTexture(), cardButtons[4].getButtonPosition(), cardButtons[4].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
 
-                cardButtons[5].setButtonTexture(MaquinaDeRegras.cartas[2].getTerritCardTexture());
                 cardsBatch.Draw(cardButtons[5].getButtonTexture(), cardButtons[5].getButtonPosition(), cardButtons[5].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
 
-                cardButtons[6].setButtonTexture(MaquinaDeRegras.cartas[40].getTerritCardTexture());
                 cardsBatch.Draw(cardButtons[6].getButtonTexture(), cardButtons[6].getButtonPosition(), cardButtons[6].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
 
                 //Desenhando botões de troca de cartas e de visualizar objetivo
@@ -319,6 +315,11 @@ namespace War
             buttons[4].setButtonTexture(Game.Content.Load<Texture2D>("mapGuideButton"));
             cardButtons[0].setButtonTexture(Game.Content.Load<Texture2D>("tradeButton"));
             cardButtons[1].setButtonTexture(Game.Content.Load<Texture2D>("objectiveButton"));
+            cardButtons[2].setButtonTexture(MaquinaDeRegras.cartas[5].getTerritCardTexture());
+            cardButtons[3].setButtonTexture(MaquinaDeRegras.cartas[16].getTerritCardTexture());
+            cardButtons[4].setButtonTexture(MaquinaDeRegras.cartas[20].getTerritCardTexture());
+            cardButtons[5].setButtonTexture(MaquinaDeRegras.cartas[2].getTerritCardTexture());
+            cardButtons[6].setButtonTexture(MaquinaDeRegras.cartas[40].getTerritCardTexture());
             dados[0] = Game.Content.Load<Texture2D>("Dados/dados-vermelhos");
             dados[1] = Game.Content.Load<Texture2D>("Dados/dados-vermelhos");
             dados[2] = Game.Content.Load<Texture2D>("Dados/dados-vermelhos");
