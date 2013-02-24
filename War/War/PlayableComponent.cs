@@ -536,64 +536,74 @@ namespace War
         }
         public void addArmyPhaseOperations()
         {
-            try
+            if (!turnPlayer.isIA())
             {
-                if(firstCounter > 0)
-                     buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
-                else
-                     buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("nextPhaseButton"));
-                mouseStateCurrent = Mouse.GetState();
-                foreach (Token tok in tokens)
+                try
                 {
-                    if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                    if (firstCounter > 0)
+                        buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
+                    else
+                        buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("nextPhaseButton"));
+                    mouseStateCurrent = Mouse.GetState();
+                    foreach (Token tok in tokens)
                     {
-                        if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
+                        if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
                         {
-                            addToken.setTokenPosition(new Vector2(tok.getTokenPosition().X -15, tok.getTokenPosition().Y - 25));
-                            addToken.setTerritorio(tok.getTerritorio());
-                           
-                            minusToken.setTokenPosition(new Vector2(tok.getTokenPosition().X + 15, tok.getTokenPosition().Y - 25));
-                            minusToken.setTerritorio(tok.getTerritorio());
-                            okToken.setTokenPosition(new Vector2(tok.getTokenPosition().X + 45, tok.getTokenPosition().Y -25));
-                            okToken.setTerritorio(tok.getTerritorio());
+                            if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
+                            {
+                                addToken.setTokenPosition(new Vector2(tok.getTokenPosition().X - 15, tok.getTokenPosition().Y - 25));
+                                addToken.setTerritorio(tok.getTerritorio());
+
+                                minusToken.setTokenPosition(new Vector2(tok.getTokenPosition().X + 15, tok.getTokenPosition().Y - 25));
+                                minusToken.setTerritorio(tok.getTerritorio());
+                                okToken.setTokenPosition(new Vector2(tok.getTokenPosition().X + 45, tok.getTokenPosition().Y - 25));
+                                okToken.setTerritorio(tok.getTerritorio());
+                            }
                         }
                     }
-                }
-                if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
-                {
-                    if (turnPlayer.getNumExercitoParacolocar() > 0)
+                    if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
                     {
-                       // addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
-                        addToken.getTerritorio().setNumeroExercitosRemanejavel(addToken.getTerritorio().getNumeroExercitoRemanejavel() + 1);
-                        turnPlayer.removeExercitoParacolocar();
+                        if (turnPlayer.getNumExercitoParacolocar() > 0)
+                        {
+                            // addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito() + 1);
+                            addToken.getTerritorio().setNumeroExercitosRemanejavel(addToken.getTerritorio().getNumeroExercitoRemanejavel() + 1);
+                            turnPlayer.removeExercitoParacolocar();
+                        }
                     }
-                }
-                if (minusToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
-                {
-                    if (minusToken.getTerritorio().getNumeroExercitoRemanejavel() > 0)
+                    if (minusToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
                     {
-                       // addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito()-1);
-                        minusToken.getTerritorio().setNumeroExercitosRemanejavel(minusToken.getTerritorio().getNumeroExercitoRemanejavel() - 1);
-                        turnPlayer.addExercitosParaColocar(1);
-                        
-                    }
-                }
-                if (okToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
-                {
-                    addToken.setTokenPosition(new Vector2(-30, -30));
-                    minusToken.setTokenPosition(new Vector2(-30, -30));
-                    okToken.setTokenPosition(new Vector2(-30, -30));
-                               
-                }
-                
-            }
-            catch(Exception e)
-            {
+                        if (minusToken.getTerritorio().getNumeroExercitoRemanejavel() > 0)
+                        {
+                            // addToken.getTerritorio().setNumeroExercitos(addToken.getTerritorio().getNumeroExercito()-1);
+                            minusToken.getTerritorio().setNumeroExercitosRemanejavel(minusToken.getTerritorio().getNumeroExercitoRemanejavel() - 1);
+                            turnPlayer.addExercitosParaColocar(1);
 
+                        }
+                    }
+                    if (okToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                    {
+                        addToken.setTokenPosition(new Vector2(-30, -30));
+                        minusToken.setTokenPosition(new Vector2(-30, -30));
+                        okToken.setTokenPosition(new Vector2(-30, -30));
+
+                    }
+
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+            else
+            {
+                turnPlayer.distribuirExercito(turnPlayer.getNumExercitoParacolocar());
+                changeToNextPhase();
             }
         }
         public void attackPhaseOperations()
         {
+             if (!turnPlayer.isIA())
+            {
             try
             {
                 
@@ -685,6 +695,13 @@ namespace War
             {
 
             }
+            }
+             else
+             {
+                 turnPlayer.atacar();
+                 changeToNextPhase();
+                 MaquinaDeRegras.passaVez();
+             }
         }
         public void changeTokenAttackFrames(Object o)
         {
@@ -724,85 +741,95 @@ namespace War
         }
         public void reallocationPhaseOperations()
         {
-            try
+            if (!turnPlayer.isIA())
             {
-
-                mouseStateCurrent = Mouse.GetState();
-                if (okButtonPressed)
+                try
                 {
-                    foreach (Token tok in tokens)
-                    {
-                        if (mouseStateCurrent.LeftButton == ButtonState.Pressed  && mouseStatePrevious.LeftButton == ButtonState.Released)
-                        {
-                            if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && !reallocationSelected && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
-                            {
-                                zerarVetor(tokenFrames);
-                                if (tok.getTerritorio().getNumeroExercito() > 1)
-                                {
-                                    origem = tok.getTerritorio();
-                                    changeTokenReallocateFrames(tok);
-                                    reallocationSelected = true;
-                                }
-                                
-                            }
-                            else 
-                            if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && !tok.getTerritorio().Equals(origem) && tokenFrames[verifyTokenFrameLocation(tok.getTerritorio())] == 3 && !drawCards && !drawGuide)
-                            {
-                                destino = tok.getTerritorio();
-                                askArmyReallocation = true;
-                                okButtonPressed = false;
-                                reallocationSelected = false;
 
+                    mouseStateCurrent = Mouse.GetState();
+                    if (okButtonPressed)
+                    {
+                        foreach (Token tok in tokens)
+                        {
+                            if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+                            {
+                                if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && !reallocationSelected && tok.getColor().Equals(Global.getColor(turnPlayer.getCor())) && !drawCards && !drawGuide)
+                                {
+                                    zerarVetor(tokenFrames);
+                                    if (tok.getTerritorio().getNumeroExercito() > 1)
+                                    {
+                                        origem = tok.getTerritorio();
+                                        changeTokenReallocateFrames(tok);
+                                        reallocationSelected = true;
+                                    }
+
+                                }
+                                else
+                                    if (tok.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && !tok.getTerritorio().Equals(origem) && tokenFrames[verifyTokenFrameLocation(tok.getTerritorio())] == 3 && !drawCards && !drawGuide)
+                                    {
+                                        destino = tok.getTerritorio();
+                                        askArmyReallocation = true;
+                                        okButtonPressed = false;
+                                        reallocationSelected = false;
+
+                                    }
                             }
+
+                        }
+                    }
+                    if (askArmyReallocation)
+                    {
+                        addToken.setTokenPosition(new Vector2(destino.getPosX() - 15, destino.getPosY() - 25));
+                        addToken.setTerritorio(destino);
+                        minusToken.setTokenPosition(new Vector2(destino.getPosX() + 15, destino.getPosY() - 25));
+                        minusToken.setTerritorio(destino);
+                        okToken.setTokenPosition(new Vector2(destino.getPosX() + 45, destino.getPosY() - 25));
+                        okToken.setTerritorio(destino);
+
+                        if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                        {
+
+                            if (origem.getNumeroExercito() > 1)
+                            {
+                                addToken.getTerritorio().setNumeroExercitosRemanejavel(addToken.getTerritorio().getNumeroExercitoRemanejavel() + 1);
+                                origem.diminuirNumeroDeExercito(1);
+                            }
+                            // atacante.setNumeroExercitos(atacante.getNumeroExercito() - 1);
+
+                        }
+                        if (minusToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                        {
+                            if (destino.getNumeroExercitoRemanejavel() > 0)
+                            {
+                                destino.setNumeroExercitosRemanejavel(destino.getNumeroExercitoRemanejavel() - 1);
+                                origem.setNumeroExercitos(origem.getNumeroExercito() + 1);
+                                //  atacante.setNumeroExercitos(atacante.getNumeroExercito() + 1);
+                                //  numArmyReallocate++;
+                            }
+                        }
+                        if (okToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
+                        {
+                            addToken.setTokenPosition(new Vector2(-30, -30));
+                            minusToken.setTokenPosition(new Vector2(-30, -30));
+                            okToken.setTokenPosition(new Vector2(-30, -30));
+                            okButtonPressed = true;
+                            zerarVetor(tokenFrames);
+                            askArmyReallocation = false;
                         }
 
                     }
                 }
-                if (askArmyReallocation)
+                catch (Exception e)
                 {
-                    addToken.setTokenPosition(new Vector2(destino.getPosX() - 15, destino.getPosY() - 25));
-                    addToken.setTerritorio(destino);
-                    minusToken.setTokenPosition(new Vector2(destino.getPosX() + 15, destino.getPosY() - 25));
-                    minusToken.setTerritorio(destino);
-                    okToken.setTokenPosition(new Vector2(destino.getPosX() + 45, destino.getPosY() - 25));
-                    okToken.setTerritorio(destino);
-
-                    if (addToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
-                    {
-
-                        if (origem.getNumeroExercito() > 1)
-                        {
-                            addToken.getTerritorio().setNumeroExercitosRemanejavel(addToken.getTerritorio().getNumeroExercitoRemanejavel() + 1);
-                            origem.diminuirNumeroDeExercito(1);
-                        }
-                           // atacante.setNumeroExercitos(atacante.getNumeroExercito() - 1);
-                        
-                    }
-                    if (minusToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
-                    {
-                        if (destino.getNumeroExercitoRemanejavel() > 0)
-                        {
-                            destino.setNumeroExercitosRemanejavel(destino.getNumeroExercitoRemanejavel() - 1);
-                            origem.setNumeroExercitos(origem.getNumeroExercito() + 1);
-                          //  atacante.setNumeroExercitos(atacante.getNumeroExercito() + 1);
-                          //  numArmyReallocate++;
-                        }
-                    }
-                    if (okToken.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !drawGuide)
-                    {
-                        addToken.setTokenPosition(new Vector2(-30, -30));
-                        minusToken.setTokenPosition(new Vector2(-30, -30));
-                        okToken.setTokenPosition(new Vector2(-30, -30));
-                        okButtonPressed = true;
-                        zerarVetor(tokenFrames);
-                        askArmyReallocation = false;
-                    }
 
                 }
             }
-            catch (Exception e)
+            else
             {
-
+                IA turnPlayerIA = (IA)turnPlayer;
+                turnPlayerIA.remanejarExercito();
+                
+                MaquinaDeRegras.passaVez();
             }
         }
         public void verifyReadiness()

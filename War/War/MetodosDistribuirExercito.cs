@@ -18,6 +18,7 @@ namespace War
                 randomNumber = random.Next(0, iA.getTerritorios().Count() - 1);
                 iA.getTerritorios()[randomNumber].setNumeroExercitos(1 + iA.getTerritorios()[randomNumber].getNumeroExercito());
                 iA.getTerritorios()[randomNumber].setNumeroExercitosRemanejavel(1 + iA.getTerritorios()[randomNumber].getNumeroExercitoRemanejavel());
+                iA.removeExercitoParacolocar();
             }
         }
 

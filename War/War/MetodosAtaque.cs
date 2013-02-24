@@ -85,7 +85,7 @@ namespace War
             List<Territorio> possiveisAtacantes = new List<Territorio>();
             Random random = new Random();
             for (int i = 0; i < iA.getTerritorios().Count; i++)
-            {
+            {                
                 if (iA.getTerritorios()[i].temVizinho() && iA.getTerritorios()[i].getNumeroExercito() > 1)
                 {
                     possiveisAtacantes.Add(iA.getTerritorios()[i]);

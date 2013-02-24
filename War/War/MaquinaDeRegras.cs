@@ -98,7 +98,7 @@ namespace War
         {
             foreach (Territorio vizinho in origem.getListaVizinhos())
             {
-                if (destino.Equals(vizinho) && paisesComMesmoDono(destino, vizinho) && quantidade < origem.getNumeroExercitoRemanejavel())
+                if (destino.Equals(vizinho) && paisesComMesmoDono(destino, vizinho))
                 {
                     return true;
                 }
