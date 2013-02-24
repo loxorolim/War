@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -9,23 +9,19 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-
 namespace War
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class CreditsComponent : Microsoft.Xna.Framework.DrawableGameComponent
+    public class VictoryComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {
         Texture2D warMap;
-        Texture2D creditsLogo;
-        Vector2 creditsLogoPosition;
-      
-        SpriteBatch batch;
+        Texture2D victoryLogo;
+        Vector2 victoryLogoPosition;
         SpriteBatch spriteBatch;
-        Button menuButton;
+        SpriteBatch batch;
+        SpriteFont font;
         MouseState mouseStateCurrent,mouseStatePrevious;
-        public CreditsComponent(Game game)
+        public static Jogador victorPlayer { get; set; }
+        public VictoryComponent(Game game)
             : base(game)
         {
             // TODO: Construct any child components here
@@ -39,7 +35,7 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            menuButton = new Button(800 / 2 - 50, 600 - 75,2);
+            
             base.Initialize();
         }
 
@@ -53,17 +49,16 @@ namespace War
             try
             {
 
-                mouseStateCurrent = Mouse.GetState();
-                menuButton.changeCurrentFrame(mouseStateCurrent.X,mouseStateCurrent.Y);
-                if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
-                {
-                    if (menuButton.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
-                    {
-                        War.CurrentState = War.GameState.Intro;
-                    }
+        //        mouseStateCurrent = Mouse.GetState();
+        //        if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+        //        {
+        ////            if (menuButton.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
+        //            {
+        //                War.CurrentState = War.GameState.Intro;
+        //            }
 
-                }
-                mouseStatePrevious = mouseStateCurrent;
+        //        }
+        //        mouseStatePrevious = mouseStateCurrent;
             }
             catch (Exception e)
             {
@@ -74,9 +69,13 @@ namespace War
         {
             batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
+            spriteBatch.Draw(victoryLogo, victoryLogoPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             batch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(menuButton.getButtonTexture(), menuButton.getButtonPosition(),menuButton.getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
+            
+            Vector2 posPlayerColor = new Vector2((Global.WIDTH / 2 - font.MeasureString(Global.getColorName(victorPlayer.getCor())).X / 2), -5);
+           // spriteBatch.Draw(menuButton.getButtonTexture(), menuButton.getButtonPosition(),menuButton.getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
             //spriteBatch.Draw(creditsLogo, creditsLogoPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, string.Format(Global.getColorName(victorPlayer.getCor())), posPlayerColor, Global.getColor(victorPlayer.getCor()));
             batch.End();
             spriteBatch.End();
             base.Draw(gameTime);
@@ -86,8 +85,11 @@ namespace War
             batch = new SpriteBatch(Game.GraphicsDevice);
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             //creditsLogo = Game.Content.Load<Texture2D>("creditsLogo");
-            warMap = Game.Content.Load<Texture2D>("creditsStateNew");
-            menuButton.setButtonTexture(Game.Content.Load<Texture2D>("menuButton"));
+            warMap = Game.Content.Load<Texture2D>("warMapWindowGrey");
+            victoryLogo = Game.Content.Load<Texture2D>("victorLogo");
+            font = Game.Content.Load<SpriteFont>("font2");
+            victoryLogoPosition = new Vector2(Global.WIDTH / 2 - victoryLogo.Width / 2, 130);
+           // menuButton.setButtonTexture(Game.Content.Load<Texture2D>("menuButton"));
             //creditsLogoPosition = new Vector2(Global.WIDTH / 2 - creditsLogo.Width / 2, 0);
             base.LoadContent();
         }
