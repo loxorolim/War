@@ -65,7 +65,7 @@ namespace War
             }
             
             dadosAt = atacanteJog.lancarDados(numDadosAtaque);
-          //  System.Threading.Thread.Sleep(500); //verificar esta linha caso de algum erro no jogo.
+            System.Threading.Thread.Sleep(250); //verificar esta linha caso de algum erro no jogo.
             dadosDef = defensorJog.lancarDados(numDadosDefesa);
             int[] exercitosPerdidos = MaquinaDeRegras.compararDados(dadosAt, numDadosAtaque, dadosDef, numDadosDefesa);
             //posição 0 -> exercitos Atacantes perdidos
