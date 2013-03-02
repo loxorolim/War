@@ -26,7 +26,7 @@ namespace War
         };
 
         public static List<CartaTerritorio> cartas;
-        public static int exercitosRecompensa = 4;
+        public static int exercitosRecompensa = 2;  // recompensa de exercitos pela troca de cartas
         private static int contadorVez = 0; //utilizado para ver qual é o jogador da vez
 
         //retorna quem é o jogador atual
@@ -203,7 +203,7 @@ namespace War
             return cartaSorteada;
         }
 
-        public static int efetuaTroca(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
+        public static void efetuaTroca(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
         {
             int retorno = 0;
             if (validaTroca(carta1, carta2, carta3))
@@ -226,7 +226,8 @@ namespace War
                 }
                 devolveCartas(carta1, carta2, carta3);
             }
-            return retorno;
+            insereExercitoNaCartaTerritorio(Tabuleiro.jogadorDaVez, carta1, carta2, carta3);
+            Tabuleiro.jogadorDaVez.addExercitosParaColocar(retorno);
         }
 
         //Distribui a quantidade de exercitos baseado na quantidade de territorios do Jogador
@@ -266,6 +267,32 @@ namespace War
 
             }
             jogador.addExercitosParaColocar(qtdExercito);
+        }
+
+        //quando o jogador trocar suas cartas, se uma das cartas tiver um territorio em que ele é dono, é adicionado 2 exercitos neste territorio
+        public static void insereExercitoNaCartaTerritorio(Jogador jogador, CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
+        {
+            int qtdExercitoAntigo; 
+            Territorio t1 = carta1.getTerritorio();
+            Territorio t2 = carta2.getTerritorio();
+            Territorio t3 = carta3.getTerritorio();
+
+            if (t1.getDono().Equals(jogador))
+            {
+                qtdExercitoAntigo = t1.getNumeroExercito();
+                t1.setNumeroExercitos(qtdExercitoAntigo + 2);
+            }
+            if (t2.getDono().Equals(jogador))
+            {
+                qtdExercitoAntigo = t2.getNumeroExercito();
+                t2.setNumeroExercitos(qtdExercitoAntigo + 2);
+            }
+            if (t3.getDono().Equals(jogador))
+            {
+                qtdExercitoAntigo = t3.getNumeroExercito();
+                t3.setNumeroExercitos(qtdExercitoAntigo + 2);
+            }   
+            
         }
 
         private static void devolveCartas(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
