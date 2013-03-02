@@ -17,10 +17,12 @@ namespace War
         private string figura;
         private int tipo;
         private Texture2D territCardTexture;
+        private Territorio territorio;
 
-        public CartaTerritorio(string nomeImagem,string tipoFigura)   //necessário adicionar as imagens a cada cartaTerritorio
+        public CartaTerritorio(string nomeImagem,string tipoFigura, Territorio territorio)   //necessário adicionar as imagens a cada cartaTerritorio
         {
             this.figura = nomeImagem;
+            this.territorio = territorio;
 
             if (tipoFigura.CompareTo(quadrado) == 0)
                 this.tipo = 0;
@@ -32,7 +34,11 @@ namespace War
                        this.tipo = 2;
         }
 
-
+        public Territorio getTerritorio()
+        {
+            return territorio;
+        }
+        
         public string getFigura()
         {
             return figura;
