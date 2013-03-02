@@ -13,7 +13,7 @@ namespace War
         protected List<CartaTerritorio> cartasJogador = new List<CartaTerritorio>(5);
         protected CartaObjetivo objetivo;
         private List<Territorio> territorios = new List<Territorio>();
-        protected int dificuldade;
+        private int dificuldade;
         private int exercitosParaColocar;
         private Boolean vivo = true;
 

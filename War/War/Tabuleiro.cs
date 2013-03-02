@@ -13,7 +13,7 @@ namespace War
         public static List<int> ordemDeJogadores;
         public static int numJogadores = 0;
         public static Jogador jogadorDaVez = null;
-        
+
 
 
         public static void adicionarJogador(Jogador jog)
@@ -84,10 +84,6 @@ namespace War
             v = new List<Territorio>();
             v.Add(yut); v.Add(lotium); v.Add(cravoksi); v.Add(fantasia); v.Add(unteon);
             zerkopolis.setListaVizinhos(v);
-
-            v = new List<Territorio>();
-            v.Add(niktela); v.Add(rusarov);
-            corvotea.setListaVizinhos(v);
 
             v = new List<Territorio>();
             v.Add(fantasia); v.Add(zerkopolis); v.Add(unteon); v.Add(erikum);

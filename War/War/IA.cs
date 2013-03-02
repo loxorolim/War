@@ -13,16 +13,6 @@ namespace War
         MetodosRemanejamento metodosRemanejamento = new MetodosRemanejamento();
         MetodosTrocaCarta metodosTrocaCarta = new MetodosTrocaCarta();
 
-    //acrescentei o construtor com a dificuldade da IA
-        public IA(int cor, int dificuldade)
-        {
-            this.cor = cor;
-            this.dificuldade = dificuldade;
-            //MaquinaDeRegras.sortearObjetivo(this);
-            cartasJogador = null;
-          //  this.setTerritorios();
-        }
-
         public  void trocarCarta()
         {
             switch (this.getDificuldade())
