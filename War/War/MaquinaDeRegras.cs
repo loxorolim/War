@@ -68,6 +68,7 @@ namespace War
             }
             Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[Tabuleiro.ordemDeJogadores[contadorVez]];
             distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
+            bonusDeExercitoPorContinente(Tabuleiro.jogadorDaVez);
 
         }
 
@@ -228,6 +229,7 @@ namespace War
             return retorno;
         }
 
+        //Distribui a quantidade de exercitos baseado na quantidade de territorios do Jogador
         public static void distribuicaoDeExercito(Jogador jogador)
         {
             int qtdTerritorios = 0;
@@ -244,6 +246,26 @@ namespace War
             jogador.addExercitosParaColocar(qtdExercito);
            // return qtdExercito;
 
+        }
+
+        //Calcula o bonus de exercito caso o jogador possua todo o continente
+        public static void bonusDeExercitoPorContinente(Jogador jogador)
+        {
+            int qtdExercito = 0;
+            Boolean mesmoDono = false;
+            foreach (Continente c in Tabuleiro.continentes)
+            {
+                mesmoDono = c.continenteComandadoPorUnicoJogador();
+                if (mesmoDono)
+                {
+                    Territorio t = c.getTerritorios().ElementAt(0);
+                    if(t.getDono().Equals(jogador)){
+                        qtdExercito += c.getRecompensa();
+                    }
+                }
+
+            }
+            jogador.addExercitosParaColocar(qtdExercito);
         }
 
         private static void devolveCartas(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
