@@ -25,7 +25,14 @@ namespace War
             dadosDef = new int[3];
            
         }
-
+        public int[] getDadosAt()
+        {
+            return dadosAt;
+        }
+        public int[] getDadosDef()
+        {
+            return dadosDef;
+        }
         public Territorio getTerritorioDefesa()
         {
             return this.defesaT;

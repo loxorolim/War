@@ -27,7 +27,7 @@ namespace War
         Texture2D mapGuide;
         Texture2D cardsBackground;
         Texture2D phaseLogo;
-        Texture2D[] dados;
+       
         SpriteBatch mapBatch;
         SpriteBatch tokenBatch;
         SpriteBatch tokenBatch2;
@@ -53,6 +53,7 @@ namespace War
         Boolean drawGuide = false;
         Boolean drawObj = false;
         Boolean drawCards = false;
+        Boolean drawDice = false;
         Boolean firstTime = false;
         Boolean reallocationSelected = false;
         public static Boolean playersSelected { get; set; }
@@ -71,10 +72,14 @@ namespace War
         int[] tokenFrames;
         Boolean[]  readinessArray;
         Boolean drawLogo = false;
+        List<Button> dadosAtk;
+        List<Button> dadosDef;
 
         public PlayableComponent(Game game)
             : base(game)
         {
+            dadosAtk = new List<Button>();
+            dadosDef = new List<Button>();
             buttons = new List<Button>();
             cardButtons = new List<Button>();
             tokens = new List<Token>();
@@ -82,7 +87,7 @@ namespace War
             objCards = MaquinaDeRegras.objetivos;
             territCards = MaquinaDeRegras.cartas;
             readinessArray = new Boolean[Tabuleiro.jogadores.Count];
-            dados = new Texture2D[6];
+            
 
             // TODO: Construct any child components here
         }
@@ -94,6 +99,16 @@ namespace War
         public override void Initialize()
         {
             // TODO: Add your initialization code here
+            //Dados
+            
+            //atk
+            dadosAtk.Add(new Button(400, 300, 6));
+            dadosAtk.Add(new Button(400, 350, 6));
+            dadosAtk.Add(new Button(400, 400, 6));
+            //def
+            dadosDef.Add(new Button(450, 300, 6));
+            dadosDef.Add(new Button(450, 350, 6));
+            dadosDef.Add(new Button(450, 400, 6));
             //Botoes pegar carta, atacar, realocar, finalizar
             playersSelected = false;
             gameBegin = false;
@@ -220,6 +235,20 @@ namespace War
                 logoBatch.Draw(phaseLogo, new Vector2(Global.WIDTH/2 - phaseLogo.Width/2, Global.HEIGHT/2-phaseLogo.Height), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
             }
+            if (drawDice)
+            {
+                foreach (Button b in dadosAtk)
+                {
+                    logoBatch.Draw(b.getButtonTexture(), b.getButtonPosition(), b.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+
+                }
+                foreach (Button b in dadosDef)
+                {
+                    logoBatch.Draw(b.getButtonTexture(), b.getButtonPosition(), b.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+
+                }
+
+            }
             if (drawObj)
             {
                 CartaObjetivo obj = turnPlayer.getObjetivo();
@@ -320,13 +349,13 @@ namespace War
             cardButtons[4].setButtonTexture(MaquinaDeRegras.cartas[20].getTerritCardTexture());
             cardButtons[5].setButtonTexture(MaquinaDeRegras.cartas[2].getTerritCardTexture());
             cardButtons[6].setButtonTexture(MaquinaDeRegras.cartas[40].getTerritCardTexture());
-            dados[0] = Game.Content.Load<Texture2D>("Dados/dados-vermelhos");
-            dados[1] = Game.Content.Load<Texture2D>("Dados/dados-vermelhos");
-            dados[2] = Game.Content.Load<Texture2D>("Dados/dados-vermelhos");
-            dados[3] = Game.Content.Load<Texture2D>("Dados/dados-amarelo");
-            dados[4] = Game.Content.Load<Texture2D>("Dados/dados-amarelo");
-            dados[5] = Game.Content.Load<Texture2D>("Dados/dados-amarelo");
-
+            dadosAtk[0].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-vermelhos"));
+            dadosAtk[1].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-vermelhos"));
+            dadosAtk[2].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-vermelhos"));
+            dadosDef[0].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-amarelo"));
+            dadosDef[1].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-amarelo"));
+            dadosDef[2].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-amarelo"));
+            
             addToken.setTokenTexture(Game.Content.Load<Texture2D>("addButton"));
             minusToken.setTokenTexture(Game.Content.Load<Texture2D>("minusButton"));
             okToken.setTokenTexture(Game.Content.Load<Texture2D>("okButton"));
@@ -617,6 +646,7 @@ namespace War
                                 defensor = tok.getTerritorio();
                                 Batalha battle = new Batalha(turnPlayer, defensor.getDono(), atacante, defensor);
                                 battle.iniciar();
+                                
 
                                 if (battle.getNumExercitosParaPassar() > 0)
                                 {
@@ -626,6 +656,16 @@ namespace War
 
 
                                 }
+                                
+                                setDados(battle.getDadosAt(),battle.getDadosDef());
+
+
+                                phaseLogoTimer.Interval = (1000) * 2;
+                                phaseLogoTimer.Enabled = true;
+                                phaseLogoTimer.Elapsed += setDrawDiceFalse;
+                                phaseLogoTimer.Start();
+                                drawDice = true;
+                                
 
                           
                                 zerarVetor(tokenFrames);
@@ -843,6 +883,33 @@ namespace War
         {
             ((Timer)(source)).Enabled = false;
             drawLogo = false;
+        }
+        private void setDrawDiceFalse(object source, ElapsedEventArgs e)
+        {
+            ((Timer)(source)).Enabled = false;
+            drawDice = false;
+        }
+        public void setDados(int[] dadosA,int[] dadosD)
+        {
+            dadosAtk.Clear();
+            dadosDef.Clear();
+            int aux = 0;
+            int aux2 = 0;
+            for (int i = 0; i < dadosA.Length; i++)
+            {
+                dadosAtk.Add(new Button(375, 200+ aux, 6));
+                dadosAtk[i].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-vermelhos"));
+                dadosAtk[i].setFrame(dadosA[i]-1);
+                aux += 70;
+            }
+            for (int i = 0; i < dadosD.Length; i++)
+            {
+                dadosDef.Add(new Button(450, 200 + aux2,6));
+                dadosDef[i].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-amarelo"));
+                dadosDef[i].setFrame(dadosD[i] - 1);
+                aux2 += 70;
+            }
+            
         }
    
       

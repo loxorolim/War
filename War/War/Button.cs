@@ -96,7 +96,10 @@ namespace War
         {
             return currentFrame;
         }
-        
+        public void setFrame(int n)
+        {
+            currentFrame = n;
+        }
           
 
 
