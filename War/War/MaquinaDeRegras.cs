@@ -203,7 +203,7 @@ namespace War
             return cartaSorteada;
         }
 
-        public static void efetuaTroca(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
+        public static int efetuaTroca(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
         {
             int retorno = 0;
             if (validaTroca(carta1, carta2, carta3))
@@ -228,6 +228,7 @@ namespace War
             }
             insereExercitoNaCartaTerritorio(Tabuleiro.jogadorDaVez, carta1, carta2, carta3);
             Tabuleiro.jogadorDaVez.addExercitosParaColocar(retorno);
+            return retorno;
         }
 
         //Distribui a quantidade de exercitos baseado na quantidade de territorios do Jogador
