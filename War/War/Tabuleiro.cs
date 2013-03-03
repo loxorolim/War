@@ -90,7 +90,7 @@ namespace War
             cravoksi.setListaVizinhos(v);
 
             v = new List<Territorio>();
-            v.Add(zerkopolis); v.Add(cravoksi); v.Add(erikum);
+            v.Add(zerkopolis); v.Add(cravoksi); v.Add(erikum); v.Add(jing);
             unteon.setListaVizinhos(v);
 
             v = new List<Territorio>();
@@ -166,7 +166,7 @@ namespace War
             ontrea.setListaVizinhos(v);
 
             v = new List<Territorio>();
-            v.Add(porgulai); v.Add(dinia); v.Add(ontrea); v.Add(shirkwa);
+            v.Add(porgulai); v.Add(dinia); v.Add(ontrea); v.Add(shirkwa); v.Add(anbrixon);
             frokazea.setListaVizinhos(v);
 
             v = new List<Territorio>();
