@@ -56,6 +56,14 @@ namespace War
             }
             Tabuleiro.ordemDeJogadores = ordem;
             Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[ordem[0]];
+            if (Tabuleiro.jogadorDaVez.isIA())
+            {
+                distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
+                bonusDeExercitoPorContinente(Tabuleiro.jogadorDaVez);
+                IA jogadorIA = (IA)Tabuleiro.jogadorDaVez;
+                jogadorIA.jogaTurno();
+                passaVez();
+            }
         }
 
         //método chamado quando o Jogador finalizar a jogada

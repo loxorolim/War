@@ -27,7 +27,7 @@ namespace War
 
         public void jogaTurno()
         {
-            if (tunosDecorridos != 0)
+            if (PlayableComponent.firstCounter>0)
             {
                 this.trocarCarta();
                 this.distribuirExercito(this.getNumExercitoParacolocar());
@@ -43,6 +43,7 @@ namespace War
             else
             {
                 this.distribuirExercito(this.getNumExercitoParacolocar());
+                PlayableComponent.firstCounter--;
             }
             tunosDecorridos++;
         }
