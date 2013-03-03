@@ -27,6 +27,7 @@ namespace War
         Texture2D mapGuide;
         Texture2D cardsBackground;
         Texture2D phaseLogo;
+        Texture2D wonCardLogo;
 
         SpriteBatch mapBatch;
         SpriteBatch tokenBatch;
@@ -230,9 +231,13 @@ namespace War
                 buttonBatch.Draw(cardButtons[1].getButtonTexture(), cardButtons[1].getButtonPosition(), cardButtons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
             if (drawLogo )
-            {            
+            {
+                if (turnPlayer.getConquistouTerritorio())
+                {
+                    logoBatch.Draw(wonCardLogo, new Vector2(Global.WIDTH / 2 - wonCardLogo.Width / 2, Global.HEIGHT / 2 - 80), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
+                logoBatch.Draw(phaseLogo, new Vector2(Global.WIDTH / 2 - phaseLogo.Width / 2, Global.HEIGHT / 2 - phaseLogo.Height -100), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 
-                logoBatch.Draw(phaseLogo, new Vector2(Global.WIDTH/2 - phaseLogo.Width/2, Global.HEIGHT/2-phaseLogo.Height), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
             }
             if (drawDice)
@@ -350,6 +355,8 @@ namespace War
             dadosDef[0].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-amarelo"));
             dadosDef[1].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-amarelo"));
             dadosDef[2].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-amarelo"));
+
+            wonCardLogo = Game.Content.Load<Texture2D>("janelaconquistaDeCarta2");
             
             addToken.setTokenTexture(Game.Content.Load<Texture2D>("addButton"));
             minusToken.setTokenTexture(Game.Content.Load<Texture2D>("minusButton"));
@@ -563,6 +570,7 @@ namespace War
                         askArmyReallocation = false;
                         phaseLogo = Game.Content.Load<Texture2D>("incomePhaseLogo");
                         currentPhase = GamePhase.AddArmyPhase;
+
                         phaseLogoTimer.Interval = (1000) * 2;
                         phaseLogoTimer.Enabled = true;
                         phaseLogoTimer.Elapsed += setDrawLogoFalse;
