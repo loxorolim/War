@@ -140,7 +140,24 @@ namespace War
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-                
+
+            KeyboardState keyboard = Keyboard.GetState();
+
+            if (keyboard.IsKeyDown(Keys.E))
+                turnPlayer.receberCarta();
+
+
+            if (playersSelected)
+            {
+                if (MaquinaDeRegras.verificaVitoria())
+                {
+                    War.CurrentState = War.GameState.Victory;
+                    VictoryComponent.victorPlayer = turnPlayer;
+                    //mostra tela de vitoria do jogador atual
+                }
+
+            }
+    
             createTokensPositions();
             if (!drawLogo)
             {
@@ -386,7 +403,12 @@ namespace War
                 {
                     foreach (Button carta in territCardButtons)
                     {
-                        carta.changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                        //carta.changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                        if (carta.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards)
+                        {
+                            Console.WriteLine("CLIQUEI NA CARTA "+ carta.getButtonPosition().X + "!!!! CURRENT FRAME: "+carta.getCurrentFrame());
+                            carta.setFrame(1);
+                        }
                     }
                 }
                 if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards)
@@ -476,6 +498,7 @@ namespace War
                 Console.Write(e);
             }
         }
+
         public void distributeArmyPhase()
         {
 
