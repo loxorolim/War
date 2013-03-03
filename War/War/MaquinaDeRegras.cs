@@ -250,6 +250,8 @@ namespace War
                 }
             }
             qtdExercito = qtdTerritorios / 2;
+            if (qtdExercito < 3)
+                qtdExercito = 3;
             jogador.addExercitosParaColocar(qtdExercito);
            // return qtdExercito;
 
@@ -431,11 +433,11 @@ namespace War
             switch (c.getIdentificador())
             {
                 case 1:
-                    vitoria = verificaExercitoMorto(0);
+                        vitoria = verificaExercitoMorto(0);
                     // destruir os exercitos brancos
                     break;
                 case 2:
-                    vitoria = verificaExercitoMorto(4);    
+                    vitoria = verificaExercitoMorto(4);   
                 // destruir os exercitos azul
                     break;
                 case 3:
@@ -478,7 +480,7 @@ namespace War
                     break;
                 case 13:
                     vitoria = verificaContinentesConquistados("Rainbow Peninsula", "Snowy Ridges", true);
-                    //Rainbow Peninsula, Snowy Ridges e um terceiro
+                //Rainbow Peninsula, Snowy Ridges e um terceiro
                     break;
                 case 14:
                     vitoria = verificaContinentesConquistados("Wild Woods", "Rocky Cliffs", false);
@@ -513,9 +515,13 @@ namespace War
                         return verificaQtdTerritorios(24);
                     }
                 }
+                else
+                {
+                    return false;
+                }
+
                }
 
-            return true;
         }
 
         private static Jogador getJogadorDesejado(int cor)
