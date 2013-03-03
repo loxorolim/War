@@ -27,7 +27,7 @@ namespace War
         Texture2D mapGuide;
         Texture2D cardsBackground;
         Texture2D phaseLogo;
-        int n = 0;
+
         SpriteBatch mapBatch;
         SpriteBatch tokenBatch;
         SpriteBatch tokenBatch2;
@@ -140,27 +140,6 @@ namespace War
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            KeyboardState keyboard = Keyboard.GetState();
-
-            
-            if (keyboard.IsKeyDown(Keys.E))
-            {
-                if (n < 1)
-                {
-                    turnPlayer.receberCarta();
-                    n++;
-                }
-                
-                
-                foreach (CartaTerritorio carta in turnPlayer.getCartasJogador())
-                {
-                    if(carta.getTerritorio() != null)
-                    Console.WriteLine(carta.getTerritorio().getNome());
-                    else
-                        Console.WriteLine("coringa");
-
-                }
-            }
                 
             createTokensPositions();
             if (!drawLogo)
@@ -224,8 +203,7 @@ namespace War
                 {
                     foreach (Button botaoCarta in territCardButtons)
                     {
-                        Console.WriteLine(botaoCarta.getButtonTexture().Name);
-                        cardsBatch.Draw(botaoCarta.getButtonTexture(), botaoCarta.getButtonPosition(), botaoCarta.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                        cardsBatch.Draw(botaoCarta.getButtonTexture(), botaoCarta.getButtonPosition(), botaoCarta.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
 
                     }
                   
@@ -723,7 +701,6 @@ namespace War
                         okToken.setTokenPosition(new Vector2(-30, -30));
                         okButtonPressed = true;
                         askArmyPass = false;
-                        turnPlayer.receberCarta();
                         //if (MaquinaDeRegras.verificaVitoria())
                         //{
                         //    //mostra tela de vitoria do jogador atual
