@@ -15,6 +15,7 @@ namespace War
         MetodosTrocaCarta metodosTrocaCarta = new MetodosTrocaCarta();
         private int dificuldade;
         private int tunosDecorridos = 0;
+        private bool ganhouBatalha = false;
         
 
         public IA(int cor, int dificuldade)
@@ -27,11 +28,16 @@ namespace War
 
         public void jogaTurno()
         {
+            ganhouBatalha = false;
             if (tunosDecorridos>0)
             {
                 this.trocarCarta();
                 this.distribuirExercito(this.getNumExercitoParacolocar());
                 this.atacar();
+                if (ganhouBatalha)
+                {
+                    receberCarta();
+                }
                 this.remanejarExercito();
                 if (MaquinaDeRegras.verificaVitoria())
                 {
@@ -46,6 +52,11 @@ namespace War
                 PlayableComponent.firstCounter--;
             }
             tunosDecorridos++;
+        }
+
+        public void setGanhouBatalha()
+        {
+            this.ganhouBatalha = true;
         }
 
         public int getDificuldade()
@@ -137,7 +148,7 @@ namespace War
             switch (this.getDificuldade())
             {
                 case 0:
-                    metodosRemanejamento.remanejaFullRandom(this);                    
+                    //metodosRemanejamento.remanejaFullRandom(this);                    
                     break;
                 case 1:
 

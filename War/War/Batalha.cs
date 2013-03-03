@@ -110,6 +110,8 @@ namespace War
            // defesaT.setNumeroExercitosRemanejavel(defesaT.getNumeroExercitoRemanejavel() - defesa);
             if (exercitoDefesaNovo <= 0)
             {
+                IA iaAtacante = (IA)ataqueT.getDono();
+                iaAtacante.setGanhouBatalha();
                 defesaT.getDono().removerTerritorio(defesaT);
                 defesaT.setNovoDono(ataqueT.getDono());
                 ataqueT.getDono().adicionarTerritorio(defesaT);
