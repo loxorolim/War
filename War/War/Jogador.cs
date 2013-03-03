@@ -161,9 +161,7 @@ namespace War
         }
 
         //A interface irá chamar esta função quando o jogador clicar no botao "Finalizar Jogada"
-        public void finalizarJogada() {
-            this.limpaExercitosRemanejaveis();
-        }
+       
         //public void finalizarJogada()
         //{b 
         //    MaquinaDeRegras.passaVez();

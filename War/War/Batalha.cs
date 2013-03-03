@@ -103,21 +103,20 @@ namespace War
         {
             int exercitoAtaqueNovo = ataqueT.getNumeroExercito() - ataque;
             int exercitoDefesaNovo = defesaT.getNumeroExercito() - defesa;
-            Console.WriteLine("Atac: " + exercitoAtaqueNovo + " Def: " + exercitoDefesaNovo);
             ataqueT.setNumeroExercitos(exercitoAtaqueNovo);
             //ataqueT.setNumeroExercitosRemanejavel(ataqueT.getNumeroExercitoRemanejavel() - ataque);
             defesaT.setNumeroExercitos(exercitoDefesaNovo);
            // defesaT.setNumeroExercitosRemanejavel(defesaT.getNumeroExercitoRemanejavel() - defesa);
             if (exercitoDefesaNovo <= 0)
-            {
-                IA iaAtacante = (IA)ataqueT.getDono();
-                iaAtacante.setGanhouBatalha();
+            {              
                 defesaT.getDono().removerTerritorio(defesaT);
                 defesaT.setNovoDono(ataqueT.getDono());
                 ataqueT.getDono().adicionarTerritorio(defesaT);
 
                 if (atacanteJog.isIA())
                 {
+                    IA iaAtacante = (IA)ataqueT.getDono();
+                    iaAtacante.setGanhouBatalha();
                    defesaT.setNumeroExercitos(defesaT.getNumeroExercito() + 1);
                    ataqueT.setNumeroExercitos(ataqueT.getNumeroExercito() - 1);
                    ataqueT.setNumeroExercitosRemanejavel(ataqueT.getNumeroExercitoRemanejavel() - 1);

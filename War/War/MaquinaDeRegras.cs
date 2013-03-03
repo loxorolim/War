@@ -105,11 +105,12 @@ namespace War
         {
             foreach (Territorio vizinho in origem.getListaVizinhos())
             {
-                if (destino.Equals(vizinho) && paisesComMesmoDono(destino, vizinho) && quantidade < origem.getNumeroExercitoRemanejavel())
+                if (destino.Equals(vizinho) && paisesComMesmoDono(destino, vizinho) && quantidade < origem.getNumeroExercitoRemanejavel() && quantidade < origem.getNumeroExercito())
                 {
                     return true;
                 }
             }
+            Console.WriteLine("Erro valiadaçao remanejamento.");
             return false;
         }
 

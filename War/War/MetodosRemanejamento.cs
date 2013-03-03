@@ -17,7 +17,7 @@ namespace War
                 {
                     randomNumber = random.Next(0, iA.getTerritorios()[i].getNumeroExercitoRemanejavel());
                     if (MaquinaDeRegras.validaMovimentoRemanejamento(iA.getTerritorios()[i], iA.getTerritorios()[j], randomNumber))
-                    {
+                    {                        
                         iA.getTerritorios()[i].setNumeroExercitos(iA.getTerritorios()[i].getNumeroExercito() - randomNumber);
                         iA.getTerritorios()[j].setNumeroExercitos(iA.getTerritorios()[j].getNumeroExercito() + randomNumber);
                         iA.getTerritorios()[i].setNumeroExercitosRemanejavel(iA.getTerritorios()[i].getNumeroExercitoRemanejavel() - randomNumber);

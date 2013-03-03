@@ -26,6 +26,7 @@ namespace War
           //  this.setTerritorios();
         }
 
+       
         public void jogaTurno()
         {
             ganhouBatalha = false;
@@ -33,6 +34,7 @@ namespace War
             {
                 this.trocarCarta();
                 this.distribuirExercito(this.getNumExercitoParacolocar());
+                this.limpaExercitosRemanejaveis();
                 this.atacar();
                 if (ganhouBatalha)
                 {
@@ -148,7 +150,7 @@ namespace War
             switch (this.getDificuldade())
             {
                 case 0:
-                    //metodosRemanejamento.remanejaFullRandom(this);                    
+                    metodosRemanejamento.remanejaFullRandom(this);                    
                     break;
                 case 1:
 
