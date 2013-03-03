@@ -26,6 +26,7 @@ namespace War
         InstructionsComponent InstructionsComponent;
         GameSetComponent GameSetComponent;
         PlayableComponent PlayableComponent;
+        VictoryComponent VictoryComponent;
         //VictoryComponent VictoryComponent;
         Song mainMusic;
         Boolean startMainMusic;
@@ -40,13 +41,13 @@ namespace War
             InstructionsComponent = new InstructionsComponent(this);
             GameSetComponent = new GameSetComponent(this);
             PlayableComponent = new PlayableComponent(this);
-            //VictoryComponent = new VictoryComponent(this);
+            VictoryComponent = new VictoryComponent(this);
             Components.Add(IntroComponent);
             Components.Add(CreditsComponent);
             Components.Add(InstructionsComponent);
             Components.Add(GameSetComponent);
             Components.Add(PlayableComponent);
-            //Components.Add(VictoryComponent);
+            Components.Add(VictoryComponent);
             CurrentState = GameState.Intro;
             
            // GotoState();
@@ -184,8 +185,8 @@ namespace War
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
                     GameSetComponent.Enabled = GameSetComponent.Visible = false;
                     PlayableComponent.Enabled = PlayableComponent.Visible = false;
-                    //VictoryComponent.Enabled = VictoryComponent.Visible = false;
-                //    GameOverComponent.Enabled = GameOverComponent.Visible = false;
+                    VictoryComponent.Enabled = VictoryComponent.Visible = false;
+               
                     break;
                 
                 case GameState.GameSet:
@@ -194,10 +195,8 @@ namespace War
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
                     GameSetComponent.Enabled = GameSetComponent.Visible = true;
                     PlayableComponent.Enabled = PlayableComponent.Visible = false;
-                    //VictoryComponent.Enabled = VictoryComponent.Visible = false;
-                    //   AliensComponent.Enabled = AliensComponent.Visible = false;
-                    //    PlayerComponent.Enabled = PlayerComponent.Visible = false;
-                    //    GameOverComponent.Enabled = GameOverComponent.Visible = false;
+                    VictoryComponent.Enabled = VictoryComponent.Visible = false;
+                    
                     break;
 
                 case GameState.InPlay:
@@ -206,10 +205,8 @@ namespace War
                     CreditsComponent.Enabled = CreditsComponent.Visible = false;
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
                     GameSetComponent.Enabled = GameSetComponent.Visible = false;
-                   // VictoryComponent.Enabled = VictoryComponent.Visible = false;
-               //     AliensComponent.Enabled = AliensComponent.Visible = true;
-               //     PlayerComponent.Enabled = PlayerComponent.Visible = true;
-              //      GameOverComponent.Enabled = GameOverComponent.Visible = false;
+                    VictoryComponent.Enabled = VictoryComponent.Visible = false;
+              
                     break;
 
 
@@ -219,10 +216,8 @@ namespace War
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
                     GameSetComponent.Enabled = GameSetComponent.Visible = false;
                     PlayableComponent.Enabled = PlayableComponent.Visible = false;
-                   // VictoryComponent.Enabled = VictoryComponent.Visible = false;
-                //     AliensComponent.Enabled = AliensComponent.Visible = false;
-                    //      PlayerComponent.Enabled = PlayerComponent.Visible = false;
-                    //      GameOverComponent.Enabled = GameOverComponent.Visible = true;
+                    VictoryComponent.Enabled = VictoryComponent.Visible = false;
+           
                     break;
                 case GameState.Instructions:
                     IntroComponent.Enabled = IntroComponent.Visible = false;
@@ -230,7 +225,7 @@ namespace War
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = true;
                     GameSetComponent.Enabled = GameSetComponent.Visible = false;
                     PlayableComponent.Enabled = PlayableComponent.Visible = false;
-                    //VictoryComponent.Enabled = VictoryComponent.Visible = false;
+                    VictoryComponent.Enabled = VictoryComponent.Visible = false;
                     break;
                 
                 case GameState.Victory:
@@ -239,7 +234,7 @@ namespace War
                     InstructionsComponent.Enabled = InstructionsComponent.Visible = false;
                     GameSetComponent.Enabled = GameSetComponent.Visible = false;
                     PlayableComponent.Enabled = PlayableComponent.Visible = false;
-                    //VictoryComponent.Enabled = VictoryComponent.Visible = true;
+                    VictoryComponent.Enabled = VictoryComponent.Visible = true;
 
                     break;
             }

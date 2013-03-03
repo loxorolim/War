@@ -137,6 +137,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Territorio.cs" />
     <Compile Include="Token.cs" />
+    <Compile Include="VictoryComponent.cs" />
     <Compile Include="War.cs" />
   </ItemGroup>
   <ItemGroup>

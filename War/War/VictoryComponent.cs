@@ -15,10 +15,10 @@ namespace War
     {
         Texture2D warMap;
         Texture2D victoryLogo;
+        Texture2D objective;
         Vector2 victoryLogoPosition;
         SpriteBatch spriteBatch;
         SpriteBatch batch;
-        SpriteFont font;
         MouseState mouseStateCurrent,mouseStatePrevious;
         public static Jogador victorPlayer { get; set; }
         public VictoryComponent(Game game)
@@ -48,17 +48,39 @@ namespace War
             // TODO: Add your update code here
             try
             {
+                //public const int BRANCO = 0;
+                //public const int PRETO = 1;
+                //public const int VERMELHO = 2;
+                //public const int VERDE = 3;
+                //public const int AZUL = 4;
+                //public const int AMARELO = 5;
+                switch (victorPlayer.getCor())
+                {
+                    case 0:
+                        victoryLogo = Game.Content.Load<Texture2D>("whiteVictorious");
+                        
+                        break;
+                    case 1:
+                        victoryLogo = Game.Content.Load<Texture2D>("blackVictorious");
+                        break;
+                    case 2:
+                        victoryLogo = Game.Content.Load<Texture2D>("redVictorious");
+                        break;
+                    case 3:
+                        victoryLogo = Game.Content.Load<Texture2D>("greenVictorious");
+                        break;
+                    case 4:
+                        victoryLogo = Game.Content.Load<Texture2D>("blueVictorious");
+                        break;
+                    case 5:
+                        victoryLogo = Game.Content.Load<Texture2D>("yellowVictorious");
+                        break;
+                    default:
 
-        //        mouseStateCurrent = Mouse.GetState();
-        //        if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
-        //        {
-        ////            if (menuButton.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y))
-        //            {
-        //                War.CurrentState = War.GameState.Intro;
-        //            }
-
-        //        }
-        //        mouseStatePrevious = mouseStateCurrent;
+                        break;
+                }
+                objective = Game.Content.Load<Texture2D>("Cartas/objetivos/" + victorPlayer.getObjetivo().getIdentificador().ToString());
+        
             }
             catch (Exception e)
             {
@@ -69,13 +91,12 @@ namespace War
         {
             batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Global.ScalingMatrix);
-            spriteBatch.Draw(victoryLogo, victoryLogoPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            batch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             
-            Vector2 posPlayerColor = new Vector2((Global.WIDTH / 2 - font.MeasureString(Global.getColorName(victorPlayer.getCor())).X / 2), -5);
-           // spriteBatch.Draw(menuButton.getButtonTexture(), menuButton.getButtonPosition(),menuButton.getCurrentFrame(), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0);
-            //spriteBatch.Draw(creditsLogo, creditsLogoPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.DrawString(font, string.Format(Global.getColorName(victorPlayer.getCor())), posPlayerColor, Global.getColor(victorPlayer.getCor()));
+            batch.Draw(warMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(objective, new Vector2(280, 200), null, Color.White, 0, Vector2.Zero, 0.6f, SpriteEffects.None, 0);
+            spriteBatch.Draw(victoryLogo, victoryLogoPosition, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            
+            
             batch.End();
             spriteBatch.End();
             base.Draw(gameTime);
@@ -86,9 +107,9 @@ namespace War
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             //creditsLogo = Game.Content.Load<Texture2D>("creditsLogo");
             warMap = Game.Content.Load<Texture2D>("warMapWindowGrey");
-            victoryLogo = Game.Content.Load<Texture2D>("victorLogo");
-            font = Game.Content.Load<SpriteFont>("font2");
-            victoryLogoPosition = new Vector2(Global.WIDTH / 2 - victoryLogo.Width / 2, 130);
+            victoryLogo = Game.Content.Load<Texture2D>("redVictorious");
+            objective = Game.Content.Load<Texture2D>("Cartas/objetivos/1");
+            victoryLogoPosition = new Vector2(Global.WIDTH / 2 - victoryLogo.Width / 2, 80);
            // menuButton.setButtonTexture(Game.Content.Load<Texture2D>("menuButton"));
             //creditsLogoPosition = new Vector2(Global.WIDTH / 2 - creditsLogo.Width / 2, 0);
             base.LoadContent();
