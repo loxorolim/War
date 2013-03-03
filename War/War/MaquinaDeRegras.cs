@@ -67,9 +67,15 @@ namespace War
                 contadorVez = 0;
             }
             Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[Tabuleiro.ordemDeJogadores[contadorVez]];
+            Console.WriteLine("jogador: " + Tabuleiro.jogadorDaVez.getCor() + "!");
             distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
             bonusDeExercitoPorContinente(Tabuleiro.jogadorDaVez);
-
+            if (Tabuleiro.jogadorDaVez.isIA())
+            {
+                IA jogadorIA = (IA)Tabuleiro.jogadorDaVez;
+                jogadorIA.jogaTurno();
+                passaVez();
+            }
         }
 
 
@@ -494,7 +500,7 @@ namespace War
                 if (inimigo.getTerritorios().Count == 0)
                 {
                     //inimigo morreu
-                    if (inimigo.getStatusJogador())
+                    if (!inimigo.getStatusJogador())
                     {
                         //o jogador atual acabou de matar o inimigo
                         //é necessário setar a variavel VIVO para False

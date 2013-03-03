@@ -8,10 +8,49 @@ namespace War
     
     class IA : Jogador
     {
+        public const int easy = 0, medium = 1, hard = 2, insane = 3;
         MetodosAtaque metodosAtaque = new MetodosAtaque();
         MetodosDistribuirExercito metodosDistribuirExercito = new MetodosDistribuirExercito();
         MetodosRemanejamento metodosRemanejamento = new MetodosRemanejamento();
         MetodosTrocaCarta metodosTrocaCarta = new MetodosTrocaCarta();
+        private int dificuldade;
+        private int tunosDecorridos = 0;
+        
+
+        public IA(int cor, int dificuldade)
+        {
+            this.cor = cor;
+            this.dificuldade = dificuldade;
+            MaquinaDeRegras.sortearObjetivo(this);
+          //  this.setTerritorios();
+        }
+
+        public void jogaTurno()
+        {
+            if (tunosDecorridos != 0)
+            {
+                this.trocarCarta();
+                this.distribuirExercito(this.getNumExercitoParacolocar());
+                this.atacar();
+                this.remanejarExercito();
+                if (MaquinaDeRegras.verificaVitoria())
+                {
+                    War.CurrentState = War.GameState.Victory;
+                    VictoryComponent.victorPlayer = this;
+                    //mostra tela de vitoria do jogador atual
+                }
+            }
+            else
+            {
+                this.distribuirExercito(this.getNumExercitoParacolocar());
+            }
+            tunosDecorridos++;
+        }
+
+        public int getDificuldade()
+        {
+            return this.dificuldade;
+        }
 
         public  void trocarCarta()
         {

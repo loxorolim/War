@@ -140,6 +140,9 @@ namespace War
                       
                             if (buttons[0].getNumberOfFrame() == 1)
                               Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.White));
+                            else
+                                if (buttons[0].getNumberOfFrame() == 2)
+                                    Tabuleiro.adicionarJogador(new IA((int)Global.Cor.White, IA.easy));
                             if (buttons[1].getNumberOfFrame() == 1)
                                 Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Black));
                             if (buttons[2].getNumberOfFrame() == 1)
