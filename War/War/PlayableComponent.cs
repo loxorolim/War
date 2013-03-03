@@ -27,7 +27,7 @@ namespace War
         Texture2D mapGuide;
         Texture2D cardsBackground;
         Texture2D phaseLogo;
-       
+        int n = 0;
         SpriteBatch mapBatch;
         SpriteBatch tokenBatch;
         SpriteBatch tokenBatch2;
@@ -68,6 +68,7 @@ namespace War
         List<CartaTerritorio> territCards;
         List<Button> buttons;
         List<Button> cardButtons;
+        List<Button> territCardButtons;
         List<Token> tokens;
         int[] tokenFrames;
         Boolean[]  readinessArray;
@@ -82,6 +83,7 @@ namespace War
             dadosDef = new List<Button>();
             buttons = new List<Button>();
             cardButtons = new List<Button>();
+            territCardButtons = new List<Button>();
             tokens = new List<Token>();
             tokenFrames = new int[42];
             objCards = MaquinaDeRegras.objetivos;
@@ -118,16 +120,8 @@ namespace War
             buttons.Add(new Button(175, 545, 2));
             buttons.Add(new Button(751, 12, 2));
 
-        
-
             cardButtons.Add(new Button(124, 350, 2));
             cardButtons.Add(new Button(598, 350, 2));
-            //cartas
-            cardButtons.Add(new Button(124, 140, 2));
-            cardButtons.Add(new Button(238, 140, 2));
-            cardButtons.Add(new Button(352, 140, 2));
-            cardButtons.Add(new Button(466, 140, 2));
-            cardButtons.Add(new Button(580, 140, 2));
             addToken = new Token(-30, -30, 1, null);
             minusToken = new Token(-30, -30, 1, null);
             okToken = new Token(-30, -30, 1, null);
@@ -146,6 +140,28 @@ namespace War
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
+            KeyboardState keyboard = Keyboard.GetState();
+
+            
+            if (keyboard.IsKeyDown(Keys.E))
+            {
+                if (n < 1)
+                {
+                    turnPlayer.receberCarta();
+                    n++;
+                }
+                
+                
+                foreach (CartaTerritorio carta in turnPlayer.getCartasJogador())
+                {
+                    if(carta.getTerritorio() != null)
+                    Console.WriteLine(carta.getTerritorio().getNome());
+                    else
+                        Console.WriteLine("coringa");
+
+                }
+            }
+                
             createTokensPositions();
             if (!drawLogo)
             {
@@ -203,29 +219,18 @@ namespace War
             {
                 //Desenhando background das cartas (pergaminho)
                 cardsBatch.Draw(cardsBackground, new Vector2(40, 90), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-                Random r = new Random();
                 //Será utilizado quando os jogadores tiverem cartas
-                //int i = 2;
-                //foreach (CartaTerritorio carta in Tabuleiro.jogadorDaVez.getCartasJogador())
-                //{
-                //    cardButtons[i].setButtonTexture(carta.getTerritCardTexture());
-                //    cardsBatch.Draw(cardButtons[i].getButtonTexture(), cardButtons[i].getButtonPosition(), cardButtons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 0.35f, SpriteEffects.None, 1);
-                //    i++;
-                //}
+                if (turnPlayer != null)
+                {
+                    foreach (Button botaoCarta in territCardButtons)
+                    {
+                        Console.WriteLine(botaoCarta.getButtonTexture().Name);
+                        cardsBatch.Draw(botaoCarta.getButtonTexture(), botaoCarta.getButtonPosition(), botaoCarta.getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+
+                    }
+                  
+                }
                 
-                //Desenhando cartas aleatórias por enquanto
-                
-                cardsBatch.Draw(cardButtons[2].getButtonTexture(), cardButtons[2].getButtonPosition(), cardButtons[2].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
-
-                cardsBatch.Draw(cardButtons[3].getButtonTexture(), cardButtons[3].getButtonPosition(), cardButtons[3].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
-
-                cardsBatch.Draw(cardButtons[4].getButtonTexture(), cardButtons[4].getButtonPosition(), cardButtons[4].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
-
-                cardsBatch.Draw(cardButtons[5].getButtonTexture(), cardButtons[5].getButtonPosition(), cardButtons[5].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
-
-                cardsBatch.Draw(cardButtons[6].getButtonTexture(), cardButtons[6].getButtonPosition(), cardButtons[6].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.5f);
-
-                //Desenhando botões de troca de cartas e de visualizar objetivo
                 buttonBatch.Draw(cardButtons[0].getButtonTexture(), cardButtons[0].getButtonPosition(), cardButtons[0].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 buttonBatch.Draw(cardButtons[1].getButtonTexture(), cardButtons[1].getButtonPosition(), cardButtons[1].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
@@ -344,11 +349,6 @@ namespace War
             buttons[4].setButtonTexture(Game.Content.Load<Texture2D>("mapGuideButton"));
             cardButtons[0].setButtonTexture(Game.Content.Load<Texture2D>("tradeButton"));
             cardButtons[1].setButtonTexture(Game.Content.Load<Texture2D>("objectiveButton"));
-            cardButtons[2].setButtonTexture(MaquinaDeRegras.cartas[5].getTerritCardTexture());
-            cardButtons[3].setButtonTexture(MaquinaDeRegras.cartas[16].getTerritCardTexture());
-            cardButtons[4].setButtonTexture(MaquinaDeRegras.cartas[20].getTerritCardTexture());
-            cardButtons[5].setButtonTexture(MaquinaDeRegras.cartas[2].getTerritCardTexture());
-            cardButtons[6].setButtonTexture(MaquinaDeRegras.cartas[40].getTerritCardTexture());
             dadosAtk[0].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-vermelhos"));
             dadosAtk[1].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-vermelhos"));
             dadosAtk[2].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-vermelhos"));
@@ -404,11 +404,13 @@ namespace War
                 buttons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 cardButtons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 cardButtons[1].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                cardButtons[2].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                cardButtons[3].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                cardButtons[4].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                cardButtons[5].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                cardButtons[6].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                if (territCardButtons != null)
+                {
+                    foreach (Button carta in territCardButtons)
+                    {
+                        carta.changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                    }
+                }
                 if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards)
                 {
                     drawObj = !drawObj;
@@ -417,7 +419,13 @@ namespace War
                 if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
                 {
                     if (!drawObj)
+                    {
                         drawCards = !drawCards;
+                        if (drawCards)
+                        {
+                            setCartasTerritorio(turnPlayer.getCartasJogador());
+                        }
+                    }
                 }
                 buttons[3].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                 if (buttons[3].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
@@ -487,6 +495,7 @@ namespace War
             }
             catch (Exception e)
             {
+                Console.Write(e);
             }
         }
         public void distributeArmyPhase()
@@ -558,6 +567,11 @@ namespace War
                         phaseLogoTimer.Elapsed += setDrawLogoFalse;
                         phaseLogoTimer.Start();
                         drawLogo = true;
+                        if (turnPlayer.getConquistouTerritorio()) 
+                        {
+                            turnPlayer.receberCarta();
+                            turnPlayer.setConquistouTerritorio(false);
+                        }
                         
                     }
                 }
@@ -618,7 +632,7 @@ namespace War
             }
             catch(Exception e)
             {
-
+                Console.Write(e);
             }
         }
         public void attackPhaseOperations()
@@ -676,6 +690,7 @@ namespace War
                 }
                 if (askArmyPass)
                 {
+                    turnPlayer.setConquistouTerritorio(true);
                     addToken.setTokenPosition(new Vector2(defensor.getPosX() - 15, defensor.getPosY() - 25));
                     addToken.setTerritorio(defensor);
                     minusToken.setTokenPosition(new Vector2(defensor.getPosX() + 15, defensor.getPosY() - 25));
@@ -708,11 +723,11 @@ namespace War
                         okToken.setTokenPosition(new Vector2(-30, -30));
                         okButtonPressed = true;
                         askArmyPass = false;
-
-                        if (MaquinaDeRegras.verificaVitoria())
-                        {
-                            //mostra tela de vitoria do jogador atual
-                        }
+                        turnPlayer.receberCarta();
+                        //if (MaquinaDeRegras.verificaVitoria())
+                        //{
+                        //    //mostra tela de vitoria do jogador atual
+                        //}
                         Jogador defesa = defensor.getDono();
                         if (defesa.getTerritorios().Count == 0)
                             defesa.setJogadorMorto();
@@ -723,7 +738,7 @@ namespace War
             }
             catch (Exception e)
             {
-
+                Console.Write(e);
             }
         }
         public void changeTokenAttackFrames(Object o)
@@ -842,7 +857,7 @@ namespace War
             }
             catch (Exception e)
             {
-
+                Console.Write(e);
             }
         }
         public void verifyReadiness()
@@ -889,7 +904,7 @@ namespace War
             ((Timer)(source)).Enabled = false;
             drawDice = false;
         }
-        public void setDados(int[] dadosA,int[] dadosD)
+        public void setDados(int[] dadosA, int[] dadosD)
         {
             dadosAtk.Clear();
             dadosDef.Clear();
@@ -897,19 +912,30 @@ namespace War
             int aux2 = 0;
             for (int i = 0; i < dadosA.Length; i++)
             {
-                dadosAtk.Add(new Button(375, 200+ aux, 6));
+                dadosAtk.Add(new Button(375, 200 + aux, 6));
                 dadosAtk[i].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-vermelhos"));
-                dadosAtk[i].setFrame(dadosA[i]-1);
+                dadosAtk[i].setFrame(dadosA[i] - 1);
                 aux += 70;
             }
             for (int i = 0; i < dadosD.Length; i++)
             {
-                dadosDef.Add(new Button(450, 200 + aux2,6));
+                dadosDef.Add(new Button(450, 200 + aux2, 6));
                 dadosDef[i].setButtonTexture(Game.Content.Load<Texture2D>("Dados/dados-amarelo"));
                 dadosDef[i].setFrame(dadosD[i] - 1);
                 aux2 += 70;
             }
-            
+
+        }
+
+        public void setCartasTerritorio(List<CartaTerritorio> cartas)
+        {
+            territCardButtons.Clear();
+            for (int i = 0; i < cartas.Count; i++)
+            {
+                territCardButtons.Add(new Button((10 + (i+1)*114), 140, 2));
+                territCardButtons[i].setButtonTexture(cartas[i].getTerritCardTexture());
+            }
+
         }
    
       

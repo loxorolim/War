@@ -195,7 +195,6 @@ namespace War
         {
             Random random = new Random();
             int randomIndex = random.Next(0, (cartas.Count));
-
             CartaTerritorio cartaSorteada = cartas[randomIndex];
 
             cartas.RemoveAt(randomIndex);

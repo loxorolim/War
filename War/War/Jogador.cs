@@ -16,6 +16,7 @@ namespace War
         private int dificuldade;
         private int exercitosParaColocar;
         private Boolean vivo = true;
+        private Boolean conquistouTerritorio = false;
 
         //acrescentei o construtor com a dificuldade da IA
         public Jogador(int cor, int dificuldade)
@@ -148,7 +149,9 @@ namespace War
 
         public void receberCarta()
         {
-            this.cartasJogador.Add(MaquinaDeRegras.darCartaTerritorio());
+            if(this.cartasJogador.Count < 5){
+                this.cartasJogador.Add(MaquinaDeRegras.darCartaTerritorio());
+            }
         }
 
         
@@ -204,6 +207,16 @@ namespace War
         public override bool Equals(object jog)
         {
             return this.cor.Equals(((Jogador)jog).getCor());
+        }
+
+        public Boolean getConquistouTerritorio()
+        {
+            return conquistouTerritorio;
+        }
+
+        public void setConquistouTerritorio(Boolean conquistouTerritorio)
+        {
+            this.conquistouTerritorio = conquistouTerritorio;
         }
 
         public abstract void remanejarExercitoAtaque(Territorio atacante, Territorio defensor, int quantidade);
