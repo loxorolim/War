@@ -487,7 +487,8 @@ namespace War
         private static Boolean verificaExercitoMorto(int cor)
         {
             Jogador inimigo = getJogadorDesejado(cor);
-            if (inimigo.Equals(null) || inimigo.Equals(Tabuleiro.jogadorDaVez))
+            
+            if (inimigo==null || inimigo.Equals(Tabuleiro.jogadorDaVez))
                 return verificaQtdTerritorios(24);
             else{
                 if (inimigo.getTerritorios().Count == 0)
@@ -515,7 +516,7 @@ namespace War
         {
             foreach (Jogador j in Tabuleiro.jogadores)
             {
-                if (j.getCor().CompareTo(cor) == 0)
+                if (j.getCor() == cor)
                     return j;
             }
             return null;
