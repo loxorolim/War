@@ -83,12 +83,12 @@ namespace War
             int randomNumber;
             List<Territorio> vizinhos = new List<Territorio>();
             List<Territorio> possiveisAtacantes = new List<Territorio>();
-            Random random = new Random();
-            for (int i = 0; i < iA.getTerritorios().Count; i++)
+            Random random = new Random();            
+            foreach (Territorio atac in iA.getTerritorios())
             {
-                if (iA.getTerritorios()[i].temVizinho() && iA.getTerritorios()[i].getNumeroExercito() > 1)
+                if (atac.temVizinho() && atac.getNumeroExercito() > 1)
                 {
-                    possiveisAtacantes.Add(iA.getTerritorios()[i]);
+                    possiveisAtacantes.Add(atac);
                 }
             }
             if (possiveisAtacantes.Count() == 0)
@@ -97,15 +97,15 @@ namespace War
             }
             randomNumber = random.Next(0, possiveisAtacantes.Count - 1);
             atacante = possiveisAtacantes[randomNumber];
-            for (int j = 0; j < atacante.getListaVizinhos().Count; j++)
+            foreach (Territorio vizin in atacante.getListaVizinhos())
             {
-                if (!atacante.getListaVizinhos()[j].getDono().Equals(iA))
+                if (!vizin.getDono().Equals(iA))
                 {
-                    vizinhos.Add(atacante.getListaVizinhos()[j]);
+                    vizinhos.Add(vizin);
                 }
             }
             randomNumber = random.Next(0, vizinhos.Count - 1);
-            defensor = vizinhos[randomNumber];
+            defensor = vizinhos[randomNumber];            
             return new Batalha(atacante.getDono(), defensor.getDono(), atacante, defensor);
         }
         public void ataqueEasy(IA iA)

@@ -124,8 +124,8 @@ namespace War
         }
 
         public bool temVizinho()
-        {
-            for (int i = 0; i < vizinhos.Count; i++)
+        {            
+            for (int i = 0; i < vizinhos.Count(); i++)
             {
                 if (!vizinhos[i].getDono().Equals(dono))
                 {

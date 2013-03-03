@@ -15,7 +15,7 @@ namespace War
             {
                 for (int j = 0; j < iA.getTerritorios().Count(); j++)
                 {
-                    randomNumber = random.Next(0, iA.getTerritorios()[i].getNumeroExercitoRemanejavel() - 1);
+                    randomNumber = random.Next(0, iA.getTerritorios()[i].getNumeroExercitoRemanejavel());
                     if (MaquinaDeRegras.validaMovimentoRemanejamento(iA.getTerritorios()[i], iA.getTerritorios()[j], randomNumber))
                     {
                         iA.getTerritorios()[i].setNumeroExercitos(iA.getTerritorios()[i].getNumeroExercito() - randomNumber);
@@ -28,14 +28,21 @@ namespace War
 
         public void remanejarExercitoAtaqueFullRandom(Territorio atacante, Territorio defensor, int quantidade)
         {
-            int randomNumber;
-            Random random = new Random();
-            randomNumber = random.Next(0, atacante.getNumeroExercitoRemanejavel() - 1);
-            if (MaquinaDeRegras.validaMovimentoRemanejamento(atacante, defensor, randomNumber))
+            if (quantidade != 0)
             {
-                atacante.setNumeroExercitos(atacante.getNumeroExercito() - randomNumber);
-                defensor.setNumeroExercitos(defensor.getNumeroExercito() + randomNumber);
-                atacante.setNumeroExercitosRemanejavel(atacante.getNumeroExercitoRemanejavel() - randomNumber);
+                int randomNumber;
+                Random random = new Random();
+                if (atacante.getNumeroExercitoRemanejavel() >= atacante.getNumeroExercito())
+                {
+                    Console.WriteLine("erro atacante.getNumeroExercitoRemanejavel() >= atacante.getNumeroExercito()");
+                }
+                randomNumber = random.Next(0, atacante.getNumeroExercitoRemanejavel());
+                if (MaquinaDeRegras.validaMovimentoRemanejamento(atacante, defensor, randomNumber))
+                {
+                    atacante.setNumeroExercitos(atacante.getNumeroExercito() - randomNumber);
+                    defensor.setNumeroExercitos(defensor.getNumeroExercito() + randomNumber);
+                    atacante.setNumeroExercitosRemanejavel(atacante.getNumeroExercitoRemanejavel() - randomNumber);
+                }
             }
         }
         

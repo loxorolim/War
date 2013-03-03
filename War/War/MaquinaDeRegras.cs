@@ -55,15 +55,7 @@ namespace War
                 qtdJogadores--;             
             }
             Tabuleiro.ordemDeJogadores = ordem;
-            Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[ordem[0]];
-            if (Tabuleiro.jogadorDaVez.isIA())
-            {
-                distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
-                bonusDeExercitoPorContinente(Tabuleiro.jogadorDaVez);
-                IA jogadorIA = (IA)Tabuleiro.jogadorDaVez;
-                jogadorIA.jogaTurno();
-                passaVez();
-            }
+            Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[ordem[0]];            
         }
 
         //método chamado quando o Jogador finalizar a jogada
@@ -74,15 +66,23 @@ namespace War
             {
                 contadorVez = 0;
             }
-            Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[Tabuleiro.ordemDeJogadores[contadorVez]];
-            Console.WriteLine("jogador: " + Tabuleiro.jogadorDaVez.getCor() + "!");
+            Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[Tabuleiro.ordemDeJogadores[contadorVez]];            
             distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
             bonusDeExercitoPorContinente(Tabuleiro.jogadorDaVez);
+            Console.WriteLine("Cor: " + Tabuleiro.jogadorDaVez.getCor() + "IA: " + Tabuleiro.jogadorDaVez.isIA());
             if (Tabuleiro.jogadorDaVez.isIA())
             {
                 IA jogadorIA = (IA)Tabuleiro.jogadorDaVez;
                 jogadorIA.jogaTurno();
-                passaVez();
+                contadorVez++;
+                if (contadorVez == Tabuleiro.numJogadores)
+                {
+                    contadorVez = 0;
+                }
+                Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[Tabuleiro.ordemDeJogadores[contadorVez]];
+                distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
+                bonusDeExercitoPorContinente(Tabuleiro.jogadorDaVez);
+                Console.WriteLine("Cor: " + Tabuleiro.jogadorDaVez.getCor() + "IA: " + Tabuleiro.jogadorDaVez.isIA());
             }
         }
 

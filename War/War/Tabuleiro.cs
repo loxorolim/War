@@ -84,6 +84,10 @@ namespace War
             v = new List<Territorio>();
             v.Add(yut); v.Add(lotium); v.Add(cravoksi); v.Add(fantasia); v.Add(unteon);
             zerkopolis.setListaVizinhos(v);
+            
+            v = new List<Territorio>();
+            v.Add(rusarov); v.Add(niktela);
+            corvotea.setListaVizinhos(v);            
 
             v = new List<Territorio>();
             v.Add(fantasia); v.Add(zerkopolis); v.Add(unteon); v.Add(erikum);
