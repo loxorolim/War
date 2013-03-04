@@ -66,18 +66,25 @@ namespace War
             {
                 contadorVez = 0;
             }
-            Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[Tabuleiro.ordemDeJogadores[contadorVez]];            
-            distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
-            bonusDeExercitoPorContinente(Tabuleiro.jogadorDaVez);
-            Console.WriteLine("Cor: " + Tabuleiro.jogadorDaVez.getCor() + "IA: " + Tabuleiro.jogadorDaVez.isIA());
-            if (Tabuleiro.jogadorDaVez.isIA())
+            if (Tabuleiro.jogadorDaVez.getStatusJogador() == false)
             {
-                IA jogadorIA = (IA)Tabuleiro.jogadorDaVez;
-                jogadorIA.jogaTurno();
-                passaVez();                
+                //jogador morreu
+                passaVez();
+            }
+            else
+            {
+                Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[Tabuleiro.ordemDeJogadores[contadorVez]];
+                distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
+                bonusDeExercitoPorContinente(Tabuleiro.jogadorDaVez);
+                Console.WriteLine("Cor: " + Tabuleiro.jogadorDaVez.getCor() + "IA: " + Tabuleiro.jogadorDaVez.isIA());
+                if (Tabuleiro.jogadorDaVez.isIA())
+                {
+                    IA jogadorIA = (IA)Tabuleiro.jogadorDaVez;
+                    jogadorIA.jogaTurno();
+                    passaVez();
+                }
             }
         }
-
 
         public static Boolean validaPaisVizinho(Territorio origem, Territorio destino)
         {
@@ -504,7 +511,7 @@ namespace War
                 if (inimigo.getTerritorios().Count == 0)
                 {
                     //inimigo morreu
-                    if (!inimigo.getStatusJogador())
+                    if (inimigo.getStatusJogador())
                     {
                         //o jogador atual acabou de matar o inimigo
                         //é necessário setar a variavel VIVO para False

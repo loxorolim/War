@@ -36,7 +36,7 @@ namespace War
 
         public void setJogadorMorto()
         {
-            this.vivo = true;
+            this.vivo = false;
         }
               
         public int getCor()
