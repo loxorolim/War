@@ -110,7 +110,8 @@ namespace War
                     return true;
                 }
             }
-            Console.WriteLine("Erro valiadaçao remanejamento.");
+            if (quantidade > origem.getNumeroExercito())
+                Console.WriteLine("Erro valiadaçao remanejamento quantidade < origem.getNumeroExercito().");
             return false;
         }
 

@@ -33,13 +33,13 @@ namespace War
             if (tunosDecorridos>0)
             {
                 this.trocarCarta();
-                this.distribuirExercito(this.getNumExercitoParacolocar());
-                this.limpaExercitosRemanejaveis();
+                this.distribuirExercito(this.getNumExercitoParacolocar());                
                 this.atacar();
                 if (ganhouBatalha)
                 {
                     receberCarta();
                 }
+                this.limpaExercitosRemanejaveis();
                 this.remanejarExercito();
                 if (MaquinaDeRegras.verificaVitoria())
                 {
@@ -165,12 +165,7 @@ namespace War
                     //Erro
                     break;
             }
-        }        
-
-        //public void finalizarJogada()
-        //{
-        //    this.limpaExercitosRemanejaveis();         
-        //}       
+        }                 
 
         public override Boolean isIA()
         {
@@ -182,10 +177,10 @@ namespace War
             switch (this.getDificuldade())
             {
                 case 0:
-                    metodosRemanejamento.remanejarExercitoAtaqueFullRandom(atacante, defensor, quantidade);
+                    
                     break;
                 case 1:
-                    metodosRemanejamento.remanejarExercitoAtaqueFullRandom(atacante, defensor, quantidade);
+                    
                     break;
                 case 2:
 

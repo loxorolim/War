@@ -100,13 +100,15 @@ namespace War
         }
 
         public void atualizarExercitos(int ataque, int defesa)
-        {
-            int exercitoAtaqueNovo = ataqueT.getNumeroExercito() - ataque;
-            int exercitoDefesaNovo = defesaT.getNumeroExercito() - defesa;
-            ataqueT.setNumeroExercitos(exercitoAtaqueNovo);
-            //ataqueT.setNumeroExercitosRemanejavel(ataqueT.getNumeroExercitoRemanejavel() - ataque);
-            defesaT.setNumeroExercitos(exercitoDefesaNovo);
-           // defesaT.setNumeroExercitosRemanejavel(defesaT.getNumeroExercitoRemanejavel() - defesa);
+        {           
+            int exercitoAtaqueNovo = ataqueT.getNumeroExercito() - ataque;           
+            int exercitoDefesaNovo = 0;
+            if(defesaT.getNumeroExercito()>=defesa)
+            {
+                exercitoDefesaNovo = defesaT.getNumeroExercito() - defesa;
+            }
+            ataqueT.setNumeroExercitos(exercitoAtaqueNovo);            
+            defesaT.setNumeroExercitos(exercitoDefesaNovo);                    
             if (exercitoDefesaNovo <= 0)
             {              
                 defesaT.getDono().removerTerritorio(defesaT);
@@ -117,9 +119,12 @@ namespace War
                 {
                     IA iaAtacante = (IA)ataqueT.getDono();
                     iaAtacante.setGanhouBatalha();
-                   defesaT.setNumeroExercitos(defesaT.getNumeroExercito() + 1);
-                   ataqueT.setNumeroExercitos(ataqueT.getNumeroExercito() - 1);
-                   ataqueT.setNumeroExercitosRemanejavel(ataqueT.getNumeroExercitoRemanejavel() - 1);
+                    Random random = new Random();
+                    int randomNumber = random.Next(1, ataqueT.getNumeroExercito() - 1);
+                    if (randomNumber > 3)
+                        randomNumber = 3;
+                    defesaT.setNumeroExercitos(defesaT.getNumeroExercito() + randomNumber);
+                    ataqueT.setNumeroExercitos(ataqueT.getNumeroExercito() - randomNumber);                  
                     //atacanteJog.remanejarExercitoAtaque(ataqueT, defesaT, exercitoAtaqueNovo - 1);
                 }
             }      
