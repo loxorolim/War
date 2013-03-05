@@ -72,6 +72,7 @@ namespace War
         List<Button> territCardButtons;
         List<Token> tokens;
         int[] tokenFrames;
+        int contaCartasTrocaSelecionadas = 0;
         Boolean[]  readinessArray;
         Boolean drawLogo = false;
         List<Button> dadosAtk;
@@ -410,17 +411,32 @@ namespace War
                 {
                     foreach (Button carta in territCardButtons)
                     {
-                        //carta.changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
                         if (carta.isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards)
                         {
-                            Console.WriteLine("CLIQUEI NA CARTA "+ carta.getButtonPosition().X + "!!!! CURRENT FRAME: "+carta.getCurrentFrame());
-                            carta.setFrame(1);
+                            //Console.WriteLine("CLIQUEI NA CARTA "+ carta.getButtonPosition().X + "!!!! CURRENT FRAME: " + carta.getCurrentFrame().ToString());
+                            if (carta.getCurrentFrame().X == 0 && contaCartasTrocaSelecionadas < 3)
+                            {
+                                contaCartasTrocaSelecionadas++;
+                                carta.setFrame(1);
+                                selecionaCartaJogador(carta.getButtonPosition().X, true);
+                            }
+                            else if(carta.getCurrentFrame().X == 110)
+                            {
+                                contaCartasTrocaSelecionadas--;
+                                carta.setFrame(0);
+                                selecionaCartaJogador(carta.getButtonPosition().X, false);
+                            }
+                            
                         }
                     }
                 }
                 if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards)
                 {
                     drawObj = !drawObj;
+                }
+                if (cardButtons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards && !drawObj && contaCartasTrocaSelecionadas == 3)
+                {
+                    trocarCartas();
                 }
 
                 if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
@@ -431,6 +447,8 @@ namespace War
                         if (drawCards)
                         {
                             setCartasTerritorio(turnPlayer.getCartasJogador());
+                            contaCartasTrocaSelecionadas = 0;
+                            setCartasSelecionadasFalse();
                         }
                     }
                 }
@@ -504,6 +522,68 @@ namespace War
             {
                 Console.Write(e);
             }
+        }
+
+        private void trocarCartas()
+        {
+            List<CartaTerritorio> cartasTroca = new List<CartaTerritorio>(3);
+
+            foreach (CartaTerritorio carta in turnPlayer.getCartasJogador())
+            {
+                if (carta.isSelecionada())
+                {
+                    cartasTroca.Add(carta);
+                }
+            }
+
+            int recompensa = MaquinaDeRegras.efetuaTroca(cartasTroca[0], cartasTroca[1], cartasTroca[2]);
+
+            if (recompensa > 0)
+            {
+                drawCards = false;
+            }
+            else
+            {
+                Console.WriteLine("TROCA INVÁLIDA!");
+            }
+
+        }
+
+        private void setCartasSelecionadasFalse()
+        {
+            foreach (CartaTerritorio carta in turnPlayer.getCartasJogador())
+            {
+                carta.setSelecionada(false);
+            }
+        }
+
+        private void selecionaCartaJogador(float p, Boolean selecionada)
+        {
+            List<CartaTerritorio> cartasPlayer = turnPlayer.getCartasJogador();
+            switch (""+p)
+            {
+                case "124":
+                    cartasPlayer[0].setSelecionada(selecionada);
+                    Console.WriteLine("Selecionei a carta " + cartasPlayer[0].getFigura() + " Selecionada: " + cartasPlayer[0].isSelecionada());
+                    break;
+                case "238":
+                    cartasPlayer[1].setSelecionada(selecionada);
+                    Console.WriteLine("Cliquei na carta " + cartasPlayer[1].getFigura() + " Selecionada: " + cartasPlayer[1].isSelecionada());
+                    break;
+                case "352":
+                    cartasPlayer[2].setSelecionada(selecionada);
+                    Console.WriteLine("Selecionei a carta " + cartasPlayer[2].getFigura() + " Selecionada: " + cartasPlayer[2].isSelecionada());
+                    break;
+                case "466":
+                    cartasPlayer[3].setSelecionada(selecionada);
+                    Console.WriteLine("Selecionei a carta " + cartasPlayer[3].getFigura() + " Selecionada: " + cartasPlayer[3].isSelecionada());
+                    break;
+                case "580":
+                    cartasPlayer[4].setSelecionada(selecionada);
+                    Console.WriteLine("Selecionei a carta " + cartasPlayer[4].getFigura() + " Selecionada: " + cartasPlayer[4].isSelecionada());
+                    break;
+            }
+            turnPlayer.setCartasJogador(cartasPlayer);
         }
 
         public void distributeArmyPhase()
