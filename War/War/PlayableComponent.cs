@@ -55,7 +55,7 @@ namespace War
         Boolean drawObj = false;
         Boolean drawCards = false;
         Boolean drawDice = false;
-        Boolean firstTime = false;
+        Boolean mandatoryTrade = false;
         Boolean reallocationSelected = false;
         public static Boolean playersSelected { get; set; }
         public static Boolean gameBegin { get; set; }
@@ -417,7 +417,20 @@ namespace War
         {
             try
             {
-
+                if (turnPlayer.getCartasJogador().Count == 5 && currentPhase == GamePhase.AddArmyPhase)
+                {
+                    if (!mandatoryTrade)
+                    {
+                        setCartasTerritorio(turnPlayer.getCartasJogador());
+                    }
+                    mandatoryTrade = true;
+                    drawCards = true;
+                    drawObj = false;
+                }
+                else
+                {
+                    mandatoryTrade = false;
+                }
                 mouseStateCurrent = Mouse.GetState();
 
                 buttons[0].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
@@ -446,7 +459,7 @@ namespace War
                         }
                     }
                 }
-                if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards)
+                if (cardButtons[1].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards && !mandatoryTrade)
                 {
                     drawObj = !drawObj;
                 }
@@ -455,7 +468,7 @@ namespace War
                     trocarCartas();
                 }
 
-                if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
+                if (buttons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide && !mandatoryTrade)
                 {
                     if (!drawObj)
                     {
@@ -469,7 +482,7 @@ namespace War
                     }
                 }
                 buttons[3].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                if (buttons[3].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
+                if (buttons[3].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide && !mandatoryTrade)
                 {
                     addToken.setTokenPosition(new Vector2(-30, -30));
                     minusToken.setTokenPosition(new Vector2(-30, -30));
@@ -524,7 +537,7 @@ namespace War
                 }
 
                 buttons[4].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
-                if (buttons[4].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards)
+                if (buttons[4].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawCards && !mandatoryTrade)
                 {
                     drawGuide = !drawGuide;
 
