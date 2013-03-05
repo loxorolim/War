@@ -32,7 +32,7 @@ namespace War
             ganhouBatalha = false;
             if (tunosDecorridos>0)
             {
-                Console.WriteLine("IA jogando turno "+tunosDecorridos+"!");
+                Console.WriteLine("IA "+this.getDificuldade()+" jogando turno "+tunosDecorridos+"!");
                 this.trocarCarta();
                 Console.WriteLine("IA distribuindo " + this.getNumExercitoParacolocar()+" exercitos!");
                 this.distribuirExercito(this.getNumExercitoParacolocar());
@@ -105,17 +105,17 @@ namespace War
                     metodosDistribuirExercito.distribuiExercitoFullRandom(quantidade, this);
                     break;
                 case 1:
-                    randomNumber = random.Next(0, 100);
-                    if (randomNumber > 50)
-                    {
+                    //randomNumber = random.Next(0, 100);
+                    //if (randomNumber > 50)
+                    //{
                         //Mantem os territorios de borda com o mesmo numero de tropas
                         metodosDistribuirExercito.distribuiExercitoTerritoriosBorda(quantidade, this);
-                    }
-                    else
-                    {
+                    //}
+                    //else
+                    //{
                         //Mantem os territorios de borda com o mesmo numero de tropas do territorio vizinho inimigo
-                        metodosDistribuirExercito.distribuiExercitoTerritoriosEqualizandoInimigo(quantidade, this);
-                    }
+                       // metodosDistribuirExercito.distribuiExercitoTerritoriosEqualizandoInimigo(quantidade, this);
+                    //}
                     break;
                 case 2:
 
@@ -126,8 +126,7 @@ namespace War
                 default:
                     //Erro
                     break;
-            }
-            limpaExercitosRemanejaveis();
+            }            
         }       
 
         public override void atacar()
@@ -160,7 +159,7 @@ namespace War
                     metodosRemanejamento.remanejaFullRandom(this);                    
                     break;
                 case 1:
-
+                    metodosRemanejamento.remanejaFullRandom(this); 
                     break;
                 case 2:
 
@@ -177,30 +176,7 @@ namespace War
         public override Boolean isIA()
         {
             return true;
-        }
-
-        public override void remanejarExercitoAtaque(Territorio atacante, Territorio defensor, int quantidade)
-        {
-            switch (this.getDificuldade())
-            {
-                case 0:
-                    
-                    break;
-                case 1:
-                    
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-
-                    break;
-                default:
-                    //Erro
-                    break;
-            }
-        }
-
+        }       
     }
     
 }

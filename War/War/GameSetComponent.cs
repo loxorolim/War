@@ -143,31 +143,49 @@ namespace War
                             else
                                 if (buttons[0].getNumberOfFrame() == 2)
                                     Tabuleiro.adicionarJogador(new IA((int)Global.Cor.White, IA.easy));
+                                else
+                                    if (buttons[0].getNumberOfFrame() == 3)
+                                        Tabuleiro.adicionarJogador(new IA((int)Global.Cor.White, IA.medium));
                             if (buttons[1].getNumberOfFrame() == 1)
                                 Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Black));
                             else
                                 if (buttons[1].getNumberOfFrame() == 2)
                                     Tabuleiro.adicionarJogador(new IA((int)Global.Cor.Black, IA.easy));
+                                else
+                                    if (buttons[1].getNumberOfFrame() == 3)
+                                        Tabuleiro.adicionarJogador(new IA((int)Global.Cor.Black, IA.medium));
                             if (buttons[2].getNumberOfFrame() == 1)
                                 Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Red));
                             else
                                 if (buttons[2].getNumberOfFrame() == 2)
                                     Tabuleiro.adicionarJogador(new IA((int)Global.Cor.Red, IA.easy));
+                                else
+                                    if (buttons[2].getNumberOfFrame() == 3)
+                                        Tabuleiro.adicionarJogador(new IA((int)Global.Cor.Red, IA.medium));
                             if (buttons[3].getNumberOfFrame() == 1)
                                 Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Green));
                             else
                                 if (buttons[3].getNumberOfFrame() == 2)
                                     Tabuleiro.adicionarJogador(new IA((int)Global.Cor.Green, IA.easy));
+                                else
+                                    if (buttons[3].getNumberOfFrame() == 3)
+                                        Tabuleiro.adicionarJogador(new IA((int)Global.Cor.Green, IA.medium));
                             if (buttons[4].getNumberOfFrame() == 1)
                                 Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Blue));
                             else
                                 if (buttons[4].getNumberOfFrame() == 2)
                                     Tabuleiro.adicionarJogador(new IA((int)Global.Cor.Blue, IA.easy));
+                                else
+                                    if (buttons[4].getNumberOfFrame() == 3)
+                                        Tabuleiro.adicionarJogador(new IA((int)Global.Cor.Blue, IA.medium));
                             if (buttons[5].getNumberOfFrame() == 1)
                                 Tabuleiro.adicionarJogador(new Humano((int)Global.Cor.Yellow));
                             else
                                 if (buttons[5].getNumberOfFrame() == 2)
                                     Tabuleiro.adicionarJogador(new IA((int)Global.Cor.Yellow, IA.easy));
+                                else
+                                    if (buttons[5].getNumberOfFrame() == 3)
+                                        Tabuleiro.adicionarJogador(new IA((int)Global.Cor.Yellow, IA.medium));
                             MaquinaDeRegras.sortearTerritorios();
                             MaquinaDeRegras.sorteaOrdemJogadores();                           
                             MaquinaDeRegras.distribuicaoDeExercito(Tabuleiro.jogadorDaVez);

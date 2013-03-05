@@ -91,11 +91,11 @@ namespace War
         public List<Territorio> getListaVizinhosInimigos()
         {
             List<Territorio> vizinhosInimigos = new List<Territorio>();
-            for (int i = 0; i < vizinhos.Count; i++)
+            foreach (Territorio vizinho in getListaVizinhos())           
             {
-                if (!vizinhos[i].getDono().Equals(dono))
+                if (!vizinho.getDono().Equals(dono))
                 {
-                    vizinhosInimigos.Add(vizinhos[i]);
+                    vizinhosInimigos.Add(vizinho);
                 }
             }
             return vizinhosInimigos;

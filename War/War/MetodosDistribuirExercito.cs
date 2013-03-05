@@ -30,6 +30,7 @@ namespace War
             {
                 randomNumber = random.Next(0, iA.getTerritorios().Count() - 1);
                 territoriosComBorda[randomNumber].setNumeroExercitos(1 + territoriosComBorda[randomNumber].getNumeroExercito());
+                iA.removeExercitoParacolocar();
             }
         }
 
@@ -37,17 +38,18 @@ namespace War
         public void distribuiExercitoTerritoriosBorda(int quantidade, IA iA)
         {
             List<Territorio> territoriosComBorda = iA.getTerritoriosBorda();
+            Territorio bordaMenosTerrit = territoriosComBorda[0];
             for (int i = 0; i < quantidade; i++)
-            {
-                Territorio bordaMenosTerrit = territoriosComBorda[0];
-                for (int j = 0; j < territoriosComBorda.Count(); j++)
+            {                             
+                foreach (Territorio territ in territoriosComBorda)
                 {
-                    if (bordaMenosTerrit.getNumeroExercito() > territoriosComBorda[j].getNumeroExercito())
+                    if (bordaMenosTerrit.getNumeroExercito() > territ.getNumeroExercito())
                     {
-                        bordaMenosTerrit = territoriosComBorda[j];
+                        bordaMenosTerrit = territ;
                     }
                 }
-                bordaMenosTerrit.setNumeroExercitos(1 + bordaMenosTerrit.getNumeroExercito());
+                bordaMenosTerrit.setNumeroExercitos(bordaMenosTerrit.getNumeroExercito()+1);
+                iA.removeExercitoParacolocar();
             }
         }
 
@@ -66,7 +68,7 @@ namespace War
                     {
                         if (territ.getNumeroExercito() < territVizinho.getNumeroExercito() && ((territ.getNumeroExercito() - territVizinho.getNumeroExercito()) > dif))
                         {
-                            dif = territ.getNumeroExercito() - territVizinho.getNumeroExercito();
+                            dif = territVizinho.getNumeroExercito() -territ.getNumeroExercito();
                             inimigo = territVizinho;
                             meu = territ;
                         }
@@ -78,11 +80,16 @@ namespace War
                     if (dif < quantidade)
                     {
                         meu.setNumeroExercitos(meu.getNumeroExercito() + dif);
+                        iA.removeExercitoParacolocar();
                         quantidade = quantidade - dif;
                     }
                     else
                     {
                         meu.setNumeroExercitos(meu.getNumeroExercito() + quantidade);
+                        for (int i = 0; i < quantidade; i++)
+                        {
+                            iA.removeExercitoParacolocar();
+                        }
                         quantidade = 0;
                     }
                 }

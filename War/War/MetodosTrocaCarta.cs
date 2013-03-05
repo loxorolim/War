@@ -9,6 +9,7 @@ namespace War
     {
         public void trocaAfobadaDeCarta(IA iA)
         {
+            bool trocou = false;
             List<CartaTerritorio> cartasJogador = iA.getCartasJogador();
             if (cartasJogador.Count() >= 3)
             {
@@ -20,15 +21,17 @@ namespace War
                         {
                             if (i != k && i != j && j != k)
                             {
-                                if (cartasJogador[i].Equals(cartasJogador[j]) && cartasJogador[i].Equals(cartasJogador[k]) && cartasJogador[k].Equals(cartasJogador[j]))
+                                if (cartasJogador[i].Equals(cartasJogador[j]) && cartasJogador[i].Equals(cartasJogador[k]) && cartasJogador[k].Equals(cartasJogador[j]) && !trocou)
                                 {
                                     Console.WriteLine("IA trocando carta!");
                                     iA.distribuirExercito(MaquinaDeRegras.efetuaTroca(cartasJogador[i], cartasJogador[j], cartasJogador[k]));
+                                    trocou = true;                                    
                                 }
-                                if (!cartasJogador[i].Equals(cartasJogador[j]) && !cartasJogador[i].Equals(cartasJogador[k]) && !cartasJogador[k].Equals(cartasJogador[j]))
+                                if (!cartasJogador[i].Equals(cartasJogador[j]) && !cartasJogador[i].Equals(cartasJogador[k]) && !cartasJogador[k].Equals(cartasJogador[j]) && !trocou)
                                 {
                                     Console.WriteLine("IA trocando carta!");
                                     iA.distribuirExercito(MaquinaDeRegras.efetuaTroca(cartasJogador[i], cartasJogador[j], cartasJogador[k]));
+                                    trocou = true;
                                 }
                             }
                         }

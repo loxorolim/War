@@ -42,21 +42,12 @@ namespace War
                 origem.setNumeroExercitos(origem.getNumeroExercito() - quantidade);
                 destino.setNumeroExercitos(destino.getNumeroExercito() + quantidade);
             }
-        }
-
-        //public override void finalizarJogada()
-        //{
-        //    this.limpaExercitosRemanejaveis();
-        //}
+        }        
 
         public override Boolean isIA()
         {
             return false;
         }
-
-        public override void remanejarExercitoAtaque(Territorio atacante, Territorio defensor, int quantidade)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
