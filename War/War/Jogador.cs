@@ -67,11 +67,12 @@ namespace War
         public List<Territorio> getTerritoriosBorda()
         {
             List<Territorio> territoriosComBorda = new List<Territorio>();
-            for (int i = 0; i < this.getNumTerritorios(); i++)
+            
+            foreach(Territorio territ in this.getTerritorios())
             {
-                if (this.getTerritorios()[i].temVizinho())
+                if (territ.temVizinho())
                 {
-                    territoriosComBorda.Add(this.getTerritorios()[i]);
+                    territoriosComBorda.Add(territ);
                 }
             }
             return territoriosComBorda;
@@ -206,8 +207,7 @@ namespace War
         {
             this.conquistouTerritorio = conquistouTerritorio;
         }
-
-        public abstract void remanejarExercitoAtaque(Territorio atacante, Territorio defensor, int quantidade);
+               
        
     }
 
