@@ -16,6 +16,7 @@ namespace War
         public const string quadrado = "QUADRADO", triangulo = "TRIANGULO", circulo = "CIRCULO", coringa = "CORINGA";
         private string figura;
         private int tipo;
+        private Boolean selecionada;
         private Texture2D territCardTexture;
         private Territorio territorio;
 
@@ -32,6 +33,9 @@ namespace War
                 else
                     if(tipoFigura.CompareTo(circulo) == 0)
                        this.tipo = 2;
+                    else
+                        if (tipoFigura.CompareTo(coringa) == 0)
+                            this.tipo = 3;
         }
 
         public Territorio getTerritorio()
@@ -57,6 +61,16 @@ namespace War
         public void setTerritCardTexture(Texture2D t)
         {
             territCardTexture = t;
+        }
+
+        public Boolean isSelecionada()
+        {
+            return this.selecionada;
+        }
+
+        public void setSelecionada(Boolean selecionada)
+        {
+            this.selecionada = selecionada;
         }
 
     }

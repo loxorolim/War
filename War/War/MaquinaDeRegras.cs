@@ -239,9 +239,9 @@ namespace War
                     }
                 }
                 devolveCartas(carta1, carta2, carta3);
+                insereExercitoNaCartaTerritorio(Tabuleiro.jogadorDaVez, carta1, carta2, carta3);
+                Tabuleiro.jogadorDaVez.addExercitosParaColocar(retorno);
             }
-            insereExercitoNaCartaTerritorio(Tabuleiro.jogadorDaVez, carta1, carta2, carta3);
-            Tabuleiro.jogadorDaVez.addExercitosParaColocar(retorno);
             return retorno;
         }
 
@@ -290,21 +290,22 @@ namespace War
         public static void insereExercitoNaCartaTerritorio(Jogador jogador, CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
         {
             int qtdExercitoAntigo; 
+            // se for a carta coringa o território é null
             Territorio t1 = carta1.getTerritorio();
             Territorio t2 = carta2.getTerritorio();
             Territorio t3 = carta3.getTerritorio();
 
-            if (t1.getDono().Equals(jogador))
+            if (t1 != null && t1.getDono().Equals(jogador))
             {
                 qtdExercitoAntigo = t1.getNumeroExercito();
                 t1.setNumeroExercitos(qtdExercitoAntigo + 2);
             }
-            if (t2.getDono().Equals(jogador))
+            if (t2 != null && t2.getDono().Equals(jogador))
             {
                 qtdExercitoAntigo = t2.getNumeroExercito();
                 t2.setNumeroExercitos(qtdExercitoAntigo + 2);
             }
-            if (t3.getDono().Equals(jogador))
+            if (t3 != null && t3.getDono().Equals(jogador))
             {
                 qtdExercitoAntigo = t3.getNumeroExercito();
                 t3.setNumeroExercitos(qtdExercitoAntigo + 2);
@@ -317,22 +318,25 @@ namespace War
             cartas.Add(carta1);
             cartas.Add(carta2);
             cartas.Add(carta3);
+            Tabuleiro.jogadorDaVez.getCartasJogador().Remove(carta1);
+            Tabuleiro.jogadorDaVez.getCartasJogador().Remove(carta2);
+            Tabuleiro.jogadorDaVez.getCartasJogador().Remove(carta3);
         }
 
         public static Boolean validaTroca(CartaTerritorio carta1, CartaTerritorio carta2, CartaTerritorio carta3)
         {
-            if (CartaTerritorio.coringa.Equals(carta1.getFigura()) || CartaTerritorio.coringa.Equals(carta2.getFigura()) || CartaTerritorio.coringa.Equals(carta3.getFigura()))
+            if (carta1.getTipo() == 3 || carta2.getTipo() == 3 || carta3.getTipo() == 3)
             {
                 //possui carta coringa
                 return true;
             }
-            if (carta1.getFigura().Equals(carta2.getFigura()) && carta2.getFigura().Equals(carta3.getFigura()))
+            if (carta1.getTipo().Equals(carta2.getTipo()) && carta2.getTipo().Equals(carta3.getTipo()))
             {
                 //tres figuras iguais
                 return true;
             }
-            if (!carta1.getFigura().Equals(carta2.getFigura()) && !carta2.getFigura().Equals(carta3.getFigura()) &&
-                !carta1.getFigura().Equals(carta3.getFigura()))
+            if (!carta1.getTipo().Equals(carta2.getTipo()) && !carta2.getTipo().Equals(carta3.getTipo()) &&
+                !carta1.getTipo().Equals(carta3.getTipo()))
             {
                 //tres figuras diferentes
                 return true;

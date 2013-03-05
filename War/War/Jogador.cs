@@ -122,6 +122,11 @@ namespace War
             return cartasJogador;
         }
 
+        public void setCartasJogador(List<CartaTerritorio> cartas)
+        {
+            this.cartasJogador =  cartas;
+        }
+
         public CartaObjetivo getObjetivo()
         {
             return objetivo;
