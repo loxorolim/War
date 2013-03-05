@@ -32,14 +32,19 @@ namespace War
             ganhouBatalha = false;
             if (tunosDecorridos>0)
             {
+                Console.WriteLine("IA jogando turno "+tunosDecorridos+"!");
                 this.trocarCarta();
-                this.distribuirExercito(this.getNumExercitoParacolocar());                
+                Console.WriteLine("IA distribuindo " + this.getNumExercitoParacolocar()+" exercitos!");
+                this.distribuirExercito(this.getNumExercitoParacolocar());
+                Console.WriteLine("IA atacando!");
                 this.atacar();
                 if (ganhouBatalha)
                 {
+                    Console.WriteLine("IA recebeu carta!");
                     receberCarta();
                 }
                 this.limpaExercitosRemanejaveis();
+                Console.WriteLine("IA Remanejando!");
                 this.remanejarExercito();
                 if (MaquinaDeRegras.verificaVitoria())
                 {
@@ -50,6 +55,8 @@ namespace War
             }
             else
             {
+                Console.WriteLine("IA jogando!");
+                Console.WriteLine("IA distribuindo " + this.getNumExercitoParacolocar() + " exercitos!");
                 this.distribuirExercito(this.getNumExercitoParacolocar());
                 PlayableComponent.firstCounter--;
             }

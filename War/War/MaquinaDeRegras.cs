@@ -293,7 +293,10 @@ namespace War
             Territorio t1 = carta1.getTerritorio();
             Territorio t2 = carta2.getTerritorio();
             Territorio t3 = carta3.getTerritorio();
-
+            if (t1.getDono() == null)
+                Console.WriteLine("t1.getDono == null!");
+            if (jogador == null)
+                Console.WriteLine("jogador == null!");
             if (t1.getDono().Equals(jogador))
             {
                 qtdExercitoAntigo = t1.getNumeroExercito();
