@@ -134,7 +134,7 @@ namespace War
             carviko.setListaVizinhos(v);
 
             v = new List<Territorio>();
-            v.Add(viskit); v.Add(ygrot); v.Add(anbrixon); v.Add(porgulai);
+            v.Add(viskit); v.Add(ygrot); v.Add(anbrixon);
             ewal.setListaVizinhos(v);
 
             v = new List<Territorio>();
@@ -142,7 +142,7 @@ namespace War
             anbrixon.setListaVizinhos(v);
 
             v = new List<Territorio>();
-            v.Add(anbrixon); v.Add(dinia); v.Add(frokazea); v.Add(ewal);
+            v.Add(anbrixon); v.Add(dinia); v.Add(frokazea);
             porgulai.setListaVizinhos(v);
 
             v = new List<Territorio>();
