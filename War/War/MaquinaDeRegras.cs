@@ -76,13 +76,7 @@ namespace War
                 Tabuleiro.jogadorDaVez = Tabuleiro.jogadores[Tabuleiro.ordemDeJogadores[contadorVez]];
                 distribuicaoDeExercito(Tabuleiro.jogadorDaVez);
                 bonusDeExercitoPorContinente(Tabuleiro.jogadorDaVez);
-                Console.WriteLine("Cor: " + Tabuleiro.jogadorDaVez.getCor() + "IA: " + Tabuleiro.jogadorDaVez.isIA());
-                if (Tabuleiro.jogadorDaVez.isIA())
-                {
-                    IA jogadorIA = (IA)Tabuleiro.jogadorDaVez;
-                    jogadorIA.jogaTurno();
-                    passaVez();
-                }
+                Console.WriteLine("Cor: " + Tabuleiro.jogadorDaVez.getCor() + "IA: " + Tabuleiro.jogadorDaVez.isIA());               
             }
         }
 

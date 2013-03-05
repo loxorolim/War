@@ -174,17 +174,7 @@ namespace War
                             PlayableComponent.playersSelected = true;
                             PlayableComponent.firstCounter = Tabuleiro.jogadores.Count;
                             PlayableComponent.gameBegin = true;
-                            War.CurrentState = War.GameState.InPlay;
-                            while (Tabuleiro.jogadorDaVez.isIA())
-                            {
-                                Console.WriteLine("Cor: " + Tabuleiro.jogadorDaVez.getCor() + "IA: " + Tabuleiro.jogadorDaVez.isIA());
-                                if (Tabuleiro.jogadorDaVez.isIA())
-                                {
-                                    IA jogadorIA = (IA)Tabuleiro.jogadorDaVez;
-                                    jogadorIA.jogaTurno();
-                                    MaquinaDeRegras.passaVez();
-                                }
-                            }
+                            War.CurrentState = War.GameState.InPlay;                            
                         }
                     }
                  

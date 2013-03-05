@@ -165,20 +165,39 @@ namespace War
             {
 
                 turnPlayer = Tabuleiro.jogadorDaVez;
-                if (currentPhase.Equals(GamePhase.AddArmyPhase))
+                if (!turnPlayer.isIA())
                 {
-                    addArmyPhaseOperations();
-                }
-                if (currentPhase.Equals(GamePhase.AttackPhase))
-                {
-                    attackPhaseOperations();
-                }
-                if (currentPhase.Equals(GamePhase.ReallocatePhase))
-                {
-                    reallocationPhaseOperations();
-                }
+                    if (currentPhase.Equals(GamePhase.AddArmyPhase))
+                    {
+                        addArmyPhaseOperations();
+                    }
+                    if (currentPhase.Equals(GamePhase.AttackPhase))
+                    {
+                        attackPhaseOperations();
+                    }
+                    if (currentPhase.Equals(GamePhase.ReallocatePhase))
+                    {
+                        reallocationPhaseOperations();
+                    }
 
-                checkButtonsClick();
+                    checkButtonsClick();
+                }
+                else
+                {
+                    currentPhase = GamePhase.IAPlaying;
+                    buttons[3].setButtonTexture(Game.Content.Load<Texture2D>("endTurnButton"));
+                    mouseStateCurrent = Mouse.GetState();
+                    if (buttons[3].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && !drawGuide)
+                    {
+                        IA jogadorIA = (IA)turnPlayer;
+                     jogadorIA.jogaTurno();
+                     MaquinaDeRegras.passaVez();
+                     currentPhase = GamePhase.AddArmyPhase;
+                    }                     
+                    buttons[3].changeCurrentFrame(mouseStateCurrent.X, mouseStateCurrent.Y);
+                    mouseStatePrevious = mouseStateCurrent;
+                }
+               
             }
             if (gameBegin)
             {
@@ -191,13 +210,6 @@ namespace War
                 drawLogo = true;
                 gameBegin = false;
             }
-  
-            
-            
-
-
-
-
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
@@ -288,6 +300,10 @@ namespace War
                     buttonBatch.Draw(buttons[4].getButtonTexture(), buttons[4].getButtonPosition(), buttons[4].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                     buttonBatch.Draw(buttons[3].getButtonTexture(), buttons[3].getButtonPosition(), buttons[3].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                     buttonBatch.Draw(buttons[2].getButtonTexture(), buttons[2].getButtonPosition(), buttons[2].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                }
+                if (currentPhase == GamePhase.IAPlaying)
+                {
+                    buttonBatch.Draw(buttons[3].getButtonTexture(), buttons[3].getButtonPosition(), buttons[3].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 }
                 //buttonBatch.Draw(buttons[i].getButtonTexture(), buttons[i].getButtonPosition(), buttons[i].getCurrentFrame(), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
           //  }
@@ -592,7 +608,7 @@ namespace War
         }
         public enum GamePhase
         {
-            AddArmyPhase, AttackPhase, ReallocatePhase
+            AddArmyPhase, AttackPhase, ReallocatePhase, IAPlaying
         }
         public void changeToNextPhase()
         {
