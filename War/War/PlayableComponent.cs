@@ -434,7 +434,7 @@ namespace War
                 {
                     drawObj = !drawObj;
                 }
-                if (cardButtons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards && !drawObj && contaCartasTrocaSelecionadas == 3)
+                if (cardButtons[0].isCollided(mouseStateCurrent.X, mouseStateCurrent.Y) && mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released && drawCards && !drawObj && contaCartasTrocaSelecionadas == 3 && currentPhase == GamePhase.AddArmyPhase)
                 {
                     trocarCartas();
                 }
