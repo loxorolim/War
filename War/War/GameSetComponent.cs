@@ -34,12 +34,12 @@ namespace War
         /// </summary>
         public override void Initialize()
         {
-            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 100,5));
-            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 150,5));
-            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 200,5));
-            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 250,5));
-            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 300,5));
-            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 350,5));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 100,4));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 150,4));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 200,4));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 250,4));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 300,4));
+            buttons.Add(new Button(800 / 2 - 50, 600 / 10 + 350,4));
             //setas
             buttons.Add(new Button(800 / 2 - 100, 600 / 10 + 100,2));
             buttons.Add(new Button(800 / 2 + 50, 600 / 10 + 100,2));
